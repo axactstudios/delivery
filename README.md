@@ -1,15 +1,20 @@
 # delivery
 
-A new Flutter application.
+Flutter Application for client's restaraunt's home delivery service along with delivery options for other various daily needs item.
 
-## Getting Started
+## Copyright
 
-This project is a starting point for a Flutter application.
+Nobody is allowed to use the app's source code for commercial purposes however it is public for learning purposes.
 
-A few resources to get you started if this is your first Flutter project:
+- Any issues will be happily entertained in the issues section.
+- Any contributions and pull requests which are really good for the app will be considered.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Steps to reproduce the project in your environment
+
+- Download and set up the flutter sdk.
+- Install flutter plugin in your editor(preferably Android Studio).
+- Run flutter get/ pub get for getting dependencies.
+- The project will now be running in your device.
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
