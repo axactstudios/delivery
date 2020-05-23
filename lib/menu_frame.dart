@@ -11,56 +11,43 @@ class MenuFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'delivery',
+      color: Color(0xFFF24C00),
       home: Material(
         child: Container(
           child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'delivery',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(60.0, 60, 0, 0),
+                  child: Text(
+                    'Enter your \ncredentials',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 34.0),
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        FontAwesomeIcons.key,
-                        color: Colors.white,
-                        size: 25.0,
-                      ),
-                      Text('   Login to continue',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 24.0)),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Expanded(
-                    child: PageView(
-                      controller: pageController,
-                      children: <Widget>[
-                        SignIn(),
-                        CreateLogin(),
-                      ],
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFF24C00),
+                      fontFamily: 'Varela_Round',
+                      fontSize: 40.0,
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    children: <Widget>[
+                      SignIn(),
+                      CreateLogin(),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
         ),
       ),
     );
