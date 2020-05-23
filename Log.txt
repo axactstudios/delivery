@@ -1,2 +1,5 @@
 23rd May 2020, 4:15 A.M.-
 Authentication backend done(email-pass, phone)[checked, properly working] with address form.
+23rd May 2020, 10:34 A.M.-
+Presented two app prototypes two client
+Waiting for confirmation
