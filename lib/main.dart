@@ -5,6 +5,8 @@ import 'package:delivery/menu_frame.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'WelcomeScreen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -41,11 +43,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (user == null) {
-      return HomePage1();
-    } else {
-      return WelcomeScreen();
-    }
+//    if (user == null) {
+//      return HomePage1();
+//    } else {
+//      return WelcomeScreen();
+//    }
+    return WelcomeScreen();
   }
 }
 

@@ -94,14 +94,23 @@ class _SignInState extends State<SignIn> {
     return Form(
       key: formKey,
       child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Color.fromRGBO(254, 61, 0, 0.77),
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),
+        ),
         child: Column(
           children: <Widget>[
-            Text(
-              'SIGN IN',
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontSize: 24.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 64),
+              child: Text(
+                'Create an account',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontSize: 35.0),
+              ),
             ),
             SizedBox(
               height: 20.0,
