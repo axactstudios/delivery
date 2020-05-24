@@ -1,3 +1,4 @@
+import 'package:delivery/MainHome.dart';
 import 'package:delivery/WelcomeScreen.dart';
 import 'package:delivery/address.dart';
 import 'package:delivery/addressFrame.dart';
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
 //    } else {
 //      return WelcomeScreen();
 //    }
-    return WelcomeScreen();
+    return MainHome();
   }
 }
 

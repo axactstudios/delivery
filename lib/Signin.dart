@@ -97,84 +97,124 @@ class _SignInState extends State<SignIn> {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           color: Color.fromRGBO(254, 61, 0, 0.77),
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),
+          borderRadius: BorderRadius.all(Radius.circular(30.0)),
         ),
         child: Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(top: 64),
               child: Text(
-                'Create an account',
+                'Welcome Back',
                 style: TextStyle(
+                    fontFamily: 'sf_pro',
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                     fontSize: 35.0),
               ),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
-            TextFormField(
-              onChanged: (textValue) {
-                setState(() {
-                  email = textValue;
-                });
-              },
-              autovalidate: saveAttempt,
-              validator: (emailValue) {
-                if (emailValue.isEmpty) {
-                  return 'This field cannot be blank';
-                }
-                RegExp regExp = RegExp(
-                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-                if (regExp.hasMatch(emailValue)) {
-                  return null;
-                }
+            SizedBox(height: MediaQuery.of(context).size.height * .03),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.mailBulk,
+                    size: 30,
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      onChanged: (textValue) {
+                        setState(() {
+                          email = textValue;
+                        });
+                      },
+                      autovalidate: saveAttempt,
+                      validator: (emailValue) {
+                        if (emailValue.isEmpty) {
+                          return 'This field cannot be blank';
+                        }
+                        RegExp regExp = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                        if (regExp.hasMatch(emailValue)) {
+                          return null;
+                        }
 
-                return 'Please enter a valid email';
-              },
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.white,
+                        return 'Please enter a valid email';
+                      },
+                      decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                        hintText: 'Email',
+                        hintStyle: TextStyle(
+                            color: Colors.black.withOpacity(0.6),
+                            fontSize: 20,
+                            fontFamily: 'sf_pro'),
+                      ),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24.0,
+                        fontFamily: 'sf_pro',
+                      ),
+                    ),
                   ),
-                ),
-                hintText: 'Enter Email',
-                hintStyle: TextStyle(
-                  color: Colors.white.withOpacity(0.6),
-                ),
+                ],
               ),
-              style: TextStyle(color: Colors.white, fontSize: 24.0),
             ),
             SizedBox(
-              height: 20.0,
+              height: MediaQuery.of(context).size.height * .03,
             ),
-            TextFormField(
-              onChanged: (textValue) {
-                setState(() {
-                  password = textValue;
-                });
-              },
-              autovalidate: saveAttempt,
-              validator: (pwValue) =>
-                  pwValue.isEmpty ? 'This field cannot be blank' : null,
-              obscureText: true,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45.0),
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.passport,
+                    size: 30,
                   ),
-                ),
-                hintText: 'Password',
-                hintStyle: TextStyle(
-                  color: Colors.white.withOpacity(0.6),
-                ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      onChanged: (textValue) {
+                        setState(() {
+                          password = textValue;
+                        });
+                      },
+                      autovalidate: saveAttempt,
+                      validator: (pwValue) =>
+                          pwValue.isEmpty ? 'This field cannot be blank' : null,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                        hintText: 'Password',
+                        hintStyle: TextStyle(
+                            color: Colors.black.withOpacity(0.6),
+                            fontSize: 20,
+                            fontFamily: 'sf_pro'),
+                      ),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontFamily: 'sf_pro'),
+                    ),
+                  ),
+                ],
               ),
-              style: TextStyle(color: Colors.white, fontSize: 24.0),
             ),
             SizedBox(
-              height: 20.0,
+              height: 70.0,
             ),
             InkWell(
               onTap: () {
@@ -186,20 +226,24 @@ class _SignInState extends State<SignIn> {
                   _signIn(email, password);
                 }
               },
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 34.0),
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(30.0)),
-                child: Text(
-                  'LOG IN',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 45),
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 34.0),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Text(
+                    'Enter',
+                    style: TextStyle(
+                        color: Color(0xFF606060),
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sf_pro'),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -209,30 +253,36 @@ class _SignInState extends State<SignIn> {
             Text(
               'FORGOT PASSWORD?',
               style: TextStyle(
+                  fontFamily: 'sf_pro',
                   color: Colors.white,
                   decoration: TextDecoration.underline,
                   fontWeight: FontWeight.bold,
                   fontSize: 15.0),
             ),
             SizedBox(
-              height: 20.0,
+              height: 70.0,
             ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 34.0),
               decoration: BoxDecoration(
-                  color: Colors.blueGrey,
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(10.0)),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'Swipe to Create Account',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
+                      fontFamily: 'sf_pro',
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 15,
                   ),
                   Icon(
                     FontAwesomeIcons.arrowRight,
