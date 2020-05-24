@@ -3,6 +3,8 @@ import 'package:delivery/menu_frame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -27,7 +29,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   style: TextStyle(
                       color: Color(0xFFF24C00),
                       fontSize: 40,
-                      fontFamily: 'SFPro',
+                      fontFamily: 'sf_pro',
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -39,7 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   style: TextStyle(
                     color: Color(0xFF787878),
                     fontSize: 25,
-                    fontFamily: 'SFPro',
+                    fontFamily: 'sf_pro',
                   ),
                 ),
               ),
@@ -58,7 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   style: TextStyle(
                       color: Color(0xFFF24C00),
                       fontSize: 40,
-                      fontFamily: 'SFPro',
+                      fontFamily: 'sf_pro',
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -78,20 +80,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
                           "Sign Up",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                          ),
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: 'sf_pro'),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
+              InkWell(
+                onTap: goToHomePage1,
+                child: Center(
+                  child: Text(
+                    'Skip this step',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'sf_pro',
+                      color: Color(0xFF787878),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -103,6 +118,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return new MaterialApp(
         home: MenuFrame(),
+      );
+    }));
+  }
+
+  void goToHomePage1() {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return new MaterialApp(
+        home: HomePage1(),
       );
     }));
   }

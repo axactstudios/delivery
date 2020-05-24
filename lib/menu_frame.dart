@@ -25,7 +25,7 @@ class MenuFrame extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFF24C00),
-                      fontFamily: 'Varela_Round',
+                      fontFamily: 'sf_pro',
                       fontSize: 40.0,
                     ),
                   ),
