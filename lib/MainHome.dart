@@ -103,7 +103,7 @@ class _MainHomeState extends State<MainHome> {
               height: 25,
             ),
             Container(
-                height: 140.0,
+                height: 500.0,
 //              child: ListView(
 //                scrollDirection: Axis.horizontal,
 //                children: groceriesSelected,
@@ -113,16 +113,18 @@ class _MainHomeState extends State<MainHome> {
                         "Loading...",
                         style: TextStyle(fontSize: 50),
                       )
-                    : ListView.builder(
+                    : GridView.builder(
                         itemCount: dailyneeds.length,
-                        scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.vertical,
                         itemBuilder: (_, index) {
                           return UI(
                               dailyneeds[index].name,
                               dailyneeds[index].imageUrl,
                               dailyneeds[index].price);
                         },
-                      ))
+                        gridDelegate:
+                            new SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3, mainAxisSpacing: 10.0)))
           ],
         ),
       ),
