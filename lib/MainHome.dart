@@ -60,7 +60,7 @@ class _MainHomeState extends State<MainHome> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Categories',
+              'Categorie',
               style: TextStyle(
                   color: Color(0xFF345995),
                   fontSize: 40,
