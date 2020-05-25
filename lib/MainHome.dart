@@ -9,10 +9,12 @@ class MainHome extends StatefulWidget {
 }
 
 double pWidth, pHeight;
+var indexSelected = 1;
 
 class _MainHomeState extends State<MainHome> {
-  List<DailyNeeds> dailyneeds = [];
   List<Categories> categories = [];
+  List<DailyNeeds> dailyneeds = [];
+
   @override
   void initState() {
     super.initState();
@@ -53,14 +55,76 @@ class _MainHomeState extends State<MainHome> {
   Widget build(BuildContext context) {
     pWidth = MediaQuery.of(context).size.width;
     pHeight = MediaQuery.of(context).size.height;
+    if (indexSelected == 1) {
+      return retDailyNeedsPage();
+    } else {
+      return retClothesPage();
+    }
+  }
 
+  Widget retDailyNeeds() {
+    return Container(
+      height: 500.0,
+//              child: ListView(
+//                scrollDirection: Axis.horizontal,
+//                children: groceriesSelected,
+//              ),
+      child: dailyneeds.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : GridView.builder(
+              itemCount: dailyneeds.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (_, index) {
+                return UI(dailyneeds[index].name, dailyneeds[index].imageUrl,
+                    dailyneeds[index].price);
+              },
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, mainAxisSpacing: 10.0),
+            ),
+    );
+  }
+
+  Widget retClothesPage() {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('ClothesPage'),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    indexSelected = 1;
+                    print(indexSelected.toString());
+                  });
+                },
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  color: Colors.teal,
+                  child: Text(
+                    'Go Back to DailyNeeds Page',
+                    style: TextStyle(fontSize: 40, color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget retDailyNeedsPage() {
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Categorie',
+              'Categories',
               style: TextStyle(
                   color: Color(0xFF345995),
                   fontSize: 40,
@@ -82,8 +146,16 @@ class _MainHomeState extends State<MainHome> {
                         itemCount: categories.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (_, index) {
-                          return UICat(categories[index].name,
-                              categories[index].imageUrl);
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                indexSelected = index;
+                                print(indexSelected.toString());
+                              });
+                            },
+                            child: UICat(categories[index].name,
+                                categories[index].imageUrl),
+                          );
                         },
                       )),
             SizedBox(
@@ -100,26 +172,7 @@ class _MainHomeState extends State<MainHome> {
             SizedBox(
               height: 25,
             ),
-            Container(
-                height: 500.0,
-//              child: ListView(
-//                scrollDirection: Axis.horizontal,
-//                children: groceriesSelected,
-//              ),
-                child: dailyneeds.length == 0
-                    ? Center(child: CircularProgressIndicator())
-                    : GridView.builder(
-                        itemCount: dailyneeds.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (_, index) {
-                          return UI(
-                              dailyneeds[index].name,
-                              dailyneeds[index].imageUrl,
-                              dailyneeds[index].price);
-                        },
-                        gridDelegate:
-                            new SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, mainAxisSpacing: 10.0)))
+            retDailyNeeds()
           ],
         ),
       ),
@@ -196,7 +249,7 @@ Widget UICat(String name, String imageUrl) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 12.5),
     child: InkWell(
-      onTap: ShowItems,
+//      onTap: ShowItems,
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xFF345995),
