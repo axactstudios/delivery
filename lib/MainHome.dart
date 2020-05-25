@@ -8,7 +8,7 @@ class MainHome extends StatefulWidget {
   _MainHomeState createState() => _MainHomeState();
 }
 
-double pWidth;
+double pWidth, pHeight;
 
 class _MainHomeState extends State<MainHome> {
   List<DailyNeeds> dailyneeds = [];
@@ -52,6 +52,7 @@ class _MainHomeState extends State<MainHome> {
   @override
   Widget build(BuildContext context) {
     pWidth = MediaQuery.of(context).size.width;
+    pHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: SafeArea(
@@ -76,10 +77,7 @@ class _MainHomeState extends State<MainHome> {
 //                children: groceriesSelected,
 //              ),
                 child: categories.length == 0
-                    ? new Text(
-                        "Loading...",
-                        style: TextStyle(fontSize: 50),
-                      )
+                    ? Center(child: CircularProgressIndicator())
                     : ListView.builder(
                         itemCount: categories.length,
                         scrollDirection: Axis.horizontal,
@@ -109,10 +107,7 @@ class _MainHomeState extends State<MainHome> {
 //                children: groceriesSelected,
 //              ),
                 child: dailyneeds.length == 0
-                    ? new Text(
-                        "Loading...",
-                        style: TextStyle(fontSize: 50),
-                      )
+                    ? Center(child: CircularProgressIndicator())
                     : GridView.builder(
                         itemCount: dailyneeds.length,
                         scrollDirection: Axis.vertical,
@@ -124,7 +119,7 @@ class _MainHomeState extends State<MainHome> {
                         },
                         gridDelegate:
                             new SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3, mainAxisSpacing: 10.0)))
+                                crossAxisCount: 2, mainAxisSpacing: 10.0)))
           ],
         ),
       ),
@@ -156,8 +151,8 @@ Widget UI(String name, String imageUrl, int price) {
                 Radius.circular(15),
               ),
             ),
-            width: (pWidth - 100) / 3,
-            height: 100,
+            width: (pWidth - 100),
+            height: (pHeight - 100) / 5 - 3,
             child: Padding(
               padding: EdgeInsets.all(5),
               child: Image.network(
@@ -177,7 +172,7 @@ Widget UI(String name, String imageUrl, int price) {
                     style: TextStyle(
                         fontFamily: 'sf_pro',
                         color: Colors.white,
-                        fontSize: 10),
+                        fontSize: 20),
                   ),
                   Text(
                     "Rs. ${price.toString()}",
@@ -185,7 +180,7 @@ Widget UI(String name, String imageUrl, int price) {
                     style: TextStyle(
                         fontFamily: 'sf_pro',
                         color: Colors.white,
-                        fontSize: 10),
+                        fontSize: 15),
                   ),
                 ],
               ),
@@ -201,7 +196,7 @@ Widget UICat(String name, String imageUrl) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 12.5),
     child: InkWell(
-      onTap: null,
+      onTap: ShowItems,
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xFF345995),
@@ -249,4 +244,8 @@ Widget UICat(String name, String imageUrl) {
       ),
     ),
   );
+}
+
+void ShowItems() {
+  print('HEllo');
 }
