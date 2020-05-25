@@ -10,11 +10,11 @@ Login screens UI remade as per design.
 Main screen basic layout made.
 24th May 2020-
 Full day spent in installing pods for firestore which were at last not installed, and a proper solution to the problem could not be fount so the database was changed from cloud_firestore to firebase real time database.
-26 May 2020, 2:30 A.M.-
+25 May 2020, 2:30 A.M.-
 App connection with realtime database done, categories and items are now as per on database.
-26 May 2020, 2:30 A.M.-
+25 May 2020, 2:30 A.M.-
 Work on the owner version of app started, but cannot be proceeded becuase of some build error which atlast cannot be solved because of messed up dependencies and corrupt packages.
-26 May, 3:50 A.M.-
+25 May, 3:50 A.M.-
 Owner version remade and work on it started again.
 26 May, 4:00 A.M.
-Change of List of items enabled(Category Selection Algo added successfuly)
+Change of List of items enabled in customer version(Category Selection Algo added successfuly)
