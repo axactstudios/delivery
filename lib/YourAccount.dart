@@ -29,7 +29,10 @@ class _YourAccountState extends State<YourAccount> {
       return Scaffold(
         body: SafeArea(
           child: Column(
-            children: <Widget>[Text(user.uid)],
+            children: <Widget>[
+              Text(user.phoneNumber),
+              Text(user.uid),
+            ],
           ),
         ),
       );
