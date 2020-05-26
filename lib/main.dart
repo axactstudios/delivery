@@ -1,4 +1,3 @@
-import 'package:delivery/Support.dart';
 import 'package:delivery/WelcomeScreen.dart';
 import 'package:delivery/addressFrame.dart';
 import 'package:firebase_auth/firebase_auth.dart';

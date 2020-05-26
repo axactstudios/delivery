@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "549226268728",
+    "firebase_url": "https://delivery-3f801.firebaseio.com",
+    "project_id": "delivery-3f801",
+    "storage_bucket": "delivery-3f801.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549226268728:android:68a8a9701a0fd4f529fecd",
+        "android_client_info": {
+          "package_name": "com.axactstudios.delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549226268728-2lr9jct2ocolruc2d67mr2hfrke528io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgww2CXDuD01B3aoVqMwLjKaIVD6JhPCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549226268728-2lr9jct2ocolruc2d67mr2hfrke528io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "549226268728-an1u10fn7amipg3igt9ttqs1g8o9qi39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "firebasedatabase"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549226268728:android:9d539d83b7d284a029fecd",
+        "android_client_info": {
+          "package_name": "com.axactstudios.deliveryowner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549226268728-2lr9jct2ocolruc2d67mr2hfrke528io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgww2CXDuD01B3aoVqMwLjKaIVD6JhPCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549226268728-2lr9jct2ocolruc2d67mr2hfrke528io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "549226268728-an1u10fn7amipg3igt9ttqs1g8o9qi39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "firebasedatabase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
