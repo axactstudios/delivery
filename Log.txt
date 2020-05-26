@@ -22,3 +22,5 @@ Change of List of items enabled in customer version(Category Selection Algo adde
 NavBar added to project, Account page user id displaying, changing categories now give grid back on same screen
 27 May 2020 00:05 A.M.- 
 Support page was added, Phone number of user showing on account page
+27 May 2020 02:27 AM-
+Ui mde presentable and support page included
