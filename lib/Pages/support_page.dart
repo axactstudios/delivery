@@ -113,12 +113,12 @@ class _SupportState extends State<Support> {
                   },
                   value: isHTML,
                 ),
-                ...attachments.map(
-                  (item) => Text(
-                    item,
-                    overflow: TextOverflow.fade,
-                  ),
-                ),
+//                ...attachments.map(
+//                  (item) => Text(
+//                    item,
+//                    overflow: TextOverflow.fade,
+//                  ),
+//                ),
               ],
             ),
           ),
