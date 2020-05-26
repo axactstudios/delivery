@@ -18,3 +18,5 @@ Work on the owner version of app started, but cannot be proceeded becuase of som
 Owner version remade and work on it started again.
 26 May, 4:00 A.M.
 Change of List of items enabled in customer version(Category Selection Algo added successfuly)
+26 May 2020 9:25 P M-
+NavBar added to project
