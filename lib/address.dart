@@ -94,7 +94,7 @@ class Address extends StatelessWidget {
             InkWell(
               onTap: () {
                 if (formKey.currentState.validate()) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => MainHome()),
                   );

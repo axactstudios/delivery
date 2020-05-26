@@ -1,10 +1,10 @@
+import 'package:delivery/Support.dart';
 import 'package:delivery/WelcomeScreen.dart';
 import 'package:delivery/YourAccount.dart';
 import 'package:delivery/categories.dart';
 import 'package:delivery/dailyneeds.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainHome extends StatefulWidget {
@@ -95,7 +95,8 @@ class _MainHomeState extends State<MainHome> {
         ),
         ListTile(
           title: Text('Support'),
-          onTap: () {},
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Support())),
         ),
         ListTile(
           title: Text('Developers'),

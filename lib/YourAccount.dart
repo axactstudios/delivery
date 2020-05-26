@@ -25,12 +25,22 @@ class _YourAccountState extends State<YourAccount> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[Text(user.email), Text(user.phoneNumber)],
+    if (user != null) {
+      return Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[Text(user.uid)],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[Text('Sign Up')],
+          ),
+        ),
+      );
+    }
   }
 }

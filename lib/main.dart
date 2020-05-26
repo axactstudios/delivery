@@ -1,13 +1,10 @@
-import 'package:delivery/MainHome.dart';
+import 'package:delivery/Support.dart';
 import 'package:delivery/WelcomeScreen.dart';
-import 'package:delivery/address.dart';
 import 'package:delivery/addressFrame.dart';
-import 'package:delivery/create_login.dart';
-import 'package:delivery/menu_frame.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'WelcomeScreen.dart';
+import 'MainHome.dart';
 
 void main() => runApp(MyApp());
 
@@ -50,7 +47,7 @@ class _HomePageState extends State<HomePage> {
 //    } else {
 //      return WelcomeScreen();
 //    }
-    return MainHome();
+    return WelcomeScreen();
   }
 }
 
