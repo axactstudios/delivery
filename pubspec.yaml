@@ -24,6 +24,7 @@ dependencies:
   firebase_core: ^0.4.4+3
   fluttertoast: ^4.0.1
   firebase_database: ^3.1.5
+  flappy_search_bar: ^1.7.2
 
 
   # The following adds the Cupertino Icons font to your application.

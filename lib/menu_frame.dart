@@ -37,8 +37,8 @@ class MenuFrame extends StatelessWidget {
                   child: PageView(
                     controller: pageController,
                     children: <Widget>[
-                      SignIn(),
                       CreateLogin(),
+                      SignIn(),
                     ],
                   ),
                 ),

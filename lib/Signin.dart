@@ -175,7 +175,7 @@ class _SignInState extends State<SignIn> {
               child: Row(
                 children: <Widget>[
                   Icon(
-                    FontAwesomeIcons.passport,
+                    FontAwesomeIcons.female,
                     size: 30,
                   ),
                   SizedBox(

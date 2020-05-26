@@ -3,6 +3,7 @@ import 'package:delivery/menu_frame.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'MainHome.dart';
 import 'main.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -125,7 +126,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void goToHomePage1() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return new MaterialApp(
-        home: HomePage1(),
+        home: MainHome(),
       );
     }));
   }

@@ -1,7 +1,11 @@
+import 'package:delivery/WelcomeScreen.dart';
+import 'package:delivery/YourAccount.dart';
 import 'package:delivery/categories.dart';
 import 'package:delivery/dailyneeds.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainHome extends StatefulWidget {
   @override
@@ -14,14 +18,13 @@ var indexSelected = 1;
 class _MainHomeState extends State<MainHome> {
   List<Categories> categories = [];
   List<DailyNeeds> dailyneeds = [];
+  List<DailyNeeds> clothes = [];
 
   @override
   void initState() {
     super.initState();
-    DatabaseReference dailyitemsref = FirebaseDatabase.instance
-        .reference()
-        .child('Grocery')
-        .child('Daily needs');
+    DatabaseReference dailyitemsref =
+        FirebaseDatabase.instance.reference().child('Daily needs');
     dailyitemsref.once().then((DataSnapshot snap) {
       var KEYS = snap.value.keys;
       var DATA = snap.value;
@@ -49,22 +52,90 @@ class _MainHomeState extends State<MainHome> {
         print(categories.length);
       });
     });
+    DatabaseReference clothesref =
+        FirebaseDatabase.instance.reference().child('Clothes');
+    clothesref.once().then((DataSnapshot snap) {
+      var KEYS = snap.value.keys;
+      var DATA = snap.value;
+      clothes.clear();
+      for (var key in KEYS) {
+        DailyNeeds b = new DailyNeeds(
+            DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
+        clothes.add(b);
+      }
+      setState(() {
+        print(clothes.length);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final drawerHeader = UserAccountsDrawerHeader(
+      accountName: Text('Shubh Saraswat'),
+      accountEmail: Text('shubhsaras@axact.com'),
+      currentAccountPicture:
+          CircleAvatar(child: Image.asset('images/shubh.jpg')),
+    );
+    final drawerItems = ListView(
+      children: <Widget>[
+        ListTile(
+          title: Text('Shop by Categories'),
+          onTap: () => Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainHome())),
+        ),
+        ListTile(
+          title: Text('Your Orders'),
+//        onTap: () => Navigator.of(context).push(_NewPage(1)),
+        ),
+        ListTile(
+          title: Text('Your Account'),
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => YourAccount())),
+        ),
+        ListTile(
+          title: Text('Support'),
+          onTap: () {},
+        ),
+        ListTile(
+          title: Text('Developers'),
+          onTap: () {},
+        ),
+        ListTile(
+          title: Text('Sign Out'),
+          onTap: () {},
+        ),
+      ],
+    );
     pWidth = MediaQuery.of(context).size.width;
     pHeight = MediaQuery.of(context).size.height;
+
     if (indexSelected == 1) {
-      return retDailyNeedsPage();
+      return Scaffold(
+          drawer: Drawer(
+            child: drawerItems,
+          ),
+//          appBar: AppBar(
+//            elevation: 0,
+//            backgroundColor: Colors.white,
+//            leading: Icon(
+//              Icons.menu,
+//              color: Colors.deepPurpleAccent,
+//            ),
+//          ),
+          body: retDailyNeedsPage());
     } else {
-      return retClothesPage();
+      return Scaffold(
+          drawer: Drawer(
+            child: drawerItems,
+          ),
+          body: retClothesPage());
     }
   }
 
   Widget retDailyNeeds() {
     return Container(
-      height: 500.0,
+      height: pHeight / 2,
 //              child: ListView(
 //                scrollDirection: Axis.horizontal,
 //                children: groceriesSelected,
@@ -84,36 +155,25 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
-  Widget retClothesPage() {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('ClothesPage'),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    indexSelected = 1;
-                    print(indexSelected.toString());
-                  });
-                },
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  color: Colors.teal,
-                  child: Text(
-                    'Go Back to DailyNeeds Page',
-                    style: TextStyle(fontSize: 40, color: Colors.white),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+  Widget retClothes() {
+    return Container(
+      height: pHeight / 2,
+//              child: ListView(
+//                scrollDirection: Axis.horizontal,
+//                children: groceriesSelected,
+//              ),
+      child: clothes.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : GridView.builder(
+              itemCount: clothes.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (_, index) {
+                return UI(clothes[index].name, clothes[index].imageUrl,
+                    clothes[index].price);
+              },
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, mainAxisSpacing: 10.0),
+            ),
     );
   }
 
@@ -173,6 +233,68 @@ class _MainHomeState extends State<MainHome> {
               height: 25,
             ),
             retDailyNeeds()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget retClothesPage() {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Categories',
+              style: TextStyle(
+                  color: Color(0xFF345995),
+                  fontSize: 40,
+                  fontFamily: 'sf_pro',
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Container(
+                height: 140.0,
+//              child: ListView(
+//                scrollDirection: Axis.horizontal,
+//                children: groceriesSelected,
+//              ),
+                child: categories.length == 0
+                    ? Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        itemCount: categories.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                indexSelected = index;
+                                print(indexSelected.toString());
+                              });
+                            },
+                            child: UICat(categories[index].name,
+                                categories[index].imageUrl),
+                          );
+                        },
+                      )),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'Available Items',
+              style: TextStyle(
+                  color: Color(0xFF345995),
+                  fontSize: 30,
+                  fontFamily: 'sf_pro',
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            retClothes()
           ],
         ),
       ),

@@ -38,7 +38,7 @@ class AddressFrame extends StatelessWidget {
                         color: Colors.white,
                         size: 25.0,
                       ),
-                      Text('   Login to continue',
+                      Text('Enter Addres',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
