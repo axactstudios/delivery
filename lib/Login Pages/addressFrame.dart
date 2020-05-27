@@ -1,11 +1,8 @@
 import 'dart:ui';
 
-import 'package:delivery/address.dart';
+import 'package:delivery/Login%20Pages/address.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:delivery/Signin.dart';
-
-import 'create_login.dart';
 
 class AddressFrame extends StatelessWidget {
   PageController pageController = PageController();

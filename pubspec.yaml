@@ -26,6 +26,7 @@ dependencies:
   firebase_database: ^3.1.5
   flutter_email_sender: ^3.0.1
   image_picker: ^0.6.6+4
+  razorpay_flutter: ^1.2.1
 #  flappy_search_bar: ^1.7.2
 
 
@@ -51,7 +52,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/welcome_image.png
+    - images/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

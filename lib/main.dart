@@ -1,9 +1,8 @@
-import 'package:delivery/WelcomeScreen.dart';
-import 'package:delivery/addressFrame.dart';
+import 'package:delivery/Login%20Pages/WelcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'MainHome.dart';
+import 'Drawer Pages/MainHome.dart';
 
 void main() => runApp(MyApp());
 

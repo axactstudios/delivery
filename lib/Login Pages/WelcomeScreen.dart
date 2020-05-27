@@ -1,10 +1,8 @@
-import 'package:delivery/create_login.dart';
-import 'package:delivery/menu_frame.dart';
+import 'package:delivery/Login%20Pages/PhoneLogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'MainHome.dart';
-import 'main.dart';
+import '../Drawer Pages/MainHome.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -118,7 +116,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void goToLogin() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return new MaterialApp(
-        home: MenuFrame(),
+        home: PhoneLogin(),
       );
     }));
   }

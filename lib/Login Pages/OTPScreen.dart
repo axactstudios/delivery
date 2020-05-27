@@ -1,12 +1,10 @@
-import 'package:delivery/WelcomeScreen.dart';
-import 'package:delivery/address.dart';
+import 'package:delivery/Login%20Pages/WelcomeScreen.dart';
+import 'package:delivery/Login%20Pages/address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'package:delivery/OTPinput.dart';
-
 import 'addressFrame.dart';
+import 'OTPinput.dart';
 
 class OTPScreen extends StatefulWidget {
   final String mobileNumber;
