@@ -23,4 +23,9 @@ NavBar added to project, Account page user id displaying, changing categories no
 27 May 2020 00:05 A.M.- 
 Support page was added, Phone number of user showing on account page
 27 May 2020 02:27 AM-
-Ui mde presentable and support page included
+UI made presentable
+27 May 2020 20:17 P.M.-
+NavBar button added, Cart functionalities complete, Item details page pop up, Payment done all with basic structure, UI designing is left.
+
+
+
