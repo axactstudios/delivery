@@ -197,6 +197,8 @@ class _MainHomeState extends State<MainHome> {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 35.0),
@@ -204,13 +206,13 @@ class _MainHomeState extends State<MainHome> {
                 'Categories',
                 style: TextStyle(
                     color: Color(0xFF345995),
-                    fontSize: 40,
+                    fontSize: pHeight / 21,
                     fontFamily: 'sf_pro',
                     fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
-              height: 25,
+              height: pHeight / 30,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 25),
@@ -237,7 +239,7 @@ class _MainHomeState extends State<MainHome> {
                         )),
             ),
             SizedBox(
-              height: 25,
+              height: pHeight / 35,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 35),
@@ -245,13 +247,13 @@ class _MainHomeState extends State<MainHome> {
                 'Available Items',
                 style: TextStyle(
                     color: Color(0xFF345995),
-                    fontSize: 30,
+                    fontSize: pHeight / 30,
                     fontFamily: 'sf_pro',
                     fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
-              height: 25,
+              height: pHeight / 35,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),

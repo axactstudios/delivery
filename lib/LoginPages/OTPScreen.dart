@@ -3,8 +3,11 @@ import 'package:delivery/LoginPages/address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../DrawerPages/MainHome.dart';
+import '../DrawerPages/MainHome.dart';
 import 'addressFrame.dart';
 import 'OTPinput.dart';
+import 'addressFrame.dart';
 
 class OTPScreen extends StatefulWidget {
   final String mobileNumber;
@@ -174,7 +177,7 @@ class _OTPScreenState extends State<OTPScreen> {
           print(value.user.phoneNumber);
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+              MaterialPageRoute(builder: (context) => MainHome()),
               (Route<dynamic> route) => false);
         } else {
           showToast("Error validating OTP, try again", Colors.white);
@@ -230,7 +233,7 @@ class _OTPScreenState extends State<OTPScreen> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => AddressFrame(),
+              builder: (context) => MainHome(),
             ),
             (Route<dynamic> route) => false);
       } else {

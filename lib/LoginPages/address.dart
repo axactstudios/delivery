@@ -11,6 +11,7 @@ class Address extends StatelessWidget {
       key: formKey,
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
 //            Text(
 //              'ADDRESS',

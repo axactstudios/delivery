@@ -8,21 +8,21 @@ class AddressFrame extends StatelessWidget {
   PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double pheight = MediaQuery.of(context).size.height;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xFFF24C00),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: height / 6,
-              ),
-              Expanded(
-                child: Column(
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+//              SizedBox(
+//                height: pheight / 10,
+//              ),
+                Column(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -49,11 +49,11 @@ class AddressFrame extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: height / 6,
-              ),
-            ],
+                SizedBox(
+                  height: pheight / 6,
+                ),
+              ],
+            ),
           ),
         ),
       ),
