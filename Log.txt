@@ -31,5 +31,10 @@ Login Screens, Addres Screen, Main home screens, Product Details Page UI Refinis
 28 May 2020 12:23 PM
 All current Screens Refinished
 Auth not working currently on Android
+28 May 2020 12:23 PM
+Minor changed done
+Android Auth working now
+Address page has issues
+
 
 
