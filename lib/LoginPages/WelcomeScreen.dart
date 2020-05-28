@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    pHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -22,20 +25,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(
+                  height: pHeight / 20,
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40.0, 40.0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(40.0, 0, 0, 0),
                   child: Text(
                     'Budget Mart',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         color: Color(0xFFF24C00),
-                        fontSize: 40,
+                        fontSize: pHeight / 20,
                         fontFamily: 'sf_pro',
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                SizedBox(
+                  height: pHeight / 70,
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40.0, 7.0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(40.0, 0, 0, 0),
                   child: Text(
                     'Providing quality products at your doorstep',
                     textAlign: TextAlign.start,
@@ -46,15 +55,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: pHeight / 30,
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 38, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Image.asset(
                     'images/welcome_image.png',
                     width: (MediaQuery.of(context).size.width),
+                    height: pHeight / 2.75,
                   ),
                 ),
+                SizedBox(
+                  height: pHeight / 30,
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40.0, 44.0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(40.0, 0, 0, 0),
                   child: Text(
                     'Lets Get \nStarted',
                     textAlign: TextAlign.start,
@@ -65,14 +81,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                SizedBox(
+                  height: pHeight / 40,
+                ),
                 InkWell(
                   onTap: goToLogin,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 26.0),
+                      padding: const EdgeInsets.symmetric(vertical: 0),
                       child: Container(
                         width: 330,
-                        height: 55,
+                        height: pHeight / 15,
                         decoration: BoxDecoration(
                           color: Color(0xFFF24C00),
                           shape: BoxShape.rectangle,
@@ -87,7 +106,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 30,
+                                fontSize: pHeight / 27,
                                 fontFamily: 'sf_pro'),
                           ),
                         ),
@@ -95,13 +114,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: pHeight / 40,
+                ),
                 InkWell(
                   onTap: goToHomePage1,
                   child: Center(
                     child: Text(
                       'Skip this step',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: pHeight / 40,
                         fontFamily: 'sf_pro',
                         color: Color(0xFF787878),
                       ),
