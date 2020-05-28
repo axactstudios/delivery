@@ -1,6 +1,6 @@
-# delivery
+# Budget Mart
 
-Flutter Application for client's restaraunt's home delivery service along with delivery options for other various daily needs item.
+Flutter Application for client's e-commerce bussiness.
 
 ## Copyright
 
