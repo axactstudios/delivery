@@ -93,7 +93,7 @@ class UnderlineDecoration extends PinDecoration {
     this.enteredColor,
     this.gapSpace: 16.0,
     this.gapSpaces,
-    this.color: Colors.cyan,
+    this.color: Colors.white,
     this.lineHeight: 2.0,
   }) : super(
           textStyle: textStyle,
@@ -156,7 +156,7 @@ class BoxTightDecoration extends PinDecoration {
     this.solidColor,
     this.strokeWidth: 1.0,
     this.radius: const Radius.circular(8.0),
-    this.strokeColor: Colors.cyan,
+    this.strokeColor: Colors.white,
   }) : super(
           textStyle: textStyle,
           obscureStyle: obscureStyle,
@@ -229,7 +229,7 @@ class BoxLooseDecoration extends PinDecoration {
     this.strokeWidth: 1.0,
     this.gapSpace: 16.0,
     this.gapSpaces,
-    this.strokeColor: Colors.cyan,
+    this.strokeColor: Colors.white,
   }) : super(
           textStyle: textStyle,
           obscureStyle: obscureStyle,

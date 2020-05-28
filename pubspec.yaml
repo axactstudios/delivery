@@ -27,6 +27,7 @@ dependencies:
   flutter_email_sender: ^3.0.1
   image_picker: ^0.6.6+4
   razorpay_flutter: ^1.2.1
+  animations: ^1.0.0+5
 #  flappy_search_bar: ^1.7.2
 
 

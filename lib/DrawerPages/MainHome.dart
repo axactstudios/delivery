@@ -87,44 +87,49 @@ class _MainHomeState extends State<MainHome> {
       return Scaffold(
           key: scaffoldState,
           appBar: AppBar(
-            title: Padding(
-              padding: const EdgeInsets.all(35),
-              child: GestureDetector(
-                onTap: () {
-                  if (_cartList.isNotEmpty)
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Cart(_cartList),
+            elevation: 0,
+            iconTheme: IconThemeData(color: Color(0xFF345995)),
+            backgroundColor: Colors.white,
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: GestureDetector(
+                  onTap: () {
+                    if (_cartList.isNotEmpty)
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart(_cartList),
+                        ),
+                      );
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.shoppingCart,
+                        size: pHeight / 35,
                       ),
-                    );
-                },
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.shoppingCart,
-                      size: pHeight / 35,
-                    ),
-                    if (_cartList.length > 0)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2.0),
-                        child: CircleAvatar(
-                          radius: 8.0,
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          child: Text(
-                            _cartList.length.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
+                      if (_cartList.length > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2.0),
+                          child: CircleAvatar(
+                            radius: 8.0,
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            child: Text(
+                              _cartList.length.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.0,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
           drawer: Drawer(
             key: _drawerKey,
@@ -135,44 +140,49 @@ class _MainHomeState extends State<MainHome> {
       return Scaffold(
           key: scaffoldState,
           appBar: AppBar(
-            title: Padding(
-              padding: const EdgeInsets.all(35),
-              child: GestureDetector(
-                onTap: () {
-                  if (_cartList.isNotEmpty)
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Cart(_cartList),
+            elevation: 0,
+            iconTheme: IconThemeData(color: Color(0xFF345995)),
+            backgroundColor: Colors.white,
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: GestureDetector(
+                  onTap: () {
+                    if (_cartList.isNotEmpty)
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart(_cartList),
+                        ),
+                      );
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.shoppingCart,
+                        size: pHeight / 35,
                       ),
-                    );
-                },
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.shoppingCart,
-                      size: pHeight / 35,
-                    ),
-                    if (_cartList.length > 0)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2.0),
-                        child: CircleAvatar(
-                          radius: 8.0,
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          child: Text(
-                            _cartList.length.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
+                      if (_cartList.length > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2.0),
+                          child: CircleAvatar(
+                            radius: 8.0,
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            child: Text(
+                              _cartList.length.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.0,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
           drawer: Drawer(
             key: _drawerKey,
@@ -223,6 +233,7 @@ class _MainHomeState extends State<MainHome> {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 35.0),
@@ -249,6 +260,7 @@ class _MainHomeState extends State<MainHome> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (_, index) {
                             return InkWell(
+                              splashColor: Colors.transparent,
                               onTap: () {
                                 setState(() {
                                   indexSelected = index;
@@ -319,6 +331,7 @@ class _MainHomeState extends State<MainHome> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (_, index) {
                             return InkWell(
+                              splashColor: Colors.transparent,
                               onTap: () {
                                 setState(() {
                                   indexSelected = index;
@@ -551,37 +564,107 @@ class _MainHomeState extends State<MainHome> {
   Widget UIDetails(String name, String imageUrl, int price) {
     DailyNeeds d = DailyNeeds(imageUrl, name, price);
 
-    return Padding(
-      padding: EdgeInsets.all(30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            child: Text(name),
-          ),
-          Container(
-            child: Image.network(imageUrl),
-          ),
-          Container(
-            child: Text(price.toString()),
-          ),
-          InkWell(
-            onTap: () {
-              setState(
-                () {
-                  if (!_cartList.contains(d)) {
-                    _cartList.add(d);
-                  } else {
-                    _cartList.remove(d);
-                  }
-                },
-              );
-            },
-            child: Container(
-              child: Text("Add to Cart"),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        color: Color(0xFF345995),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              color: Color(0xFF345995),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'sf_pro',
+                ),
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Image.network(
+                  imageUrl,
+                  alignment: Alignment.center,
+                ),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 20, 0, 0),
+                child: Text(
+                  "Price-${price.toString()}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'sf_pro',
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 20, 0, 0),
+                child: Text(
+                  "Description-",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'sf_pro',
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 20, 0, 0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  setState(
+                    () {
+                      if (!_cartList.contains(d)) {
+                        _cartList.add(d);
+                      } else {
+                        _cartList.remove(d);
+                      }
+                    },
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Add to Cart",
+                      style: TextStyle(
+                        fontFamily: 'sf_pro',
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

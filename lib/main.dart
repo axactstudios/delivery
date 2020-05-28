@@ -1,8 +1,9 @@
-import 'package:delivery/Login%20Pages/WelcomeScreen.dart';
+import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'Drawer Pages/MainHome.dart';
+import 'DrawerPages/MainHome.dart';
+import 'LoginPages/WelcomeScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }

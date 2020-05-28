@@ -1,4 +1,4 @@
-import 'package:delivery/Drawer%20Pages/MainHome.dart';
+import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:delivery/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +12,13 @@ class Address extends StatelessWidget {
       child: Container(
         child: Column(
           children: <Widget>[
-            Text(
-              'ADDRESS',
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontSize: 24.0),
-            ),
+//            Text(
+//              'ADDRESS',
+//              style: TextStyle(
+//                  fontWeight: FontWeight.w600,
+//                  color: Colors.white,
+//                  fontSize: 24.0),
+//            ),
             SizedBox(
               height: 20.0,
             ),
@@ -89,7 +89,7 @@ class Address extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 24.0),
             ),
             SizedBox(
-              height: 20.0,
+              height: 25.0,
             ),
             InkWell(
               onTap: () {
