@@ -533,10 +533,12 @@ class _PinPaint extends CustomPainter {
     this.type: PinEntryType.boxTight,
     this.themeData,
   }) : this.decoration = decoration.copyWith(
+          // ignore: deprecated_member_use
           textStyle: decoration.textStyle ?? themeData.textTheme.headline,
           errorTextStyle: decoration.errorTextStyle ??
               themeData.textTheme.caption.copyWith(color: themeData.errorColor),
           hintTextStyle: decoration.hintTextStyle ??
+              // ignore: deprecated_member_use
               themeData.textTheme.headline.copyWith(color: themeData.hintColor),
         );
 

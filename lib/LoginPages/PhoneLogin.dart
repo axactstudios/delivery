@@ -1,4 +1,4 @@
-import 'package:delivery/LoginPages/WelcomeScreen.dart';
+import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +28,9 @@ class _PhoneLoginState extends State<PhoneLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF24C00),
+      backgroundColor: Color(0xFF345995),
       body: Container(
-        color: Color(0xFFF24C00),
+        color: Color(0xFF345995),
         padding: EdgeInsets.all(16),
         height: MediaQuery.of(context).size.height,
         child: new Column(
@@ -43,7 +43,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 'Phone Authentication',
                 style: TextStyle(
                     fontFamily: 'sf_pro',
-                    fontSize: 50,
+                    fontSize: pHeight / 20,
                     fontWeight: FontWeight.w900,
                     color: Colors.white),
               ),
@@ -54,13 +54,13 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 'Link your phone number to your account',
                 style: TextStyle(
                     fontFamily: 'sf_pro',
-                    fontSize: 20,
+                    fontSize: pHeight / 45,
                     fontWeight: FontWeight.normal,
                     color: Colors.white),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -83,10 +83,8 @@ class _PhoneLoginState extends State<PhoneLogin> {
                             padding: EdgeInsets.all(4.0),
                             child: Text(
                               "+91",
-                              style: TextStyle(
-                                  color: Colors.black,
-//                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
                             ),
                           ),
                         ),
@@ -106,7 +104,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.85,
                           child: RaisedButton(
-                            color: !isValid ? Color(0xFFF24C00) : Colors.teal,
+                            color: !isValid ? Color(0xFF345995) : Colors.teal,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0)),
                             child: Text(
@@ -148,38 +146,5 @@ class _PhoneLoginState extends State<PhoneLogin> {
         ),
       ),
     );
-
-//    return Container(
-//      width: MediaQuery.of(context).size.width * 0.4,
-//      padding: EdgeInsets.only(left: 8.0, top: 30),
-//      alignment: Alignment.center,
-//      child: Column(
-//        children: <Widget>[
-//          Text('Phone Authentication'),
-//          new FlatButton(
-//            onPressed: () {
-//              print("pressed");
-//
-//            },
-//            padding: EdgeInsets.only(
-//              top: 20.0,
-//              bottom: 20.0,
-//            ),
-//            child: new Row(
-//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//              children: <Widget>[
-//                Text(
-//                  "Phone",
-//                  textAlign: TextAlign.center,
-//                  style: TextStyle(
-//                      color: Colors.white,
-//                      fontWeight: FontWeight.bold),
-//                ),
-//              ],
-//            ),
-//          ),
-//        ],
-//      ),
-//    );
   }
 }

@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:delivery/LoginPages/address.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// ignore: must_be_immutable
 class AddressFrame extends StatelessWidget {
   PageController pageController = PageController();
   @override
@@ -60,10 +60,3 @@ class AddressFrame extends StatelessWidget {
     );
   }
 }
-//gradient: LinearGradient(
-//begin: Alignment.topCenter,
-//end: Alignment.bottomCenter,
-//colors: [
-//Color.fromRGBO(255, 89, 89, 1.0),
-//Color.fromRGBO(133, 113, 255, 1.0),
-//],

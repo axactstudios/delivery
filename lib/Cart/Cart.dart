@@ -1,7 +1,6 @@
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -15,7 +14,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  static const platform = const MethodChannel("razorpay_flutter");
+//  static const platform = const MethodChannel("razorpay_flutter");
 
   Razorpay _razorpay;
 
@@ -86,9 +85,6 @@ class _CartState extends State<Cart> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-//                                SizedBox(
-//                                  width: 5,
-//                                ),
                                 Text(
                                   item.price.toString(),
                                   style: TextStyle(
@@ -130,9 +126,6 @@ class _CartState extends State<Cart> {
                   style: TextStyle(
                       color: Colors.white, fontFamily: 'sf_pro', fontSize: 20),
                 ),
-//                SizedBox(
-//                  width: 40,
-//                ),
                 InkWell(
                   onTap: openCheckout,
                   child: Container(
@@ -142,8 +135,6 @@ class _CartState extends State<Cart> {
                       ),
                       color: Colors.white,
                     ),
-//                    height: pHeight / 20,
-//                    width: pWidth / 3,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),

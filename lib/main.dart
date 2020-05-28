@@ -1,14 +1,12 @@
+import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'DrawerPages/MainHome.dart';
 import 'LoginPages/WelcomeScreen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of yb our application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,12 +40,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-//    if (user == null) {
-//      return HomePage1();
-//    } else {
-//      return WelcomeScreen();
-//    }
-    return WelcomeScreen();
+    if (user != null) {
+      return MainHome();
+    } else {
+      return WelcomeScreen();
+    }
   }
 }
 

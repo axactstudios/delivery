@@ -1,5 +1,4 @@
 import 'package:delivery/DrawerPages/MainHome.dart';
-import 'package:delivery/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +12,6 @@ class Address extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-//            Text(
-//              'ADDRESS',
-//              style: TextStyle(
-//                  fontWeight: FontWeight.w600,
-//                  color: Colors.white,
-//                  fontSize: 24.0),
-//            ),
             SizedBox(
               height: 20.0,
             ),

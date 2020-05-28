@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     'Budget Mart',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Color(0xFFF24C00),
+                        color: Color(0xFF345995),
                         fontSize: pHeight / 20,
                         fontFamily: 'sf_pro',
                         fontWeight: FontWeight.bold),
@@ -75,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     'Lets Get \nStarted',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Color(0xFFF24C00),
+                        color: Color(0xFF345995),
                         fontSize: 40,
                         fontFamily: 'sf_pro',
                         fontWeight: FontWeight.bold),
@@ -93,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         width: 330,
                         height: pHeight / 15,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF24C00),
+                          color: Color(0xFF345995),
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.all(
                             Radius.circular(30.0),

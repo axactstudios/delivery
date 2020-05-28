@@ -1,5 +1,6 @@
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
+import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,10 +39,16 @@ class _MainHomeState extends State<MainHome> {
   Widget build(BuildContext context) {
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
-      accountName: Text('Shubh Saraswat'),
-      accountEmail: Text('shubhsaras@axact.com'),
+      decoration: BoxDecoration(
+        color: Color(0xFF345995),
+      ),
+      accountName: Text(
+        'Welcome to Budget Mart',
+        style: TextStyle(fontSize: 20),
+      ),
+      accountEmail: Text(" "),
       currentAccountPicture:
-          CircleAvatar(child: Image.asset('images/shubh.jpg')),
+          CircleAvatar(child: Image.asset('images/welcome_image.jpg')),
     );
     //Nav Drawer items
     final drawerItems = ListView(
@@ -49,8 +56,7 @@ class _MainHomeState extends State<MainHome> {
         drawerHeader,
         ListTile(
           title: Text('Shop by Categories'),
-          onTap: () => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainHome())),
+          onTap: () => Navigator.pop(context, true),
         ),
         ListTile(
           title: Text('Your Orders'),
@@ -75,8 +81,8 @@ class _MainHomeState extends State<MainHome> {
         ),
         ListTile(
           title: Text('Sign Out'),
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => YourAccount())),
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen())),
         ),
       ],
     );
@@ -87,7 +93,14 @@ class _MainHomeState extends State<MainHome> {
       return Scaffold(
           key: scaffoldState,
           appBar: AppBar(
-            elevation: 0,
+            title: Text(
+              "Budget Mart",
+              style: TextStyle(
+                  color: Color(0xFF345995),
+                  fontSize: pHeight / 30,
+                  fontFamily: 'sf_pro',
+                  fontWeight: FontWeight.bold),
+            ),
             iconTheme: IconThemeData(color: Color(0xFF345995)),
             backgroundColor: Colors.white,
             actions: <Widget>[
@@ -140,7 +153,14 @@ class _MainHomeState extends State<MainHome> {
       return Scaffold(
           key: scaffoldState,
           appBar: AppBar(
-            elevation: 0,
+            title: Text(
+              "Budget Mart",
+              style: TextStyle(
+                  color: Color(0xFF345995),
+                  fontSize: pHeight / 30,
+                  fontFamily: 'sf_pro',
+                  fontWeight: FontWeight.bold),
+            ),
             iconTheme: IconThemeData(color: Color(0xFF345995)),
             backgroundColor: Colors.white,
             actions: <Widget>[
@@ -384,13 +404,13 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
-  //-------------------------------Firebase Reference Function----------------------------------//
   void getDailyNeedItemRef() {
-    //Database reference for daily items
     DatabaseReference dailyitemsref =
         FirebaseDatabase.instance.reference().child('Daily needs');
     dailyitemsref.once().then((DataSnapshot snap) {
+      // ignore: non_constant_identifier_names
       var KEYS = snap.value.keys;
+      // ignore: non_constant_identifier_names
       var DATA = snap.value;
       dailyneeds.clear();
       for (var key in KEYS) {
@@ -405,12 +425,12 @@ class _MainHomeState extends State<MainHome> {
   }
 
   void getCategoriesRef() {
-    //Database reference for categories items
-
     DatabaseReference categoriesref =
         FirebaseDatabase.instance.reference().child('Categories');
     categoriesref.once().then((DataSnapshot snap) {
+      // ignore: non_constant_identifier_names
       var KEYS = snap.value.keys;
+      // ignore: non_constant_identifier_names
       var DATA = snap.value;
       categories.clear();
       for (var key in KEYS) {
@@ -424,11 +444,12 @@ class _MainHomeState extends State<MainHome> {
   }
 
   void getClothesRef() {
-    //Database reference for clothes items
     DatabaseReference clothesref =
         FirebaseDatabase.instance.reference().child('Clothes');
     clothesref.once().then((DataSnapshot snap) {
+      // ignore: non_constant_identifier_names
       var KEYS = snap.value.keys;
+      // ignore: non_constant_identifier_names
       var DATA = snap.value;
       clothes.clear();
       for (var key in KEYS) {
@@ -442,6 +463,7 @@ class _MainHomeState extends State<MainHome> {
     });
   }
 
+  // ignore: non_constant_identifier_names
   Widget UI(String name, String imageUrl, int price) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.5),
@@ -463,8 +485,6 @@ class _MainHomeState extends State<MainHome> {
               Radius.circular(15),
             ),
           ),
-//      width: (pWidth - 100) / 3,
-
           child: Column(
             children: <Widget>[
               Container(
@@ -477,7 +497,7 @@ class _MainHomeState extends State<MainHome> {
                   ),
                 ),
                 width: (pWidth - 100),
-                height: pWidth / 3.25,
+                height: pWidth / 3.5,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Image.network(
@@ -497,7 +517,7 @@ class _MainHomeState extends State<MainHome> {
                         style: TextStyle(
                             fontFamily: 'sf_pro',
                             color: Colors.white,
-                            fontSize: 20),
+                            fontSize: pHeight / 50),
                       ),
                       Text(
                         "Rs. ${price.toString()}",
@@ -518,11 +538,11 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget UICat(String name, String imageUrl) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.5),
       child: InkWell(
-//      onTap: ShowItems,
         child: Container(
           height: pHeight / 7,
           decoration: BoxDecoration(
@@ -564,7 +584,7 @@ class _MainHomeState extends State<MainHome> {
                     style: TextStyle(
                         fontFamily: 'sf_pro',
                         color: Colors.white,
-                        fontSize: 15),
+                        fontSize: pHeight / 55),
                   ),
                 ),
               )
@@ -575,6 +595,7 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget UIDetails(String name, String imageUrl, int price) {
     DailyNeeds d = DailyNeeds(imageUrl, name, price);
 
@@ -666,11 +687,7 @@ class _MainHomeState extends State<MainHome> {
                 onTap: () {
                   setState(
                     () {
-                      if (!_cartList.contains(d)) {
-                        _cartList.add(d);
-                      } else {
-                        _cartList.remove(d);
-                      }
+                      _cartList.add(d);
                     },
                   );
                 },

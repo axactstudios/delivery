@@ -1,13 +1,9 @@
-import 'package:delivery/LoginPages/WelcomeScreen.dart';
-import 'package:delivery/LoginPages/address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../DrawerPages/MainHome.dart';
-import '../DrawerPages/MainHome.dart';
-import 'addressFrame.dart';
+
 import 'OTPinput.dart';
-import 'addressFrame.dart';
 
 class OTPScreen extends StatefulWidget {
   final String mobileNumber;
@@ -45,9 +41,9 @@ class _OTPScreenState extends State<OTPScreen> {
     print("isValid - $isCodeSent");
     print("mobiel ${widget.mobileNumber}");
     return Scaffold(
-      backgroundColor: Color(0xFFF24C00),
+      backgroundColor: Color(0xFF345995),
       appBar: AppBar(
-          backgroundColor: Color(0xFFF24C00),
+          backgroundColor: Color(0xFF345995),
           elevation: 0.0,
           leading: IconButton(
             icon: Icon(
@@ -64,7 +60,7 @@ class _OTPScreenState extends State<OTPScreen> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 16.0, bottom: 16, top: 4),
-              color: Color(0xFFF24C00),
+              color: Color(0xFF345995),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
@@ -92,7 +88,7 @@ class _OTPScreenState extends State<OTPScreen> {
             ),
             Expanded(
               child: Container(
-                color: Color(0xFFF24C00),
+                color: Color(0xFF345995),
                 child: Column(
                   children: <Widget>[
                     Padding(
@@ -113,7 +109,8 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 16, right: 16),
                       child: Center(
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
@@ -124,7 +121,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             child: Text(
                               "ENTER OTP",
                               style: TextStyle(
-                                  color: Color(0xFFF24C00),
+                                  color: Color(0xFF345995),
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -158,7 +155,7 @@ class _OTPScreenState extends State<OTPScreen> {
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,
       backgroundColor: color,
-      textColor: Color(0xFFF24C00),
+      textColor: Color(0xFF345995),
       fontSize: 16.0,
     );
   }
@@ -173,7 +170,6 @@ class _OTPScreenState extends State<OTPScreen> {
           .signInWithCredential(phoneAuthCredential)
           .then((AuthResult value) {
         if (value.user != null) {
-          // Handle loogged in state
           print(value.user.phoneNumber);
           Navigator.pushAndRemoveUntil(
               context,
@@ -209,8 +205,6 @@ class _OTPScreenState extends State<OTPScreen> {
       });
     };
 
-    // TODO: Change country code
-
     await _firebaseAuth.verifyPhoneNumber(
         phoneNumber: "+91${widget.mobileNumber}",
         timeout: const Duration(seconds: 60),
@@ -228,7 +222,6 @@ class _OTPScreenState extends State<OTPScreen> {
         .signInWithCredential(_authCredential)
         .then((AuthResult value) {
       if (value.user != null) {
-        // Handle loogged in state
         print(value.user.phoneNumber);
         Navigator.pushAndRemoveUntil(
             context,

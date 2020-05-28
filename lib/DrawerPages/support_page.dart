@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,17 +53,18 @@ class _SupportState extends State<Support> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.red),
+      theme: ThemeData(primaryColor: Colors.white),
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text('Have any complaint? Contact Us '),
-          actions: <Widget>[
-            IconButton(
-              onPressed: send,
-              icon: Icon(Icons.send),
-            )
-          ],
+          title: Text(
+            'Have any complaint? ',
+            style: TextStyle(color: Color(0xFF345995)),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.pop(context, false),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -113,17 +113,29 @@ class _SupportState extends State<Support> {
                   },
                   value: isHTML,
                 ),
-//                ...attachments.map(
-//                  (item) => Text(
-//                    item,
-//                    overflow: TextOverflow.fade,
-//                  ),
-//                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 30),
+                  child: IconButton(
+                    onPressed: send,
+                    icon: Icon(
+                      Icons.send,
+                      color: Color(0xFF345995),
+                      size: 50,
+                    ),
+                  ),
+                ),
+                ...attachments.map(
+                  (item) => Text(
+                    item,
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
               ],
             ),
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Color(0xFF345995),
           icon: Icon(Icons.camera),
           label: Text('Add Image'),
           onPressed: _openImagePicker,
