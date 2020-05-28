@@ -28,6 +28,8 @@ UI made presentable
 NavBar button added, Cart functionalities complete, Item details page pop up, Payment done all with basic structure, UI designing is left.
 28 may 2020 5:51 AM-
 Login Screens, Addres Screen, Main home screens, Product Details Page UI Refinished
-
+28 May 2020 12:23 PM
+All current Screens Refinished
+Auth not working currently on Android
 
 
