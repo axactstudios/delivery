@@ -192,114 +192,6 @@ class _MainHomeState extends State<MainHome> {
     }
   }
 
-  Widget retDailyNeeds() {
-    return Container(
-      height: (pHeight / 2.25),
-      child: dailyneeds.length == 0
-          ? Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              itemCount: dailyneeds.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (_, index) {
-                return UI(dailyneeds[index].name, dailyneeds[index].imageUrl,
-                    dailyneeds[index].price);
-              },
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, mainAxisSpacing: 10.0),
-            ),
-    );
-  }
-
-  Widget retClothes() {
-    return Container(
-      height: (pHeight / 2.25),
-      child: clothes.length == 0
-          ? Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              itemCount: clothes.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (_, index) {
-                return UI(clothes[index].name, clothes[index].imageUrl,
-                    clothes[index].price);
-              },
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, mainAxisSpacing: 10.0),
-            ),
-    );
-  }
-
-  Widget retDailyNeedsPage() {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 35.0),
-              child: Text(
-                'Categories',
-                style: TextStyle(
-                    color: Color(0xFF345995),
-                    fontSize: 40,
-                    fontFamily: 'sf_pro',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25),
-              child: Container(
-                  height: pHeight / 7,
-                  child: categories.length == 0
-                      ? Center(child: CircularProgressIndicator())
-                      : ListView.builder(
-                          itemCount: categories.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (_, index) {
-                            return InkWell(
-                              splashColor: Colors.transparent,
-                              onTap: () {
-                                setState(() {
-                                  indexSelected = index;
-                                  print(indexSelected.toString());
-                                });
-                              },
-                              child: UICat(categories[index].name,
-                                  categories[index].imageUrl),
-                            );
-                          },
-                        )),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 35),
-              child: Text(
-                'Available Items',
-                style: TextStyle(
-                    color: Color(0xFF345995),
-                    fontSize: 30,
-                    fontFamily: 'sf_pro',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: retDailyNeeds(),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget retClothesPage() {
     return Scaffold(
       body: SafeArea(
@@ -363,10 +255,129 @@ class _MainHomeState extends State<MainHome> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: retClothes(),
+              child: Container(
+                height: pHeight / 1.95,
+                child: retClothes(),
+              ),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget retClothes() {
+    return Expanded(
+      child: Container(
+        child: clothes.length == 0
+            ? Center(child: CircularProgressIndicator())
+            : GridView.builder(
+                itemCount: clothes.length,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (_, index) {
+                  return UI(clothes[index].name, clothes[index].imageUrl,
+                      clothes[index].price);
+                },
+                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, mainAxisSpacing: 10.0),
+              ),
+      ),
+    );
+  }
+
+  Widget retDailyNeedsPage() {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 35.0),
+              child: Text(
+                'Categories',
+                style: TextStyle(
+                    color: Color(0xFF345995),
+                    fontSize: pHeight / 21,
+                    fontFamily: 'sf_pro',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: pHeight / 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: Container(
+                  height: pHeight / 7,
+                  child: categories.length == 0
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          itemCount: categories.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (_, index) {
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              onTap: () {
+                                setState(() {
+                                  indexSelected = index;
+                                  print(indexSelected.toString());
+                                });
+                              },
+                              child: UICat(categories[index].name,
+                                  categories[index].imageUrl),
+                            );
+                          },
+                        )),
+            ),
+            SizedBox(
+              height: pHeight / 35,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 35),
+              child: Text(
+                'Available Items',
+                style: TextStyle(
+                    color: Color(0xFF345995),
+                    fontSize: pHeight / 30,
+                    fontFamily: 'sf_pro',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: pHeight / 35,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                height: pHeight / 1.95,
+                child: retDailyNeeds(),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget retDailyNeeds() {
+    return Expanded(
+      child: Container(
+        child: dailyneeds.length == 0
+            ? Center(child: CircularProgressIndicator())
+            : GridView.builder(
+                itemCount: dailyneeds.length,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (_, index) {
+                  return UI(dailyneeds[index].name, dailyneeds[index].imageUrl,
+                      dailyneeds[index].price);
+                },
+                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10.0),
+              ),
       ),
     );
   }
@@ -464,9 +475,9 @@ class _MainHomeState extends State<MainHome> {
                   ),
                 ),
                 width: (pWidth - 100),
-                height: (pHeight - 100) / 6.1,
+                height: pWidth / 3.25,
                 child: Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Image.network(
                     imageUrl,
                     fit: BoxFit.fill,
@@ -511,6 +522,7 @@ class _MainHomeState extends State<MainHome> {
       child: InkWell(
 //      onTap: ShowItems,
         child: Container(
+          height: pHeight / 7,
           decoration: BoxDecoration(
             color: Color(0xFF345995),
             border: Border.all(color: Colors.black),
@@ -532,7 +544,7 @@ class _MainHomeState extends State<MainHome> {
                   ),
                 ),
                 width: (pWidth - 100) / 3,
-                height: 100,
+                height: pHeight / 9.5,
                 child: Padding(
                   padding: EdgeInsets.all(5),
                   child: Image.network(
@@ -565,31 +577,39 @@ class _MainHomeState extends State<MainHome> {
     DailyNeeds d = DailyNeeds(imageUrl, name, price);
 
     return Container(
+      height: pHeight,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
         color: Color(0xFF345995),
       ),
       child: Padding(
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            SizedBox(
+              height: pHeight / 30,
+            ),
             Container(
               color: Color(0xFF345995),
               child: Text(
                 name,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 40,
+                  fontSize: pHeight / 20,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'sf_pro',
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: pHeight / 30,
             ),
             Container(
+              height: pHeight / 2.5,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(30)),
                 color: Colors.white,
@@ -602,14 +622,17 @@ class _MainHomeState extends State<MainHome> {
                 ),
               ),
             ),
+            SizedBox(
+              height: pHeight / 30,
+            ),
             Container(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20, 0, 0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Price-${price.toString()}",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: pHeight / 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'sf_pro',
                   ),
@@ -617,21 +640,25 @@ class _MainHomeState extends State<MainHome> {
               ),
             ),
             Container(
+              height: pHeight / 6,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20, 0, 0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   "Description-",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: pHeight / 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'sf_pro',
                   ),
                 ),
               ),
             ),
+            SizedBox(
+              height: pHeight / 30,
+            ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 20, 0, 0),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: InkWell(
                 splashColor: Colors.transparent,
                 onTap: () {

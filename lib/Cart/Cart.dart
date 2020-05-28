@@ -1,4 +1,5 @@
 import 'package:delivery/Classes/Products.dart';
+import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,54 +27,142 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Color(0xFF345995),
+        ),
+        actions: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Text(
+                  'Cart',
+                  style: TextStyle(
+                      color: Color(0xFF345995),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'sf_pro',
+                      fontSize: 30),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
-      body: ListView.builder(
-          itemCount: _cart.length,
-          itemBuilder: (context, index) {
-            var item = _cart[index];
-            return Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-              child: Column(
-                children: <Widget>[
-                  Card(
-                    elevation: 4.0,
-                    child: ListTile(
-                      leading: Image.network(item.imageUrl),
-                      title: Row(children: <Widget>[
-                        Text(item.name),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Text(item.price.toString())
-                      ]),
-                      trailing: GestureDetector(
-                          child: Icon(
-                            Icons.remove_circle,
-                            color: Colors.red,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+                itemCount: _cart.length,
+                itemBuilder: (context, index) {
+                  var item = _cart[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2.0),
+                    child: Card(
+                      color: Color(0xFF345995),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      elevation: 2.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ListTile(
+                          leading: Image.network(
+                            item.imageUrl,
+                            height: 200,
                           ),
-                          onTap: () {
-                            setState(() {
-                              _cart.remove(item);
-                            });
-                          }),
+                          title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Text(
+                                  item.name,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'sf_pro',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+//                                SizedBox(
+//                                  width: 5,
+//                                ),
+                                Text(
+                                  item.price.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'sf_pro',
+                                      fontSize: 16),
+                                )
+                              ]),
+                          trailing: GestureDetector(
+                              child: Icon(
+                                Icons.remove_circle,
+                                color: Colors.red,
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  _cart.remove(item);
+                                });
+                              }),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          ),
+          Container(
+            height: pHeight / 10,
+            decoration: BoxDecoration(
+              color: Color(0xFF345995),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(
+                  "Total Amount = Rs. ${totalAmount()}",
+                  style: TextStyle(
+                      color: Colors.white, fontFamily: 'sf_pro', fontSize: 20),
+                ),
+//                SizedBox(
+//                  width: 40,
+//                ),
+                InkWell(
+                  onTap: openCheckout,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                      color: Colors.white,
+                    ),
+//                    height: pHeight / 20,
+//                    width: pWidth / 3,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Text(
+                        "Proceed to pay",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'sf_pro',
+                            fontSize: pHeight / 45,
+                            color: Color(0xFF345995)),
+                      ),
                     ),
                   ),
-                  Row(
-                    children: <Widget>[
-                      Text("Total Amount = Rs. ${totalAmount()}"),
-                      SizedBox(
-                        width: 40,
-                      ),
-                      InkWell(
-                          onTap: openCheckout, child: Text("Proceed to pay"))
-                    ],
-                  )
-                ],
-              ),
-            );
-          }),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
