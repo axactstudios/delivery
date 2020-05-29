@@ -36,3 +36,7 @@ Minor changed done, Android Auth working now, Address page to be remade to store
 Minor changes, testing and bug fixes, apk presented to the client.
 28 May 2020, 5:00 P.M.-
 Client reverted and is satisfied.
+28 May 2020, 10:20 P.M.-
+Payment of Rs. 1000/- recieved from client.
+
+
