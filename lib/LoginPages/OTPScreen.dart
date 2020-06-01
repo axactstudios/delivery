@@ -177,6 +177,8 @@ class _OTPScreenState extends State<OTPScreen> {
               context,
               MaterialPageRoute(builder: (context) => MainHome()),
               (Route<dynamic> route) => false);
+          print(
+              '--------------------------------Verify Code Was called--------------------------------');
         } else {
           showToast("Error validating OTP, try again", Colors.white);
         }
@@ -225,13 +227,16 @@ class _OTPScreenState extends State<OTPScreen> {
         .signInWithCredential(_authCredential)
         .then((AuthResult value) {
       if (value.user != null) {
-        print(value.user.phoneNumber);
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => AddressFrame(),
+              builder: (context) => AddressFrame(
+                phno: widget.mobileNumber,
+              ),
             ),
             (Route<dynamic> route) => false);
+        print(
+            '--------------------------------Form Submitted Was called--------------------------------');
       } else {
         showToast("Error validating OTP, try again", Colors.white);
       }

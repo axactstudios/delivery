@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class AddressFrame extends StatelessWidget {
+  final String phno;
+
+  AddressFrame({Key key, this.phno}) : super(key: key);
   PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,11 @@ class AddressFrame extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: PageView(
                     controller: pageController,
-                    children: <Widget>[Address()],
+                    children: <Widget>[
+                      Address(
+                        phno: this.phno,
+                      )
+                    ],
                   ),
                 ),
               ),

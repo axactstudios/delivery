@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Address extends StatefulWidget {
+  final String phno;
+
+  const Address({Key key, this.phno}) : super(key: key);
   @override
   _AddressState createState() => _AddressState();
 }
@@ -163,7 +166,10 @@ class _AddressState extends State<Address> {
                 if (formKey.currentState.validate()) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => MainHome()),
+                    MaterialPageRoute(
+                        builder: (context) => MainHome(
+                              phno: widget.phno,
+                            )),
                   );
                 }
               },
