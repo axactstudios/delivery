@@ -1,5 +1,6 @@
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,23 +11,35 @@ class YourAccount extends StatefulWidget {
 
 class _YourAccountState extends State<YourAccount> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  FirebaseUser user;
+  FirebaseUser user1;
+  String name, address, pincode;
+  void getCurrentUser() async {
+    FirebaseUser _user = await _firebaseAuth.currentUser();
+    user1 = _user;
+    setState(() {
+      user1 = _user;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getCurrentUser();
-  }
-
-  void getCurrentUser() async {
-    FirebaseUser _user = await _firebaseAuth.currentUser();
-    setState(() {
-      user = _user;
+    String user = user1.phoneNumber.toString();
+    DatabaseReference userref =
+        FirebaseDatabase.instance.reference().child('Users').child(user);
+    userref.once().then((DataSnapshot snap) {
+      var DATA = snap.value;
+      name = DATA['Name'];
+      address = DATA['Addressline1'] + DATA['Addressline2'];
+      pincode = DATA['pincode'];
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (user != null) {
+    getCurrentUser();
+    if (user1 != null) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -49,8 +62,9 @@ class _YourAccountState extends State<YourAccount> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Phone no. - ${user.phoneNumber}"),
-                Text("Your budget mart id - ${user.uid}"),
+                Text(name),
+                Text("Address- $address"),
+                Text('Pincode- $pincode')
               ],
             ),
           ),

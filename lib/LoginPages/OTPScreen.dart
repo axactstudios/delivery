@@ -1,4 +1,6 @@
+import 'package:delivery/LoginPages/addressFrame.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../DrawerPages/MainHome.dart';
@@ -192,6 +194,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
     final PhoneCodeSent codeSent =
         (String verificationId, [int forceResendingToken]) async {
+      print("sent");
       _verificationId = verificationId;
       setState(() {
         _verificationId = verificationId;
@@ -226,7 +229,7 @@ class _OTPScreenState extends State<OTPScreen> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => MainHome(),
+              builder: (context) => AddressFrame(),
             ),
             (Route<dynamic> route) => false);
       } else {

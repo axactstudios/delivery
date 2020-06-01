@@ -1,5 +1,6 @@
 import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
+import 'package:delivery/LoginPages/addressFrame.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'LoginPages/WelcomeScreen.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     if (user != null) {
       return MainHome();
     } else {
-      return WelcomeScreen();
+      return MainHome();
     }
   }
 }

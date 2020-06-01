@@ -1,6 +1,7 @@
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,6 +22,12 @@ double pWidth, pHeight;
 var indexSelected = 1;
 
 class _MainHomeState extends State<MainHome> {
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+  }
+
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   List<Categories> categories = [];
   List<DailyNeeds> dailyneeds = [];
@@ -79,11 +86,7 @@ class _MainHomeState extends State<MainHome> {
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Developers())),
         ),
-        ListTile(
-          title: Text('Sign Out'),
-          onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen())),
-        ),
+        ListTile(title: Text('Sign Out'), onTap: () => _signOut()),
       ],
     );
     pWidth = MediaQuery.of(context).size.width;
@@ -108,12 +111,11 @@ class _MainHomeState extends State<MainHome> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: GestureDetector(
                   onTap: () {
-                    if (_cartList.isNotEmpty)
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Cart(_cartList),
-                        ),
-                      );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Cart(_cartList),
+                      ),
+                    );
                   },
                   child: Stack(
                     alignment: Alignment.center,
@@ -289,21 +291,19 @@ class _MainHomeState extends State<MainHome> {
   }
 
   Widget retClothes() {
-    return Expanded(
-      child: Container(
-        child: clothes.length == 0
-            ? Center(child: CircularProgressIndicator())
-            : GridView.builder(
-                itemCount: clothes.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (_, index) {
-                  return UI(clothes[index].name, clothes[index].imageUrl,
-                      clothes[index].price);
-                },
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, mainAxisSpacing: 10.0),
-              ),
-      ),
+    return Container(
+      child: clothes.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : GridView.builder(
+              itemCount: clothes.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (_, index) {
+                return UI(clothes[index].name, clothes[index].imageUrl,
+                    clothes[index].price);
+              },
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, mainAxisSpacing: 10.0),
+            ),
     );
   }
 
@@ -384,23 +384,21 @@ class _MainHomeState extends State<MainHome> {
   }
 
   Widget retDailyNeeds() {
-    return Expanded(
-      child: Container(
-        child: dailyneeds.length == 0
-            ? Center(child: CircularProgressIndicator())
-            : GridView.builder(
-                itemCount: dailyneeds.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (_, index) {
-                  return UI(dailyneeds[index].name, dailyneeds[index].imageUrl,
-                      dailyneeds[index].price);
-                },
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10.0),
-              ),
-      ),
+    return Container(
+      child: dailyneeds.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : GridView.builder(
+              itemCount: dailyneeds.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (_, index) {
+                return UI(dailyneeds[index].name, dailyneeds[index].imageUrl,
+                    dailyneeds[index].price);
+              },
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10.0),
+            ),
     );
   }
 

@@ -1,9 +1,45 @@
 import 'package:delivery/DrawerPages/MainHome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Address extends StatelessWidget {
+class Address extends StatefulWidget {
+  @override
+  _AddressState createState() => _AddressState();
+}
+
+class _AddressState extends State<Address> {
+  final myController = TextEditingController();
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
+  final myController3 = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+
+    super.dispose();
+  }
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  FirebaseUser user;
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    FirebaseUser _user = await _firebaseAuth.currentUser();
+    setState(() {
+      user = _user;
+    });
+  }
+
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -16,6 +52,28 @@ class Address extends StatelessWidget {
               height: 20.0,
             ),
             TextFormField(
+              controller: myController,
+              decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.white,
+                  ),
+                ),
+                hintText: 'Full Name',
+                hintStyle: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                ),
+              ),
+              validator: (name) {
+                if (name.isEmpty) {
+                  return 'This field cannot be blank';
+                } else
+                  return null;
+              },
+              style: TextStyle(color: Colors.white, fontSize: 24.0),
+            ),
+            TextFormField(
+              controller: myController1,
               decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -39,6 +97,7 @@ class Address extends StatelessWidget {
               height: 20.0,
             ),
             TextFormField(
+              controller: myController2,
               decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -62,6 +121,7 @@ class Address extends StatelessWidget {
               height: 20.0,
             ),
             TextFormField(
+              controller: myController3,
               decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -86,6 +146,20 @@ class Address extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+                DatabaseReference userRef =
+                    FirebaseDatabase.instance.reference().child('Users');
+                userRef.set({user.phoneNumber.toString()});
+                FirebaseDatabase.instance
+                    .reference()
+                    .child('Users')
+                    .child(user.phoneNumber.toString())
+                    .set({
+                  'Name': myController.text,
+                  'Addressline1': myController1.text,
+                  'Addressline2': myController2.text,
+                  'pincode': myController3.text
+                });
+
                 if (formKey.currentState.validate()) {
                   Navigator.pushReplacement(
                     context,
