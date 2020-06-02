@@ -7,8 +7,9 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Cart extends StatefulWidget {
   final List<DailyNeeds> _cart;
+  String userPhNo;
 
-  Cart(this._cart);
+  Cart(this._cart, this.userPhNo);
 
   @override
   _CartState createState() => _CartState(this._cart);
@@ -224,11 +225,24 @@ class _CartState extends State<Cart> {
   void _handleExternalWallet(ExternalWalletResponse response) {
     Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
-//    DatabaseReference userRef =
-//        FirebaseDatabase.instance.reference().child('Orders');
-//    for (int i = 0; i < _cart.length; i++) {
-//      userRef.set({i: _cart[i].name}).whenComplete(
-//          () => print('Successfully stored order ${_cart[i].name}'));
-//    }
+    //Registering new order
+    DatabaseReference dbRef =
+        FirebaseDatabase.instance.reference().child("Orders").push();
+    dbRef.set({
+      "UserPhNo": widget.userPhNo == null ? "+917060222315" : widget.userPhNo,
+      "Status": "notCompleted"
+    });
+//        .child(widget.userPhNo == null ? "+917060222315" : widget.userPhNo);
+    for (int i = 0; i < _cart.length; i++) {
+      dbRef.child(i.toString()).set({
+        "Name": _cart[i].name,
+        "Price": _cart[i].price.toString(),
+      }).then((_) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text('Successfully Added')));
+      }).catchError((onError) {
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text(onError)));
+      });
+    }
   }
 }
