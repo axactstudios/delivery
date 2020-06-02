@@ -23,6 +23,9 @@ class MainHome extends StatefulWidget {
 
 final scaffoldState = GlobalKey<ScaffoldState>();
 
+List<DailyNeeds> searchList = [];
+List<DailyNeeds> recentSearchList = [];
+
 double pWidth, pHeight;
 var indexSelected = 1;
 
@@ -60,7 +63,7 @@ class _MainHomeState extends State<MainHome> {
       ),
       accountEmail: Text(" "),
       currentAccountPicture:
-          CircleAvatar(child: Image.asset('images/welcome_image.jpg')),
+          CircleAvatar(child: Image.asset('images/welcome_ima ge.jpg')),
     );
     //Nav Drawer items
     final drawerItems = ListView(
@@ -116,45 +119,60 @@ class _MainHomeState extends State<MainHome> {
             ),
             iconTheme: IconThemeData(color: Color(0xFF345995)),
             backgroundColor: Colors.white,
+
             actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Cart(_cartList),
-                      ),
-                    );
-                  },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Icon(
-                        FontAwesomeIcons.shoppingCart,
-                        size: pHeight / 35,
-                      ),
-                      if (_cartList.length > 0)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 2.0),
-                          child: CircleAvatar(
-                            radius: 8.0,
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            child: Text(
-                              _cartList.length.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
+              IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    populateSearchList();
+                    showSearch(context: context, delegate: DataSearch());
+                  })
             ],
+            // actions: <Widget>[
+//              Padding(
+//                padding: const EdgeInsets.symmetric(horizontal: 30),
+//                child: GestureDetector(
+//                  onTap: () {
+////                    DatabaseReference userRef =
+////                        FirebaseDatabase.instance.reference().child('Orders');
+////                    for (int i = 0; i < _cartList.length; i++) {
+////                      userRef.set({i: _cartList[i].name}).catchError(
+////                          FlutterError.onError);
+////                    }
+//                    Navigator.of(context).push(
+//                      MaterialPageRoute(
+//                        builder: (context) => Cart(_cartList),
+//                      ),
+//                    );
+//                  },
+//                  child: Stack(
+//                    alignment: Alignment.center,
+//                    children: <Widget>[
+//                      Icon(
+//                        FontAwesomeIcons.shoppingCart,
+//                        size: pHeight / 35,
+//                      ),
+//                      if (_cartList.length > 0)
+//                        Padding(
+//                          padding: const EdgeInsets.only(left: 2.0),
+//                          child: CircleAvatar(
+//                            radius: 8.0,
+//                            backgroundColor: Colors.red,
+//                            foregroundColor: Colors.white,
+//                            child: Text(
+//                              _cartList.length.toString(),
+//                              style: TextStyle(
+//                                fontWeight: FontWeight.bold,
+//                                fontSize: 12.0,
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+//                    ],
+//                  ),
+//                ),
+//              ),
+            //    ],
           ),
           drawer: Drawer(
             key: _drawerKey,
@@ -175,46 +193,46 @@ class _MainHomeState extends State<MainHome> {
             ),
             iconTheme: IconThemeData(color: Color(0xFF345995)),
             backgroundColor: Colors.white,
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: GestureDetector(
-                  onTap: () {
-                    if (_cartList.isNotEmpty)
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Cart(_cartList),
-                        ),
-                      );
-                  },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Icon(
-                        FontAwesomeIcons.shoppingCart,
-                        size: pHeight / 35,
-                      ),
-                      if (_cartList.length > 0)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 2.0),
-                          child: CircleAvatar(
-                            radius: 8.0,
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            child: Text(
-                              _cartList.length.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+//            actions: <Widget>[
+//              Padding(
+//                padding: const EdgeInsets.symmetric(horizontal: 30),
+//                child: GestureDetector(
+//                  onTap: () {
+//                    if (_cartList.isNotEmpty)
+//                      Navigator.of(context).push(
+//                        MaterialPageRoute(
+//                          builder: (context) => Cart(_cartList),
+//                        ),
+//                      );
+//                  },
+//                  child: Stack(
+//                    alignment: Alignment.center,
+//                    children: <Widget>[
+//                      Icon(
+//                        FontAwesomeIcons.shoppingCart,
+//                        size: pHeight / 35,
+//                      ),
+//                      if (_cartList.length > 0)
+//                        Padding(
+//                          padding: const EdgeInsets.only(left: 2.0),
+//                          child: CircleAvatar(
+//                            radius: 8.0,
+//                            backgroundColor: Colors.red,
+//                            foregroundColor: Colors.white,
+//                            child: Text(
+//                              _cartList.length.toString(),
+//                              style: TextStyle(
+//                                fontWeight: FontWeight.bold,
+//                                fontSize: 12.0,
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+//                    ],
+//                  ),
+//                ),
+//              ),
+//            ],
           ),
           drawer: Drawer(
             key: _drawerKey,
@@ -233,13 +251,61 @@ class _MainHomeState extends State<MainHome> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
-            child: Text(
-              'Categories',
-              style: TextStyle(
-                  color: Color(0xFF345995),
-                  fontSize: pHeight / 21,
-                  fontFamily: 'sf_pro',
-                  fontWeight: FontWeight.bold),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Categories',
+                  style: TextStyle(
+                      color: Color(0xFF345995),
+                      fontSize: pHeight / 21,
+                      fontFamily: 'sf_pro',
+                      fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: () {
+//                    DatabaseReference userRef =
+//                        FirebaseDatabase.instance.reference().child('Orders');
+//                    for (int i = 0; i < _cartList.length; i++) {
+//                      userRef.set({i: _cartList[i].name}).catchError(
+//                          FlutterError.onError);
+//                    }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart(_cartList),
+                        ),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Icon(
+                          FontAwesomeIcons.shoppingCart,
+                          size: pHeight / 35,
+                        ),
+                        if (_cartList.length > 0)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 2.0),
+                            child: CircleAvatar(
+                              radius: 8.0,
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              child: Text(
+                                _cartList.length.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(
@@ -324,13 +390,61 @@ class _MainHomeState extends State<MainHome> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
-            child: Text(
-              'Categories',
-              style: TextStyle(
-                  color: Color(0xFF345995),
-                  fontSize: pHeight / 21,
-                  fontFamily: 'sf_pro',
-                  fontWeight: FontWeight.bold),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Categories',
+                  style: TextStyle(
+                      color: Color(0xFF345995),
+                      fontSize: pHeight / 21,
+                      fontFamily: 'sf_pro',
+                      fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: () {
+//                    DatabaseReference userRef =
+//                        FirebaseDatabase.instance.reference().child('Orders');
+//                    for (int i = 0; i < _cartList.length; i++) {
+//                      userRef.set({i: _cartList[i].name}).catchError(
+//                          FlutterError.onError);
+//                    }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Cart(_cartList),
+                        ),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Icon(
+                          FontAwesomeIcons.shoppingCart,
+                          size: pHeight / 35,
+                        ),
+                        if (_cartList.length > 0)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 2.0),
+                            child: CircleAvatar(
+                              radius: 8.0,
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              child: Text(
+                                _cartList.length.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(
@@ -465,6 +579,46 @@ class _MainHomeState extends State<MainHome> {
         print(clothes.length);
       });
     });
+  }
+
+  void populateSearchList() {
+    DatabaseReference clothesref =
+        FirebaseDatabase.instance.reference().child('Clothes');
+    clothesref.once().then((DataSnapshot snap) {
+      // ignore: non_constant_identifier_names
+      var KEYS = snap.value.keys;
+      // ignore: non_constant_identifier_names
+      var DATA = snap.value;
+      searchList.clear();
+
+      for (var key in KEYS) {
+        DailyNeeds b = new DailyNeeds(
+            DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
+        searchList.add(b);
+      }
+    });
+
+    DatabaseReference dailyitemsref =
+        FirebaseDatabase.instance.reference().child('Daily needs');
+    dailyitemsref.once().then((DataSnapshot snap) {
+      // ignore: non_constant_identifier_names
+      var KEYS = snap.value.keys;
+      // ignore: non_constant_identifier_names
+      var DATA = snap.value;
+
+      for (var key in KEYS) {
+        DailyNeeds d = new DailyNeeds(
+            DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
+        searchList.add(d);
+      }
+    });
+    setState(() {
+      print(searchList.length);
+    });
+    recentSearchList.clear();
+    for (int i = 0; i < 5; i++) {
+      recentSearchList.add(searchList[i]);
+    }
   }
 
   // ignore: non_constant_identifier_names
@@ -717,5 +871,92 @@ class _MainHomeState extends State<MainHome> {
         ),
       ),
     );
+  }
+}
+
+class DataSearch extends SearchDelegate<String> {
+  String itemSelectedName;
+  @override
+  List<Widget> buildActions(BuildContext context) {
+// Actions for app bar
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+        },
+      )
+    ];
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // leading icon on the left of the appbar
+    return IconButton(
+        icon: AnimatedIcon(
+            icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
+        onPressed: () {
+          close(context, null);
+        });
+
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    //show some result based on selection
+
+//    return Container(
+//      height: 100,
+//      width: 100,
+//      child: Card(
+//        color: Colors.teal,
+//        child: Text(itemSelectedName),
+//      ),
+//    );
+
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // show when someone searches for something
+    List<DailyNeeds> showList = [];
+//    final showList = query.isEmpty ? recentSearchList : searchList;
+    if (query.isEmpty) {
+      showList = recentSearchList;
+    } else {
+      List<DailyNeeds> temp = [];
+      print(searchList.length.toString());
+      for (int i = 0; i < searchList.length; i++) {
+        if (searchList[i].name.startsWith(query)) {
+          temp.add(searchList[i]);
+        }
+      }
+      showList = temp;
+    }
+
+    return ListView.builder(
+      itemBuilder: (context, index) => ListTile(
+        onTap: () {
+          itemSelectedName = showList[index].name;
+          showResults(context);
+        },
+//        title: Text(showList[index].name),
+        title: RichText(
+            text: TextSpan(
+                text: showList[index].name.substring(0, query.length),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                children: [
+              TextSpan(
+                  text: showList[index].name.substring(query.length),
+                  style: TextStyle(color: Colors.grey))
+            ])),
+      ),
+      itemCount: showList.length,
+    );
+    throw UnimplementedError();
   }
 }

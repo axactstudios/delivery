@@ -1,5 +1,6 @@
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/DrawerPages/MainHome.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -127,7 +128,9 @@ class _CartState extends State<Cart> {
                       color: Colors.white, fontFamily: 'sf_pro', fontSize: 20),
                 ),
                 InkWell(
-                  onTap: openCheckout,
+                  onTap: () {
+                    openCheckout();
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -202,6 +205,14 @@ class _CartState extends State<Cart> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
+    //storing order details in database
+
+//    for (int i = 0; i < _cart.length; i++) {
+//      DatabaseReference userRef =
+//          FirebaseDatabase.instance.reference().child('Orders');
+//      userRef.set({i: _cart[i]}).whenComplete(
+//          () => print('Successfully stored order'));
+//    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -213,5 +224,11 @@ class _CartState extends State<Cart> {
   void _handleExternalWallet(ExternalWalletResponse response) {
     Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
+//    DatabaseReference userRef =
+//        FirebaseDatabase.instance.reference().child('Orders');
+//    for (int i = 0; i < _cart.length; i++) {
+//      userRef.set({i: _cart[i].name}).whenComplete(
+//          () => print('Successfully stored order ${_cart[i].name}'));
+//    }
   }
 }
