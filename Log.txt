@@ -46,3 +46,5 @@ Saving User's data on firebase done, along with retriving, some errors unresolve
 User's details errors resolved, now showing perfectly.
 3 June 2020, 4:15 A.M.-
 Search Bar Added and cart still functional
+3 June 2020 5:20 AM
+Order storing with status and user phone number
