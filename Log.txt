@@ -44,3 +44,5 @@ Exams start, work stops for some days.
 Saving User's data on firebase done, along with retriving, some errors unresolved.
 2 June 2020, 3:12 A.M.-
 User's details errors resolved, now showing perfectly.
+3 June 2020, 4:15 A.M.-
+Search Bar Added and cart still functional
