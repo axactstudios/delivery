@@ -40,5 +40,7 @@ Client reverted and is satisfied.
 Payment of Rs. 1000/- recieved from client.
 29 May 2020-
 Exams start, work stops for some days.
-2 June 3:12 AM-
-User Address details showing perfectly
+2 June 2020, 5:00 P.M.-
+Saving User's data on firebase done, along with retriving, some errors unresolved.
+2 June 2020, 3:12 A.M.-
+User's details errors resolved, now showing perfectly.
