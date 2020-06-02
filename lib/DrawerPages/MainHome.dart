@@ -274,7 +274,7 @@ class _MainHomeState extends State<MainHome> {
 //                    }
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Cart(_cartList),
+                          builder: (context) => Cart(_cartList, widget.phno),
                         ),
                       );
                     },
@@ -413,7 +413,7 @@ class _MainHomeState extends State<MainHome> {
 //                    }
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Cart(_cartList),
+                          builder: (context) => Cart(_cartList, widget.phno),
                         ),
                       );
                     },
