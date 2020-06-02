@@ -19,6 +19,8 @@ class _YourAccountState extends State<YourAccount> {
 
   void getUserDetails() {
     String user = '+91${widget.phno}';
+//    String user = '+917060222315';
+    print(widget.phno);
     DatabaseReference userref =
         FirebaseDatabase.instance.reference().child('Users').child(user);
     userref.once().then((DataSnapshot snap) {
