@@ -50,3 +50,5 @@ Search Bar Added and cart still functional.
 Order storing with status and user phone number.
 3 June 2020, 12:32 P.M.-
 Support page rebuild, some minor changes.
+3 June 2020, 11:53 P.M.-
+Owner app navigation trail with all options and functions added, Image picking problem, Orders page incomplete.
