@@ -25,7 +25,11 @@ class _DevelopersState extends State<Developers> {
       ),
       body: Container(
         child: Center(
-          child: Text('Axact Studios'),
+          child: Column(children: [
+            Text('Axact Studios'),
+            Text('Visit our website'),
+            Text('Need an app. Contact Now')
+          ]),
         ),
       ),
     );

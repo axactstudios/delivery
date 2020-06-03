@@ -1,5 +1,6 @@
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
+import 'package:delivery/DrawerPages/support_page_main.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -90,8 +91,8 @@ class _MainHomeState extends State<MainHome> {
             }),
         ListTile(
           title: Text('Support'),
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Support())),
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ContactUsPage())),
         ),
         ListTile(
           title: Text('Developers'),
@@ -118,7 +119,6 @@ class _MainHomeState extends State<MainHome> {
             ),
             iconTheme: IconThemeData(color: Color(0xFF345995)),
             backgroundColor: Colors.white,
-
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.search),
@@ -127,51 +127,6 @@ class _MainHomeState extends State<MainHome> {
                     showSearch(context: context, delegate: DataSearch());
                   })
             ],
-            // actions: <Widget>[
-//              Padding(
-//                padding: const EdgeInsets.symmetric(horizontal: 30),
-//                child: GestureDetector(
-//                  onTap: () {
-////                    DatabaseReference userRef =
-////                        FirebaseDatabase.instance.reference().child('Orders');
-////                    for (int i = 0; i < _cartList.length; i++) {
-////                      userRef.set({i: _cartList[i].name}).catchError(
-////                          FlutterError.onError);
-////                    }
-//                    Navigator.of(context).push(
-//                      MaterialPageRoute(
-//                        builder: (context) => Cart(_cartList),
-//                      ),
-//                    );
-//                  },
-//                  child: Stack(
-//                    alignment: Alignment.center,
-//                    children: <Widget>[
-//                      Icon(
-//                        FontAwesomeIcons.shoppingCart,
-//                        size: pHeight / 35,
-//                      ),
-//                      if (_cartList.length > 0)
-//                        Padding(
-//                          padding: const EdgeInsets.only(left: 2.0),
-//                          child: CircleAvatar(
-//                            radius: 8.0,
-//                            backgroundColor: Colors.red,
-//                            foregroundColor: Colors.white,
-//                            child: Text(
-//                              _cartList.length.toString(),
-//                              style: TextStyle(
-//                                fontWeight: FontWeight.bold,
-//                                fontSize: 12.0,
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-//                    ],
-//                  ),
-//                ),
-//              ),
-            //    ],
           ),
           drawer: Drawer(
             key: _drawerKey,
@@ -192,46 +147,14 @@ class _MainHomeState extends State<MainHome> {
             ),
             iconTheme: IconThemeData(color: Color(0xFF345995)),
             backgroundColor: Colors.white,
-//            actions: <Widget>[
-//              Padding(
-//                padding: const EdgeInsets.symmetric(horizontal: 30),
-//                child: GestureDetector(
-//                  onTap: () {
-//                    if (_cartList.isNotEmpty)
-//                      Navigator.of(context).push(
-//                        MaterialPageRoute(
-//                          builder: (context) => Cart(_cartList),
-//                        ),
-//                      );
-//                  },
-//                  child: Stack(
-//                    alignment: Alignment.center,
-//                    children: <Widget>[
-//                      Icon(
-//                        FontAwesomeIcons.shoppingCart,
-//                        size: pHeight / 35,
-//                      ),
-//                      if (_cartList.length > 0)
-//                        Padding(
-//                          padding: const EdgeInsets.only(left: 2.0),
-//                          child: CircleAvatar(
-//                            radius: 8.0,
-//                            backgroundColor: Colors.red,
-//                            foregroundColor: Colors.white,
-//                            child: Text(
-//                              _cartList.length.toString(),
-//                              style: TextStyle(
-//                                fontWeight: FontWeight.bold,
-//                                fontSize: 12.0,
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-//                    ],
-//                  ),
-//                ),
-//              ),
-//            ],
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    populateSearchList();
+                    showSearch(context: context, delegate: DataSearch());
+                  })
+            ],
           ),
           drawer: Drawer(
             key: _drawerKey,
@@ -282,6 +205,7 @@ class _MainHomeState extends State<MainHome> {
                       children: <Widget>[
                         Icon(
                           FontAwesomeIcons.shoppingCart,
+                          color: Color(0xFF345995),
                           size: pHeight / 35,
                         ),
                         if (_cartList.length > 0)
@@ -421,6 +345,7 @@ class _MainHomeState extends State<MainHome> {
                       children: <Widget>[
                         Icon(
                           FontAwesomeIcons.shoppingCart,
+                          color: Color(0xFF345995),
                           size: pHeight / 35,
                         ),
                         if (_cartList.length > 0)

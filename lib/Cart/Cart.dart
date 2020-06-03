@@ -204,6 +204,7 @@ class _CartState extends State<Cart> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    saveOrder();
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
     //storing order details in database
@@ -225,6 +226,9 @@ class _CartState extends State<Cart> {
   void _handleExternalWallet(ExternalWalletResponse response) {
     Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
+  }
+
+  void saveOrder() {
     //Registering new order
     DatabaseReference dbRef =
         FirebaseDatabase.instance.reference().child("Orders").push();
@@ -232,7 +236,6 @@ class _CartState extends State<Cart> {
       "UserPhNo": widget.userPhNo == null ? "+917060222315" : widget.userPhNo,
       "Status": "notCompleted"
     });
-//        .child(widget.userPhNo == null ? "+917060222315" : widget.userPhNo);
     for (int i = 0; i < _cart.length; i++) {
       dbRef.child(i.toString()).set({
         "Name": _cart[i].name,
