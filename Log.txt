@@ -48,3 +48,5 @@ User's details errors resolved, now showing perfectly.
 Search Bar Added and cart still functional.
 3 June 2020, 5:20 A.M.-
 Order storing with status and user phone number.
+3 June 2020, 12:32 P.M.-
+Support page rebuild, some minor changes.
