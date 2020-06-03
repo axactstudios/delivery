@@ -18,7 +18,7 @@ class _YourAccountState extends State<YourAccount> {
   String name, address, pincode;
 
   void getUserDetails() {
-    String user = '+91${widget.phno}';
+    String user = widget.phno;
 //    String user = '+917060222315';
     print(widget.phno);
     DatabaseReference userref =

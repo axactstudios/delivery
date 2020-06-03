@@ -1,7 +1,6 @@
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
-import 'package:delivery/bekarWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
