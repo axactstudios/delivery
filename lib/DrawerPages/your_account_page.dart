@@ -17,8 +17,8 @@ class _YourAccountState extends State<YourAccount> {
   String name, address, pincode;
 
   void getUserDetails() {
-    String user = ("+91${widget.phno}");
-    print(widget.phno);
+    String user = widget.phno == null ? '+917060222315' : "+91${widget.phno}";
+
     DatabaseReference userref =
         FirebaseDatabase.instance.reference().child('Users').child(user);
     userref.once().then((DataSnapshot snap) {
@@ -32,6 +32,7 @@ class _YourAccountState extends State<YourAccount> {
   @override
   Widget build(BuildContext context) {
     getUserDetails();
+    print('------------------------${address}-------------------------------');
     if (widget.phno != null) {
       return Scaffold(
         appBar: AppBar(
