@@ -52,3 +52,5 @@ Order storing with status and user phone number.
 Support page rebuild, some minor changes.
 3 June 2020, 11:53 P.M.-
 Owner app navigation trail with all options and functions added, Image picking problem, Orders page incomplete.
+4 June 2020, 4:15 P.M.-
+Order retriving algoritm added, some unresolved errors remain.
