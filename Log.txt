@@ -57,3 +57,6 @@ Order retriving algoritm added, some unresolved errors remain.
 5 June 2020 11:58 P.M.
 Order retrieving resolved,fully functional.
 Whatsapp msg sending also added
+6 June 2020 02:42 A.M.
+Account Info page UI done
+Added algo for checking if user already has an address stored
