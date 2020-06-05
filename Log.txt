@@ -27,7 +27,7 @@ UI made presentable.
 27 May 2020, 20:17 P.M.-
 NavBar button added, Cart functionalities complete, Item details page pop up, Payment done all with basic structure, UI designing is left.
 28 may 2020, 5:51 A.M.-
-Login Screens, Addres Screen, Main home screens, Product Details Page UI Refinished.
+Login Screens, Address Screen, Main home screens, Product Details Page UI Refinished.
 28 May 2020, 12:23 P.M.-
 All current Screens Refinished, Auth not working currently on Android.
 28 May 2020, 12:23 P.M.-
@@ -37,11 +37,11 @@ Minor changes, testing and bug fixes, apk presented to the client.
 28 May 2020, 5:00 P.M.-
 Client reverted and is satisfied.
 28 May 2020, 10:20 P.M.-
-Payment of Rs. 1000/- recieved from client.
+Payment of Rs. 1000/- received from client.
 29 May 2020-
 Exams start, work stops for some days.
 2 June 2020, 5:00 P.M.-
-Saving User's data on firebase done, along with retriving, some errors unresolved.
+Saving User's data on firebase done, along with retrieving, some errors unresolved.
 2 June 2020, 3:12 A.M.-
 User's details errors resolved, now showing perfectly.
 3 June 2020, 4:15 A.M.-

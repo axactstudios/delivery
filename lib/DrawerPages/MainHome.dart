@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Cart/Cart.dart';
 import 'developers_page.dart';
-import 'support_page.dart';
 import 'your_account_page.dart';
 import 'your_orders_page.dart';
 
@@ -52,6 +51,7 @@ class _MainHomeState extends State<MainHome> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.phno);
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
       decoration: BoxDecoration(
@@ -62,8 +62,11 @@ class _MainHomeState extends State<MainHome> {
         style: TextStyle(fontSize: 20),
       ),
       accountEmail: Text(" "),
-      currentAccountPicture:
-          CircleAvatar(child: Image.asset('images/welcome_ima ge.jpg')),
+      currentAccountPicture: CircleAvatar(
+          child: Text(
+        'B.M.',
+        style: TextStyle(color: Colors.white),
+      )),
     );
     //Nav Drawer items
     final drawerItems = ListView(
@@ -288,6 +291,7 @@ class _MainHomeState extends State<MainHome> {
   }
 
   Widget retClothes() {
+    print(clothes.length);
     return Container(
       child: clothes.length == 0
           ? Center(child: CircularProgressIndicator())

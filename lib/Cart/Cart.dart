@@ -131,6 +131,7 @@ class _CartState extends State<Cart> {
                 InkWell(
                   onTap: () {
                     openCheckout();
+                    saveOrder();
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -230,8 +231,11 @@ class _CartState extends State<Cart> {
 
   void saveOrder() {
     //Registering new order
-    DatabaseReference dbRef =
-        FirebaseDatabase.instance.reference().child("Orders").push();
+    DatabaseReference dbRef = FirebaseDatabase.instance
+        .reference()
+        .child("Orders")
+        .child("+917060222315")
+        .push();
     dbRef.set({
       "UserPhNo": widget.userPhNo == null ? "+917060222315" : widget.userPhNo,
       "Status": "notCompleted"

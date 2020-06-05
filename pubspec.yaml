@@ -27,6 +27,7 @@ dependencies:
   flutter_email_sender: ^3.0.1
   image_picker: ^0.6.6+4
   razorpay_flutter: ^1.2.1
+
 #  flappy_search_bar: ^1.7.2
 
 
@@ -54,6 +55,7 @@ flutter:
   assets:
     - images/hello.png
     - images/welcome_image.png
+    - images/shubh.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
