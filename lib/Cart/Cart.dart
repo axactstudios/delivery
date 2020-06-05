@@ -8,6 +8,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class Cart extends StatefulWidget {
   final List<DailyNeeds> _cart;
   String userPhNo;
+  String userAddress;
 
   Cart(this._cart, this.userPhNo);
 
@@ -205,7 +206,6 @@ class _CartState extends State<Cart> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    saveOrder();
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
     //storing order details in database
@@ -230,15 +230,20 @@ class _CartState extends State<Cart> {
   }
 
   void saveOrder() {
+    String user =
+        widget.userPhNo == null ? '+917060222315' : "+91${widget.userPhNo}";
+
     //Registering new order
     DatabaseReference dbRef = FirebaseDatabase.instance
         .reference()
         .child("Orders")
         .child("+917060222315")
         .push();
+
     dbRef.set({
-      "UserPhNo": widget.userPhNo == null ? "+917060222315" : widget.userPhNo,
-      "Status": "notCompleted"
+//      "UserPhNo": widget.userPhNo == null ? "+917060222315" : widget.userPhNo,
+      "Status": "notCompleted",
+      "orderLength": _cart.length
     });
     for (int i = 0; i < _cart.length; i++) {
       dbRef.child(i.toString()).set({

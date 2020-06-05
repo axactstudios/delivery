@@ -24,13 +24,16 @@ class _YourAccountState extends State<YourAccount> {
     userref.once().then((DataSnapshot snap) {
       var DATA = snap.value;
       name = DATA['Name'];
-      address = DATA['Addressline1'] + DATA['Addressline2'];
+      address = ' ${DATA['Addressline1']} \n ${DATA['Addressline2']}';
       pincode = DATA['pincode'];
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var pHeight = MediaQuery.of(context).size.height;
+    var pWidth = MediaQuery.of(context).size.width;
+
     getUserDetails();
     print('------------------------${address}-------------------------------');
     if (widget.phno != null) {
@@ -53,12 +56,74 @@ class _YourAccountState extends State<YourAccount> {
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(name),
-                Text("Address- $address"),
-                Text('Pincode- $pincode'),
+                Container(
+                  height: pHeight / 2.5,
+                  alignment: Alignment.center,
+                  child: Image(
+                    image: AssetImage('images/user.png'),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: pWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(24)),
+                        color: Color(0xFF345995),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(24)),
+                                color: Colors.white,
+                              ),
+                              child: Text(
+                                name,
+                                style: TextStyle(
+                                    color: Color(0xFF345995),
+                                    fontFamily: 'sf_pro',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 28),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(24)),
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 50),
+                                child: Text(
+                                  "Address- \n$address \n $pincode",
+                                  style: TextStyle(
+                                      color: Color(0xFF345995),
+                                      fontFamily: 'sf_pro',
+                                      fontSize: 24),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

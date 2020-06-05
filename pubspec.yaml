@@ -57,6 +57,7 @@ flutter:
     - images/hello.png
     - images/welcome_image.png
     - images/shubh.jpg
+    - images/user.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
