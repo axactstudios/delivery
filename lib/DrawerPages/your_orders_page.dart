@@ -8,10 +8,11 @@ class YourOrders extends StatefulWidget {
 }
 
 int i = 0;
-List<Order> currOrders = [];
-List<Order> pastOrders = [];
-List<OrderItem> temp1 = [];
-List<OrderItem> temp2 = [];
+
+List<Container> currOrdersCard = [];
+List<Container> pastOrdersCard = [];
+
+String t;
 
 class _YourOrdersState extends State<YourOrders> {
   void getOrderList() {
@@ -24,67 +25,77 @@ class _YourOrdersState extends State<YourOrders> {
       var KEYS = snap.value.keys;
       // ignore: non_constant_identifier_names
       var DATA = snap.value;
-      currOrders.clear();
-      pastOrders.clear();
-
+      pastOrdersCard.clear();
+      currOrdersCard.clear();
       for (var key in KEYS) {
-        int l = 0;
-        temp1.clear();
-        temp2.clear();
-        //TODO: Change phone number
+        List<ListTile> currListTile = [];
+        List<ListTile> pastListTile = [];
 
+        currListTile.clear();
+        pastListTile.clear();
+        int l = 0;
+        //TODO: Change phone number
         if (DATA[key]['Status'] == 'notCompleted') {
           print('Order Length is ${DATA[key]['orderLength'].toString()}');
           for (i = 0; i < DATA[key]['orderLength']; i++) {
-            OrderItem e = new OrderItem(DATA[key][i.toString()]['Name'],
-                DATA[key][i.toString()]['Price']);
-            temp1.add(e);
+            ListTile t1 = new ListTile(
+              leading: Icon(Icons.ac_unit),
+              title: Text(
+                  '${DATA[key][i.toString()]['Name']},${DATA[key][i.toString()]['Price']},'),
+            );
+            currListTile.add(t1);
           }
-          Order order1 = Order(temp1);
-          currOrders.add(order1);
+          Container c = new Container(
+            margin: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+                border: Border()),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: currListTile,
+                ),
+                Text('Order Status is ${DATA[key]["Status"]}'),
+              ],
+            ),
+          );
+          currOrdersCard.add(c);
         } else {
-          print(1);
           print('Order Length is ${DATA[key]['orderLength'].toString()}');
           for (i = 0; i < DATA[key]['orderLength']; i++) {
-            OrderItem e = new OrderItem(DATA[key][i.toString()]['Name'],
-                DATA[key][i.toString()]['Price']);
-            temp2.add(e);
-//              print('Order details are ${e.name} ${e.price}');
+            ListTile t1 = new ListTile(
+              leading: Icon(Icons.ac_unit),
+              title: Text(
+                  '${DATA[key][i.toString()]['Name']},${DATA[key][i.toString()]['Price']},'),
+            );
+            pastListTile.add(t1);
           }
+          Container c = new Container(
+            margin: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+                border: Border()),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: pastListTile,
+                ),
+                Text('Order Status is ${DATA[key]["Status"]}'),
+              ],
+            ),
+          );
+          pastOrdersCard.add(c);
         }
-
-        if (temp1.isNotEmpty) {
-//          Order t = Order(temp1);
-
-          if (currOrders.isNotEmpty) {
-            print(
-                'Order added successfully currOrder Length is ${currOrders.length}');
-            print(
-                'Order added successfully pastOrder Length is ${pastOrders.length}');
-            for (i = 0; i < currOrders.length; i++) {
-              for (int j = 0; j < currOrders[i].d.length; j++) {
-                print(
-                    'OrderDetails Are ${currOrders[i].d[j].name} ${currOrders[i].d[j].price}');
-              }
-            }
-          }
-        }
-        if (temp2.isNotEmpty) {
-//          Order t = Order(temp2);
-          print(temp2.length.toString());
-          pastOrders.add(createOrder(temp2));
-          if (pastOrders.isNotEmpty) {
-            print(
-                'Order added successfully pastOrder Length is ${pastOrders.length}');
-            for (i = 0; i < pastOrders.length; i++) {
-              for (int j = 0; j < pastOrders[i].d.length; j++) {
-                print(
-                    'OrderDetails Are ${pastOrders[i].d[j].name} ${pastOrders[i].d[j].price}');
-              }
-            }
-          }
-        }
-        l++;
       }
     });
   }
@@ -96,36 +107,50 @@ class _YourOrdersState extends State<YourOrders> {
 
   @override
   Widget build(BuildContext context) {
-    print(currOrders);
 //    -M9-0YpNwG_oJFAi3FHH
     getOrderList();
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            'Past Orders',
-            style: TextStyle(color: Color(0xFF345995)),
-          ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xFF345995),
-            ),
-            onPressed: () => Navigator.pop(context, false),
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Past Orders',
+          style: TextStyle(color: Color(0xFF345995)),
         ),
-        body: Column(
-          children: [
-//            Text(pastOrders[0].d.length.toString()),
-            Text(currOrders.length.toString()),
-//            Text(pastOrders.length.toString()),
-            Text(currOrders[0].d.length.toString()),
-            Text(currOrders[1].d.length.toString()),
-            Text(currOrders[2].d.length.toString()),
-            Text(currOrders[0].d[0].price.toString()),
-          ],
-        )
-
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xFF345995),
+          ),
+          onPressed: () => Navigator.pop(context, false),
+        ),
+      ),
+//        body: Column(
+//          children: [
+////            Text(pastOrders[0].d.length.toString()),
+//            Text(currOrders.length.toString()),
+////            Text(pastOrders.length.toString()),
+//            Text(currOrders[0].d.length.toString()),
+//            Text(currOrders[1].d.length.toString()),
+//            Text(currOrders[2].d.length.toString()),
+//            Text(currOrders[0].d[0].price.toString()),
+//            Text(currOrders[0].d[0].name.toString()),
+//
+//          ],
+//        )
+      body: Column(
+        children: <Widget>[
+          Text('Current Orders'),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: currOrdersCard,
+          ),
+          Text('Past Orders'),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: pastOrdersCard,
+          )
+        ],
+      ),
 //        body: currOrders.isEmpty
 //            ? pastOrders.isEmpty
 //                ?
@@ -168,6 +193,6 @@ class _YourOrdersState extends State<YourOrders> {
 //                      Text(pastOrders[0].d.length.toString()),
 ////                      Text(pastOrders[0].d[0].price.toString()),
 //                    ],
-        );
+    );
   }
 }
