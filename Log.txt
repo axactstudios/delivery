@@ -54,3 +54,6 @@ Support page rebuild, some minor changes.
 Owner app navigation trail with all options and functions added, Image picking problem, Orders page incomplete.
 4 June 2020, 4:15 P.M.-
 Order retriving algoritm added, some unresolved errors remain.
+5 June 2020 11:58 P.M.
+Order retrieving resolved,fully functional.
+Whatsapp msg sending also added
