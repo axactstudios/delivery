@@ -1,6 +1,8 @@
 import 'package:delivery/DrawerPages/support_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 class ContactUsPage extends StatefulWidget {
   @override
@@ -8,6 +10,32 @@ class ContactUsPage extends StatefulWidget {
 }
 
 class _ContactUsPageState extends State<ContactUsPage> {
+  String _platformVersion = 'Unknown';
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      platformVersion = await FlutterOpenWhatsapp.platformVersion;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +81,10 @@ class _ContactUsPageState extends State<ContactUsPage> {
           Row(
             children: <Widget>[
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  FlutterOpenWhatsapp.sendSingleMessage(
+                      "919027553376", "Hello");
+                },
                 child: Padding(
                   padding: EdgeInsets.only(left: 20.0),
                   child: Card(
