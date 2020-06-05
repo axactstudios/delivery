@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../DrawerPages/MainHome.dart';
 
+import '../DrawerPages/MainHome.dart';
 import 'OTPinput.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -221,20 +222,42 @@ class _OTPScreenState extends State<OTPScreen> {
 
   void _onFormSubmitted() async {
     AuthCredential _authCredential = PhoneAuthProvider.getCredential(
-        verificationId: _verificationId, smsCode: _pinEditingController.text);
+      verificationId: _verificationId,
+      smsCode: _pinEditingController.text,
+    );
 
     _firebaseAuth
         .signInWithCredential(_authCredential)
         .then((AuthResult value) {
       if (value.user != null) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddressFrame(
-                phno: widget.mobileNumber,
-              ),
-            ),
-            (Route<dynamic> route) => false);
+        DatabaseReference useraddressref = FirebaseDatabase.instance
+            .reference()
+            .child('Users')
+            .child("+91${widget.mobileNumber}");
+        useraddressref.once().then((DataSnapshot snap) {
+          // ignore: non_constant_identifier_names
+          var DATA = snap.value;
+          if (DATA == null) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddressFrame(
+                    phno: widget.mobileNumber,
+                  ),
+                ),
+                (Route<dynamic> route) => false);
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MainHome(
+                    phno: widget.mobileNumber,
+                  ),
+                ),
+                (Route<dynamic> route) => false);
+          }
+        });
+
         print(
             '--------------------------------Form Submitted Was called--------------------------------');
       } else {
