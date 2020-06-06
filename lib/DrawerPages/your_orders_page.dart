@@ -212,7 +212,6 @@ class _YourOrdersState extends State<YourOrders> {
           ),
         ],
       ),
-
     );
   }
 }
