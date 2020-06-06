@@ -54,9 +54,9 @@ Support page rebuild, some minor changes.
 Owner app navigation trail with all options and functions added, Image picking problem, Orders page incomplete.
 4 June 2020, 4:15 P.M.-
 Order retriving algoritm added, some unresolved errors remain.
-5 June 2020 11:58 P.M.
-Order retrieving resolved,fully functional.
-Whatsapp msg sending also added
-6 June 2020 02:42 A.M.
-Account Info page UI done
-Added algo for checking if user already has an address stored
+5 June 2020, 11:58 P.M.-
+Order retrieving resolved,fully functional, Whatsapp message sending also added.
+6 June 2020, 02:42 A.M.-
+Account Info page UI done, Added algorithm for checking if user already has an address stored.
+6 June 2020, 06:21 P.M.-
+Owner app work completed except for 1-2 bugs and some issues with the layout, Orders retriving and changing order status done.
