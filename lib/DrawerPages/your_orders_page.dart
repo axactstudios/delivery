@@ -20,11 +20,10 @@ String t;
 
 class _YourOrdersState extends State<YourOrders> {
   void getOrderList() {
-    String user = "+91${widget.phno}";
     DatabaseReference dailyitemsref = FirebaseDatabase.instance
         .reference()
         .child('Orders')
-        .child("+917060222315");
+        .child("+91${widget.phno}");
     dailyitemsref.once().then((DataSnapshot snap) {
       // ignore: non_constant_identifier_names
       var KEYS = snap.value.keys;
@@ -44,28 +43,31 @@ class _YourOrdersState extends State<YourOrders> {
           print('Order Length is ${DATA[key]['orderLength'].toString()}');
           for (i = 0; i < DATA[key]['orderLength']; i++) {
             ListTile t1 = new ListTile(
-              leading: Icon(Icons.ac_unit),
-              title: Text(
-                  '${DATA[key][i.toString()]['Name']},${DATA[key][i.toString()]['Price']},'),
+              subtitle: Text('${DATA[key][i.toString()]['Price']}'),
+              title: Text('${DATA[key][i.toString()]['Name']}'),
             );
             currListTile.add(t1);
           }
           Container c = new Container(
-            margin: const EdgeInsets.all(15.0),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
             decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
                 border: Border()),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: currListTile,
                 ),
-                Text('Order Status is ${DATA[key]["Status"]}'),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                  child: Text('Order Status is ${DATA[key]["Status"]}'),
+                ),
               ],
             ),
           );
@@ -74,28 +76,31 @@ class _YourOrdersState extends State<YourOrders> {
           print('Order Length is ${DATA[key]['orderLength'].toString()}');
           for (i = 0; i < DATA[key]['orderLength']; i++) {
             ListTile t1 = new ListTile(
-              leading: Icon(Icons.ac_unit),
-              title: Text(
-                  '${DATA[key][i.toString()]['Name']},${DATA[key][i.toString()]['Price']},'),
+              subtitle: Text('${DATA[key][i.toString()]['Price']}'),
+              title: Text('${DATA[key][i.toString()]['Name']}'),
             );
             pastListTile.add(t1);
           }
           Container c = new Container(
-            margin: const EdgeInsets.all(15.0),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
             decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),
                 ),
                 border: Border()),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: pastListTile,
                 ),
-                Text('Order Status is ${DATA[key]["Status"]}'),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                  child: Text('Order Status is ${DATA[key]["Status"]}'),
+                ),
               ],
             ),
           );
@@ -118,7 +123,7 @@ class _YourOrdersState extends State<YourOrders> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Past Orders',
+          'Your Orders',
           style: TextStyle(color: Color(0xFF345995)),
         ),
         leading: IconButton(
@@ -131,16 +136,80 @@ class _YourOrdersState extends State<YourOrders> {
       ),
       body: Column(
         children: <Widget>[
-          Text('Current Orders'),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: currOrdersCard,
+          Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                  child: Text(
+                    'Current Orders',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF345995),
+                        fontSize: 24,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      padding: EdgeInsets.only(top: 7.5),
+                      decoration: BoxDecoration(
+                          color: Color(0xFF345995),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: currOrdersCard.length == 0
+                          ? Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                              itemCount: currOrdersCard.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (_, index) {
+                                return currOrdersCard[index];
+                              },
+                            )),
+                ),
+              ],
+            ),
           ),
-          Text('Past Orders'),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: pastOrdersCard,
-          )
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                  child: Text(
+                    'Past Orders',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF345995),
+                        fontSize: 24,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      padding: EdgeInsets.only(top: 7.5),
+                      decoration: BoxDecoration(
+                          color: Color(0xFF345995),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: pastOrdersCard.length == 0
+                          ? Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                              itemCount: pastOrdersCard.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (_, index) {
+                                return pastOrdersCard[index];
+                              },
+                            )),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
 

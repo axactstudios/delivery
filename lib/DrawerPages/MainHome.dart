@@ -80,7 +80,11 @@ class _MainHomeState extends State<MainHome> {
           title: Text('Your Orders'),
 //        onTap: () => Navigator.of(context).push(_NewPage(1)),
           onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => YourOrders())),
+              context,
+              MaterialPageRoute(
+                  builder: (context) => YourOrders(
+                        phno: widget.phno,
+                      ))),
         ),
         ListTile(
             title: Text('Your Account'),
