@@ -1,5 +1,6 @@
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
+import 'package:delivery/Classes/dicounts.dart';
 import 'package:delivery/DrawerPages/support_page_main.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,6 +39,7 @@ class _MainHomeState extends State<MainHome> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   List<Categories> categories = [];
   List<DailyNeeds> dailyneeds = [];
+  List<Discounts> discounts = [];
   List<DailyNeeds> clothes = [];
   List<DailyNeeds> _cartList = [];
 
@@ -178,6 +180,7 @@ class _MainHomeState extends State<MainHome> {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
+          retDiscounts(),
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
             child: Row(
@@ -454,6 +457,27 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
+  Widget retDiscounts() {
+    discountref();
+    return Expanded(
+      child: Container(
+        child: discounts.length == 0
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                itemCount: discounts.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, index) {
+                  return UIDiscount(
+                      discounts[index].name,
+                      discounts[index].category,
+                      discounts[index].priceOrg,
+                      discounts[index].priceNew);
+                },
+              ),
+      ),
+    );
+  }
+
   void getDailyNeedItemRef() {
     DatabaseReference dailyitemsref =
         FirebaseDatabase.instance.reference().child('Daily needs');
@@ -470,6 +494,26 @@ class _MainHomeState extends State<MainHome> {
       }
       setState(() {
         print(dailyneeds.length);
+      });
+    });
+  }
+
+  void discountref() {
+    DatabaseReference discountref =
+        FirebaseDatabase.instance.reference().child('Discounts');
+    discountref.once().then((DataSnapshot snap) {
+      // ignore: non_constant_identifier_names
+      var KEYS = snap.value.keys;
+      // ignore: non_constant_identifier_names
+      var DATA = snap.value;
+      discounts.clear();
+      for (var key in KEYS) {
+        Discounts d = new Discounts(DATA[key]['Category'], DATA[key]['Name'],
+            DATA[key]['Original Price'], DATA[key]['Discounted Price']);
+        discounts.add(d);
+      }
+      setState(() {
+        print(discounts.length);
       });
     });
   }
@@ -613,6 +657,71 @@ class _MainHomeState extends State<MainHome> {
                         "Rs. ${price.toString()}",
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                            fontFamily: 'sf_pro',
+                            color: Colors.white,
+                            fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget UIDiscount(String name, String category, int priceOrg, int priceNew) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.5),
+      child: InkWell(
+        onTap: () {
+          scaffoldState.currentState.showBottomSheet((context) {
+            return StatefulBuilder(
+                builder: (BuildContext context, StateSetter state) {
+              return UIDetails(name, category, priceNew);
+            });
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFF345995),
+            border: Border.all(color: Colors.black),
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'sf_pro',
+                            color: Colors.white,
+                            fontSize: pHeight / 50),
+                      ),
+                      Text(
+                        "Rs. ${priceOrg.toString()}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            fontFamily: 'sf_pro',
+                            color: Colors.white,
+                            fontSize: 15),
+                      ),
+                      Text(
+                        "Rs. ${priceNew.toString()}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            decoration: TextDecoration.lineThrough,
                             fontFamily: 'sf_pro',
                             color: Colors.white,
                             fontSize: 15),

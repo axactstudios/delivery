@@ -28,6 +28,7 @@ dependencies:
   image_picker: ^0.6.6+4
   razorpay_flutter: ^1.2.1
   flutter_open_whatsapp: ^0.1.2
+  cloud_firestore: ^0.13.6
 
 #  flappy_search_bar: ^1.7.2
 
