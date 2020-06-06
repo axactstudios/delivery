@@ -60,12 +60,22 @@ class _YourOrdersState extends State<YourOrders> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Order No. ${currOrdersCard.length + 1}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: currListTile,
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 10),
                   child: Text('Order Status is ${DATA[key]["Status"]}'),
                 ),
               ],
@@ -96,10 +106,6 @@ class _YourOrdersState extends State<YourOrders> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: pastListTile,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                  child: Text('Order Status is ${DATA[key]["Status"]}'),
                 ),
               ],
             ),
