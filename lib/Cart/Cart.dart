@@ -237,7 +237,7 @@ class _CartState extends State<Cart> {
     DatabaseReference dbRef = FirebaseDatabase.instance
         .reference()
         .child("Orders")
-        .child("+917060222315")
+        .child(user)
         .push();
 
     dbRef.set({

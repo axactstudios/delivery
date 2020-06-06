@@ -835,14 +835,14 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     //show some result based on selection
 
-//    return Container(
-//      height: 100,
-//      width: 100,
-//      child: Card(
-//        color: Colors.teal,
-//        child: Text(itemSelectedName),
-//      ),
-//    );
+    return Container(
+      height: 100,
+      width: 100,
+      child: Card(
+        color: Colors.teal,
+        child: Column(children: [Text(itemSelectedName)]),
+      ),
+    );
 
     throw UnimplementedError();
   }
@@ -869,6 +869,7 @@ class DataSearch extends SearchDelegate<String> {
       itemBuilder: (context, index) => ListTile(
         onTap: () {
           itemSelectedName = showList[index].name;
+
           showResults(context);
         },
 //        title: Text(showList[index].name),

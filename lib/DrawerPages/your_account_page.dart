@@ -16,11 +16,11 @@ class _YourAccountState extends State<YourAccount> {
   FirebaseUser user1;
   String name, address, pincode;
 
-  void getUserDetails() {
-    String user = widget.phno == null ? '+917060222315' : "+91${widget.phno}";
+  void getUserDetails() async {
+    String user = "+91${widget.phno}";
 
     DatabaseReference userref =
-        FirebaseDatabase.instance.reference().child('Users').child(user);
+        await FirebaseDatabase.instance.reference().child('Users').child(user);
     userref.once().then((DataSnapshot snap) {
       var DATA = snap.value;
       name = DATA['Name'];
