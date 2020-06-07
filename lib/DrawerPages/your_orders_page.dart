@@ -2,6 +2,7 @@ import 'package:delivery/Classes/Orders.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+import '../LoginPages/PhoneLogin.dart';
 import '../LoginPages/WelcomeScreen.dart';
 
 class YourOrders extends StatefulWidget {
@@ -264,7 +265,7 @@ class _YourOrdersState extends State<YourOrders> {
               FlatButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WelcomeScreen()));
+                      MaterialPageRoute(builder: (context) => PhoneLogin()));
                 },
                 child: Card(
                   color: Color(0xFF345995),
