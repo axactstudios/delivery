@@ -2,6 +2,7 @@ import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/Classes/dicounts.dart';
 import 'package:delivery/DrawerPages/support_page_main.dart';
+import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -51,27 +52,63 @@ class _MainHomeState extends State<MainHome> {
     getClothesRef();
   }
 
+  FirebaseUser user1;
+  String name;
+
+  void getUserName() async {
+    String user = "+91${widget.phno}";
+
+    DatabaseReference userref =
+        await FirebaseDatabase.instance.reference().child('Users').child(user);
+    userref.once().then((DataSnapshot snap) {
+      var DATA = snap.value;
+      name = DATA['Name'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUserName();
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
       decoration: BoxDecoration(
         color: Color(0xFF345995),
       ),
-      accountName: Text(
-        'Welcome to Budget Mart',
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'sf_pro',
-        ),
-      ),
-      accountEmail: Text("axactstudios@gmail.com"),
+      accountName: widget.phno != null
+          ? Text(
+              name,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'sf_pro',
+              ),
+            )
+          : Text(
+              'You are not logged in',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'sf_pro',
+              ),
+            ),
+      accountEmail: widget.phno != null
+          ? Text(widget.phno)
+          : InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PhoneLogin()));
+              },
+              child: Text(
+                'Sign In',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'sf_pro',
+                ),
+              )),
       currentAccountPicture: CircleAvatar(
-          child: Text(
-        'B.M.',
-        style: TextStyle(color: Colors.white),
-      )),
+        child: Image.asset('images/user.png'),
+      ),
     );
     //Nav Drawer items
     final drawerItems = ListView(
@@ -154,7 +191,52 @@ class _MainHomeState extends State<MainHome> {
                 fontSize: 20,
               ),
             ),
-            onTap: () => _signOut()),
+            onTap: () {
+              widget.phno != null
+                  ? showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Sign Out"),
+                          content: Text(
+                              "Are you sure you want to sign out?\nItems in your cart wil be cleared if you do so."),
+                          actions: [
+                            FlatButton(
+                              child: Text("No"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text("Sign Out"),
+                              onPressed: () {
+                                _signOut();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WelcomeScreen()));
+                              },
+                            )
+                          ],
+                        );
+                      })
+                  : showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Sign Out"),
+                          content: Text("You need to be logged in first."),
+                          actions: [
+                            FlatButton(
+                              child: Text("Ok"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+            }),
       ],
     );
     pWidth = MediaQuery.of(context).size.width;
@@ -382,12 +464,6 @@ class _MainHomeState extends State<MainHome> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: GestureDetector(
                     onTap: () {
-//                    DatabaseReference userRef =
-//                        FirebaseDatabase.instance.reference().child('Orders');
-//                    for (int i = 0; i < _cartList.length; i++) {
-//                      userRef.set({i: _cartList[i].name}).catchError(
-//                          FlutterError.onError);
-//                    }
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Cart(_cartList, widget.phno),

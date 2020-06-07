@@ -248,7 +248,8 @@ class _CartState extends State<Cart> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text("Login"),
-                                    content: Text("To place order you must be logged in."),
+                                    content: Text(
+                                        "To place order you must be logged in."),
                                     actions: [
                                       FlatButton(
                                         child: Text("Cancel"),
@@ -262,13 +263,13 @@ class _CartState extends State<Cart> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => PhoneLogin()));
+                                                  builder: (context) =>
+                                                      PhoneLogin()));
                                         },
                                       )
                                     ],
                                   );
                                 });
-
                           }
                         },
                         child: Container(
@@ -305,7 +306,8 @@ class _CartState extends State<Cart> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text("Login"),
-                                    content: Text("To place order you must be logged in."),
+                                    content: Text(
+                                        "To place order you must be logged in."),
                                     actions: [
                                       FlatButton(
                                         child: Text("Cancel"),
@@ -319,7 +321,8 @@ class _CartState extends State<Cart> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => PhoneLogin()));
+                                                  builder: (context) =>
+                                                      PhoneLogin()));
                                         },
                                       )
                                     ],
