@@ -40,6 +40,7 @@ class _YourAccountState extends State<YourAccount> {
 
     if (widget.phno != null) {
       getUserDetails();
+      setState(() {});
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

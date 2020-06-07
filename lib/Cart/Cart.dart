@@ -137,223 +137,146 @@ class _CartState extends State<Cart> {
             ),
             child: Padding(
               padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        "Products Total = Rs. ${totalAmount()}",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'sf_pro',
-                            fontSize: 17),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Order Total = Rs. ${totalAmount() + 0.18 * totalAmount() + 40}  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'sf_pro',
+                                fontSize: pHeight / 40),
+                          ),
+                          Text(
+                            "Products Total = Rs. ${totalAmount()}",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'sf_pro',
+                                fontSize: pHeight / 60),
+                          ),
+                          Text(
+                            "GST(18%) = Rs. ${(totalAmount() * 0.18).toStringAsFixed(2)}",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'sf_pro',
+                                fontSize: pHeight / 60),
+                          ),
+                          Text(
+                            "Delivery Charges = Rs. 40.0",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'sf_pro',
+                                fontSize: pHeight / 60),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "GST(18%) = Rs. ${(totalAmount() * 0.18).toStringAsFixed(2)}",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'sf_pro',
-                            fontSize: 17),
-                      ),
-                      Text(
-                        "Delivery Charges = Rs. 40.0",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'sf_pro',
-                            fontSize: 17),
-                      ),
-                      Text(
-                        "Order Total = Rs. ${totalAmount() + 0.18 * totalAmount() + 40}  ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'sf_pro',
-                            fontSize: 17),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: InkWell(
-                          onTap: () {
-                            if (widget.userPhNo != null) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => YourAccount(
-                                            phno: widget.userPhNo,
-                                          )));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PhoneLogin()));
-                            }
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
+                      Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              _showCODDialog();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                color: Colors.white,
                               ),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text(
-                                "Check address details",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'sf_pro',
-                                    fontSize: pHeight / 66,
-                                    color: Color(0xFF345995)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Text(
+                                  "Proceed for COD",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'sf_pro',
+                                      fontSize: pHeight / 45,
+                                      color: Color(0xFF345995)),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(
+                            height: pHeight / 70,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              _showPayOnlineDialog();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Text(
+                                  "Pay online",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'sf_pro',
+                                      fontSize: pHeight / 45,
+                                      color: Color(0xFF345995)),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          if (widget.userPhNo != null) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Place order?"),
-                                    content: Text("The order will be placed"),
-                                    actions: [
-                                      FlatButton(
-                                        child: Text("No"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      FlatButton(
-                                        child: Text("Yes"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          saveOrder(totalAmount() +
-                                              0.18 * totalAmount() +
-                                              40);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                          } else {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Login"),
-                                    content: Text(
-                                        "To place order you must be logged in."),
-                                    actions: [
-                                      FlatButton(
-                                        child: Text("Cancel"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      FlatButton(
-                                        child: Text("Login"),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PhoneLogin()));
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: Text(
-                              "Proceed for COD",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'sf_pro',
-                                  fontSize: pHeight / 45,
-                                  color: Color(0xFF345995)),
-                            ),
-                          ),
+                  SizedBox(
+                    height: pHeight / 80,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (widget.userPhNo != null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => YourAccount(
+                                      phno: widget.userPhNo,
+                                    )));
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PhoneLogin()));
+                      }
+                    },
+                    child: Container(
+                      width: pWidth - 20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Text(
+                          "Check address details",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'sf_pro',
+                              fontSize: pHeight / 50,
+                              color: Color(0xFF345995)),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          if (widget.userPhNo != null) {
-                            openCheckout();
-                          } else {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Login"),
-                                    content: Text(
-                                        "To place order you must be logged in."),
-                                    actions: [
-                                      FlatButton(
-                                        child: Text("Cancel"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      FlatButton(
-                                        child: Text("Login"),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PhoneLogin()));
-                                        },
-                                      )
-                                    ],
-                                  );
-                                });
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: Text(
-                              "Proceed to pay online",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'sf_pro',
-                                  fontSize: pHeight / 55,
-                                  color: Color(0xFF345995)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -361,6 +284,88 @@ class _CartState extends State<Cart> {
         ],
       ),
     );
+  }
+
+  Widget _showCODDialog() {
+    if (widget.userPhNo != null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Place order?"),
+              content: Text("The order will be placed"),
+              actions: [
+                FlatButton(
+                  child: Text("No"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("Yes"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    saveOrder(totalAmount() + 0.18 * totalAmount() + 40);
+                  },
+                )
+              ],
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Login"),
+              content: Text("To place order you must be logged in."),
+              actions: [
+                FlatButton(
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("Login"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PhoneLogin()));
+                  },
+                )
+              ],
+            );
+          });
+    }
+  }
+
+  Widget _showPayOnlineDialog() {
+    if (widget.userPhNo != null) {
+      openCheckout();
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Login"),
+              content: Text("To place order you must be logged in."),
+              actions: [
+                FlatButton(
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("Login"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PhoneLogin()));
+                  },
+                )
+              ],
+            );
+          });
+    }
   }
 
   double totalAmount() {

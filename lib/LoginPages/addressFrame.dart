@@ -15,40 +15,44 @@ class AddressFrame extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xFF345995),
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 100,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  'Enter Primary Address',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 40.0,
-                      fontFamily: 'sf_pro'),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  height: 100,
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Expanded(
-                child: Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: PageView(
-                    controller: pageController,
-                    children: <Widget>[
-                      Address(
-                        phno: this.phno,
-                      )
-                    ],
+                  child: Text(
+                    'Enter Primary Address',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 40.0,
+                        fontFamily: 'sf_pro'),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 25,
+                ),
+                Container(
+                  height: 360,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: PageView(
+                      controller: pageController,
+                      children: <Widget>[
+                        Address(
+                          phno: this.phno,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

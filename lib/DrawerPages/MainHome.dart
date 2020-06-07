@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/Classes/dicounts.dart';
@@ -15,22 +16,32 @@ import 'your_orders_page.dart';
 
 class MainHome extends StatefulWidget {
   final String phno;
+  final bool onReturnedFromCart;
+  final String itemToShow;
+  final String urlToShow;
+  final int priceToShow;
 
-  const MainHome({Key key, this.phno}) : super(key: key);
+  const MainHome(
+      {Key key,
+      this.phno,
+      this.onReturnedFromCart,
+      this.itemToShow,
+      this.urlToShow,
+      this.priceToShow})
+      : super(key: key);
 
   @override
   _MainHomeState createState() => _MainHomeState();
 }
 
 final scaffoldState = GlobalKey<ScaffoldState>();
-
 List<DailyNeeds> searchList = [];
 List<DailyNeeds> recentSearchList = [];
 
 double pWidth, pHeight;
 var indexSelected = 1;
 
-class _MainHomeState extends State<MainHome> {
+class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   void _signOut() async {
     await FirebaseAuth.instance.signOut();
     Navigator.push(
@@ -64,6 +75,25 @@ class _MainHomeState extends State<MainHome> {
       var DATA = snap.value;
       name = DATA['Name'];
     });
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    // Calling the same function "after layout" to resolve the issue.
+    if (widget.onReturnedFromCart == true) {
+      setState(() {
+        _cartList.add(DailyNeeds(
+            widget.urlToShow, widget.itemToShow, widget.priceToShow));
+        showToast('Item added to cart', Colors.white);
+        scaffoldState.currentState.showBottomSheet((context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter state) {
+            return UIDetails(
+                widget.itemToShow, widget.urlToShow, widget.priceToShow);
+          });
+        });
+      });
+    }
   }
 
   @override
@@ -1114,85 +1144,127 @@ class DataSearch extends SearchDelegate<String> {
     for (int i = 0; i < searchList.length; i++) {
       if (searchList[i].name == itemSelectedName) {
         flag = 1;
-        return Container(
-          height: pHeight,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+        DailyNeeds d = DailyNeeds(
+            searchList[i].imageUrl, searchList[i].name, searchList[i].price);
+
+        return SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Container(
+            height: pHeight,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              color: Color(0xFF345995),
             ),
-            color: Color(0xFF345995),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                SizedBox(
-                  height: pHeight / 30,
-                ),
-                Container(
-                  color: Color(0xFF345995),
-                  child: Text(
-                    searchList[i].name,
-                    style: TextStyle(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                    height: pHeight / 30,
+                  ),
+                  Container(
+                    color: Color(0xFF345995),
+                    child: Text(
+                      searchList[i].name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: pHeight / 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sf_pro',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: pHeight / 30,
+                  ),
+                  Container(
+                    height: pHeight / 2.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                       color: Colors.white,
-                      fontSize: pHeight / 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'sf_pro',
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: pHeight / 30,
-                ),
-                Container(
-                  height: pHeight / 2.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Image.network(
-                      searchList[i].imageUrl,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: pHeight / 30,
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      "Price-${searchList[i].price.toString()}",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: pHeight / 40,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'sf_pro',
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Image.network(
+                        searchList[i].imageUrl,
+                        alignment: Alignment.center,
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  height: pHeight / 6,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      "Description-",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: pHeight / 40,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'sf_pro',
+                  SizedBox(
+                    height: pHeight / 30,
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        "Price-${searchList[i].price.toString()}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: pHeight / 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'sf_pro',
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    height: pHeight / 6,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        "Description-",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: pHeight / 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'sf_pro',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainHome(
+                              key: const Key('__RIKEY1__'),
+                              onReturnedFromCart: true,
+                              itemToShow: searchList[i].name.toString(),
+                              urlToShow: searchList[i].imageUrl.toString(),
+                              priceToShow: searchList[i].price,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: Colors.white),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(
+                            "Add to Cart",
+                            style: TextStyle(
+                              fontFamily: 'sf_pro',
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );

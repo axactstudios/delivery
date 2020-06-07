@@ -166,7 +166,8 @@ class _DevelopersState extends State<Developers> {
   }
 
   _launchURL1() async {
-    const url = 'https://t.me/joinchat/ODJu0h3H5KdJmsR-bAK8Lg';
+//    const url = 'https://t.me/joinchat/ODJu0h3H5KdJmsR-bAK8Lg';
+    const url = 'https://t.me/axactstudios';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
