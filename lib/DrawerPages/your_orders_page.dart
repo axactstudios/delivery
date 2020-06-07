@@ -66,7 +66,17 @@ class _YourOrdersState extends State<YourOrders> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
                   child: Text(
-                    'Order No. ${currOrdersCard.length + 1}',
+                    'Order date and time: ${DATA[key]['DateTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Order Total ${DATA[key]['TotalAmount']}',
                     style: TextStyle(
                         color: Color(0xFF345995),
                         fontSize: 20,
@@ -174,7 +184,7 @@ class _YourOrdersState extends State<YourOrders> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                         child: currOrdersCard.length == 0
-                            ? Center(child: CircularProgressIndicator())
+                            ? Center(child: Text("No orders"))
                             : ListView.builder(
                                 itemCount: currOrdersCard.length,
                                 scrollDirection: Axis.vertical,
@@ -212,7 +222,7 @@ class _YourOrdersState extends State<YourOrders> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                         child: pastOrdersCard.length == 0
-                            ? Center(child: CircularProgressIndicator())
+                            ? Center(child: Text("No orders"))
                             : ListView.builder(
                                 itemCount: pastOrdersCard.length,
                                 scrollDirection: Axis.vertical,

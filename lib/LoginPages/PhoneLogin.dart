@@ -17,7 +17,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
   bool isValid = false;
 
   Future<Null> validate() async {
-    print("in validate : ${_phoneNumberController.text.length}");
     if (_phoneNumberController.text.length == 10) {
       setState(() {
         isValid = true;

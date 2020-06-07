@@ -41,8 +41,6 @@ class _OTPScreenState extends State<OTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("isValid - $isCodeSent");
-    print("mobiel ${widget.mobileNumber}");
     return Scaffold(
       backgroundColor: Color(0xFF345995),
       appBar: AppBar(
@@ -151,7 +149,6 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   void showToast(message, Color color) {
-    print(message);
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_LONG,
@@ -173,13 +170,10 @@ class _OTPScreenState extends State<OTPScreen> {
           .signInWithCredential(phoneAuthCredential)
           .then((AuthResult value) {
         if (value.user != null) {
-          print(value.user.phoneNumber);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => MainHome()),
               (Route<dynamic> route) => false);
-          print(
-              '--------------------------------Verify Code Was called--------------------------------');
         } else {
           showToast("Error validating OTP, try again", Colors.white);
         }
@@ -197,7 +191,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
     final PhoneCodeSent codeSent =
         (String verificationId, [int forceResendingToken]) async {
-      print("sent");
+      showToast('sent', Colors.white);
       _verificationId = verificationId;
       setState(() {
         _verificationId = verificationId;
@@ -257,9 +251,6 @@ class _OTPScreenState extends State<OTPScreen> {
                 (Route<dynamic> route) => false);
           }
         });
-
-        print(
-            '--------------------------------Form Submitted Was called--------------------------------');
       } else {
         showToast("Error validating OTP, try again", Colors.white);
       }

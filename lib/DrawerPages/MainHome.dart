@@ -53,7 +53,6 @@ class _MainHomeState extends State<MainHome> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.phno);
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
       decoration: BoxDecoration(
@@ -98,7 +97,6 @@ class _MainHomeState extends State<MainHome> {
               fontSize: 20,
             ),
           ),
-//        onTap: () => Navigator.of(context).push(_NewPage(1)),
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -303,7 +301,6 @@ class _MainHomeState extends State<MainHome> {
                             onTap: () {
                               setState(() {
                                 indexSelected = index;
-                                print(indexSelected.toString());
                               });
                             },
                             child: UICat(categories[index].name,
@@ -342,7 +339,6 @@ class _MainHomeState extends State<MainHome> {
   }
 
   Widget retClothes() {
-    print(clothes.length);
     return Container(
       child: clothes.length == 0
           ? Center(child: CircularProgressIndicator())
@@ -447,7 +443,6 @@ class _MainHomeState extends State<MainHome> {
                             onTap: () {
                               setState(() {
                                 indexSelected = index;
-                                print(indexSelected.toString());
                               });
                             },
                             child: UICat(categories[index].name,
@@ -539,9 +534,7 @@ class _MainHomeState extends State<MainHome> {
             DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
         dailyneeds.add(d);
       }
-      setState(() {
-        print(dailyneeds.length);
-      });
+      setState(() {});
     });
   }
 
@@ -559,9 +552,7 @@ class _MainHomeState extends State<MainHome> {
             DATA[key]['Original Price'], DATA[key]['Discounted Price']);
         discounts.add(d);
       }
-      setState(() {
-        print(discounts.length);
-      });
+      setState(() {});
     });
   }
 
@@ -578,9 +569,7 @@ class _MainHomeState extends State<MainHome> {
         Categories c = new Categories(DATA[key]['ImageUrl'], DATA[key]['Name']);
         categories.add(c);
       }
-      setState(() {
-        print(categories.length);
-      });
+      setState(() {});
     });
   }
 
@@ -598,9 +587,7 @@ class _MainHomeState extends State<MainHome> {
             DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
         clothes.add(b);
       }
-      setState(() {
-        print(clothes.length);
-      });
+      setState(() {});
     });
   }
 
@@ -635,9 +622,7 @@ class _MainHomeState extends State<MainHome> {
         searchList.add(d);
       }
     });
-    setState(() {
-      print(searchList.length);
-    });
+    setState(() {});
     recentSearchList.clear();
     for (int i = 0; i < 5; i++) {
       recentSearchList.add(searchList[i]);
@@ -1017,7 +1002,6 @@ class DataSearch extends SearchDelegate<String> {
       showList = recentSearchList;
     } else {
       List<DailyNeeds> temp = [];
-      print(searchList.length.toString());
       for (int i = 0; i < searchList.length; i++) {
         if (searchList[i].name.startsWith(query)) {
           temp.add(searchList[i]);

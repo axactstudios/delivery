@@ -1,5 +1,7 @@
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/DrawerPages/MainHome.dart';
+import 'package:delivery/DrawerPages/your_account_page.dart';
+import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,6 +16,18 @@ class Cart extends StatefulWidget {
 
   @override
   _CartState createState() => _CartState(this._cart);
+}
+
+void showToast(message, Color color) {
+  Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 2,
+    backgroundColor: color,
+    textColor: Color(0xFF345995),
+    fontSize: 16.0,
+  );
 }
 
 class _CartState extends State<Cart> {
@@ -113,7 +127,7 @@ class _CartState extends State<Cart> {
                 }),
           ),
           Container(
-            height: pHeight / 10,
+            height: pHeight / 5,
             decoration: BoxDecoration(
               color: Color(0xFF345995),
               borderRadius: BorderRadius.only(
@@ -121,41 +135,180 @@ class _CartState extends State<Cart> {
                 topRight: Radius.circular(30),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  "Total Amount = Rs. ${totalAmount()}",
-                  style: TextStyle(
-                      color: Colors.white, fontFamily: 'sf_pro', fontSize: 20),
-                ),
-                InkWell(
-                  onTap: () {
-                    openCheckout();
-                    saveOrder();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: Text(
-                        "Proceed to pay",
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Products Total = Rs. ${totalAmount()}",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                             fontFamily: 'sf_pro',
-                            fontSize: pHeight / 45,
-                            color: Color(0xFF345995)),
+                            fontSize: 17),
                       ),
-                    ),
+                      Text(
+                        "GST(18%) = Rs. ${totalAmount() * 0.18}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'sf_pro',
+                            fontSize: 17),
+                      ),
+                      Text(
+                        "Delivery Charges = Rs. 40.0",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'sf_pro',
+                            fontSize: 17),
+                      ),
+                      Text(
+                        "Order Total = Rs. ${totalAmount() + 0.18 * totalAmount() + 40}  ",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'sf_pro',
+                            fontSize: 17),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: InkWell(
+                          onTap: () {
+                            if (widget.userPhNo != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => YourAccount(
+                                            phno: widget.userPhNo,
+                                          )));
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PhoneLogin()));
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Text(
+                                "Check address details",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'sf_pro',
+                                    fontSize: pHeight / 66,
+                                    color: Color(0xFF345995)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
+                  Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          if (widget.userPhNo != null) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Place order?"),
+                                    content: Text("The order will be placed"),
+                                    actions: [
+                                      FlatButton(
+                                        child: Text("No"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text("Yes"),
+                                        onPressed: () {
+                                          saveOrder(totalAmount() +
+                                              0.18 * totalAmount() +
+                                              40);
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PhoneLogin()));
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Text(
+                              "Proceed for COD",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'sf_pro',
+                                  fontSize: pHeight / 45,
+                                  color: Color(0xFF345995)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (widget.userPhNo != null) {
+                            openCheckout();
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PhoneLogin()));
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Text(
+                              "Proceed to pay online",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'sf_pro',
+                                  fontSize: pHeight / 55,
+                                  color: Color(0xFF345995)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           )
         ],
@@ -163,11 +316,12 @@ class _CartState extends State<Cart> {
     );
   }
 
-  int totalAmount() {
-    int amount = 0;
+  double totalAmount() {
+    double amount = 0;
     for (int i = 0; i < _cart.length; i++) {
       amount += _cart[i].price;
     }
+
     return amount;
   }
 
@@ -189,7 +343,7 @@ class _CartState extends State<Cart> {
   void openCheckout() async {
     var options = {
       'key': 'rzp_test_uqORQiidCVwzWI',
-      'amount': (totalAmount() * 100).toString(),
+      'amount': ((totalAmount() + 0.18 * totalAmount() + 40) * 100).toString(),
       'name': 'Axact Studios',
       'description': 'Bill',
       'prefill': {'contact': '', '': 'test@razorpay.com'},
@@ -206,16 +360,12 @@ class _CartState extends State<Cart> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    saveOrder(totalAmount() + 0.18 * totalAmount() + 40);
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
-    //storing order details in database
-
-//    for (int i = 0; i < _cart.length; i++) {
-//      DatabaseReference userRef =
-//          FirebaseDatabase.instance.reference().child('Orders');
-//      userRef.set({i: _cart[i]}).whenComplete(
-//          () => print('Successfully stored order'));
-//    }
+    setState(() {
+      _cart.clear();
+    });
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -229,11 +379,8 @@ class _CartState extends State<Cart> {
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
   }
 
-  void saveOrder() {
-    String user =
-        widget.userPhNo == null ? '+917060222315' : "+91${widget.userPhNo}";
-
-    //Registering new order
+  void saveOrder(double amount) {
+    String user = "+91${widget.userPhNo}";
     DatabaseReference dbRef = FirebaseDatabase.instance
         .reference()
         .child("Orders")
@@ -241,19 +388,19 @@ class _CartState extends State<Cart> {
         .push();
 
     dbRef.set({
-//      "UserPhNo": widget.userPhNo == null ? "+917060222315" : widget.userPhNo,
       "Status": "notCompleted",
-      "orderLength": _cart.length
+      "orderLength": _cart.length,
+      "DateTime": DateTime.now().toString(),
+      "TotalAmount": amount.toString()
     });
     for (int i = 0; i < _cart.length; i++) {
       dbRef.child(i.toString()).set({
         "Name": _cart[i].name,
         "Price": _cart[i].price.toString(),
       }).then((_) {
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text('Successfully Added')));
+        showToast("Successfully ordered", Colors.white);
       }).catchError((onError) {
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text(onError)));
+        showToast(onError, Colors.white);
       });
     }
   }
