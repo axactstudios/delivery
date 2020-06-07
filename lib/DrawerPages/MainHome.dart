@@ -948,6 +948,46 @@ class _MainHomeState extends State<MainHome> {
   }
 }
 
+int flag = 0;
+
+void populateSearchList2() {
+  DatabaseReference clothesref =
+      FirebaseDatabase.instance.reference().child('Clothes');
+  clothesref.once().then((DataSnapshot snap) {
+    // ignore: non_constant_identifier_names
+    var KEYS = snap.value.keys;
+    // ignore: non_constant_identifier_names
+    var DATA = snap.value;
+    searchList.clear();
+
+    for (var key in KEYS) {
+      DailyNeeds b = new DailyNeeds(
+          DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
+      searchList.add(b);
+    }
+  });
+
+  DatabaseReference dailyitemsref =
+      FirebaseDatabase.instance.reference().child('Daily needs');
+  dailyitemsref.once().then((DataSnapshot snap) {
+    // ignore: non_constant_identifier_names
+    var KEYS = snap.value.keys;
+    // ignore: non_constant_identifier_names
+    var DATA = snap.value;
+
+    for (var key in KEYS) {
+      DailyNeeds d = new DailyNeeds(
+          DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
+      searchList.add(d);
+    }
+  });
+
+  recentSearchList.clear();
+  for (int i = 0; i < 5; i++) {
+    recentSearchList.add(searchList[i]);
+  }
+}
+
 class DataSearch extends SearchDelegate<String> {
   String itemSelectedName;
   @override
@@ -980,16 +1020,97 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     //show some result based on selection
-
-    return Container(
-      height: 100,
-      width: 100,
-      child: Card(
-        color: Colors.teal,
-        child: Column(children: [Text(itemSelectedName)]),
-      ),
-    );
-
+    populateSearchList2();
+    for (int i = 0; i < searchList.length; i++) {
+      if (searchList[i].name == itemSelectedName) {
+        flag = 1;
+        return Container(
+          height: pHeight,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            color: Color(0xFF345995),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SizedBox(
+                  height: pHeight / 30,
+                ),
+                Container(
+                  color: Color(0xFF345995),
+                  child: Text(
+                    searchList[i].name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: pHeight / 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'sf_pro',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight / 30,
+                ),
+                Container(
+                  height: pHeight / 2.5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Image.network(
+                      searchList[i].imageUrl,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight / 30,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Price-${searchList[i].price.toString()}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: pHeight / 40,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sf_pro',
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: pHeight / 6,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Description-",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: pHeight / 40,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sf_pro',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+    if (flag == 0) {
+      return Text('Tumse na ho pai');
+    }
     throw UnimplementedError();
   }
 

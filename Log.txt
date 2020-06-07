@@ -68,3 +68,7 @@ Discount Algorithm added, some UI problems unresolved.
 Discounts part render flow resolved
 7 June 2020, 03:52 P.M.-
 Signup button on orders and accountpage beautified
+7 June 2020, 07:49 P.M.-
+Developers Page rebuilt
+7 June 2020, 08:20 P.M.-
+Search Bar partial implementation completed
