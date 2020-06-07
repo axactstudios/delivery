@@ -151,7 +151,7 @@ class _CartState extends State<Cart> {
                             fontSize: 17),
                       ),
                       Text(
-                        "GST(18%) = Rs. ${totalAmount() * 0.18}",
+                        "GST(18%) = Rs. ${(totalAmount() * 0.18).toStringAsFixed(2)}",
                         style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'sf_pro',
