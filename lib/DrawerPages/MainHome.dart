@@ -180,6 +180,9 @@ class _MainHomeState extends State<MainHome> {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
+          SizedBox(
+            height: pHeight / 70,
+          ),
           retDiscounts(),
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
@@ -288,7 +291,7 @@ class _MainHomeState extends State<MainHome> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Container(
-              height: pHeight / 1.95,
+              height: discounts.length == 0 ? pHeight / 1.95 : pHeight / 2.17,
               child: retClothes(),
             ),
           )
@@ -322,6 +325,10 @@ class _MainHomeState extends State<MainHome> {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
+          SizedBox(
+            height: pHeight / 70,
+          ),
+          retDiscounts(),
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
             child: Row(
@@ -429,7 +436,7 @@ class _MainHomeState extends State<MainHome> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Container(
-              height: pHeight / 1.95,
+              height: discounts.length == 0 ? pHeight / 1.95 : pHeight / 2.17,
               child: retDailyNeeds(),
             ),
           )
@@ -697,7 +704,8 @@ class _MainHomeState extends State<MainHome> {
             children: <Widget>[
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -721,7 +729,7 @@ class _MainHomeState extends State<MainHome> {
                         "Rs. ${priceNew.toString()}",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
+//                            decoration: TextDecoration.lineThrough,
                             fontFamily: 'sf_pro',
                             color: Colors.white,
                             fontSize: 15),
