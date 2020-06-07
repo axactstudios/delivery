@@ -587,6 +587,7 @@ class _MainHomeState extends State<MainHome> {
                 itemBuilder: (_, index) {
                   return UIDiscount(
                       discounts[index].name,
+                      discounts[index].imageUrl,
                       discounts[index].category,
                       discounts[index].priceOrg,
                       discounts[index].priceNew);
@@ -624,8 +625,12 @@ class _MainHomeState extends State<MainHome> {
       var DATA = snap.value;
       discounts.clear();
       for (var key in KEYS) {
-        Discounts d = new Discounts(DATA[key]['Category'], DATA[key]['Name'],
-            DATA[key]['Original Price'], DATA[key]['Discounted Price']);
+        Discounts d = new Discounts(
+            DATA[key]['ImageUrl'],
+            DATA[key]['Category'],
+            DATA[key]['Name'],
+            DATA[key]['Original Price'],
+            DATA[key]['Discounted Price']);
         discounts.add(d);
       }
       setState(() {});
@@ -780,7 +785,8 @@ class _MainHomeState extends State<MainHome> {
     );
   }
 
-  Widget UIDiscount(String name, String category, int priceOrg, int priceNew) {
+  Widget UIDiscount(String name, String imageUrl, String category, int priceOrg,
+      int priceNew) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.5),
       child: InkWell(
@@ -788,7 +794,7 @@ class _MainHomeState extends State<MainHome> {
           scaffoldState.currentState.showBottomSheet((context) {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter state) {
-              return UIDetails(name, category, priceNew);
+              return UIDetails(name, imageUrl, priceNew);
             });
           });
         },
@@ -811,6 +817,14 @@ class _MainHomeState extends State<MainHome> {
                     children: <Widget>[
                       Text(
                         name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'sf_pro',
+                            color: Colors.white,
+                            fontSize: pHeight / 50),
+                      ),
+                      Text(
+                        category,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'sf_pro',
