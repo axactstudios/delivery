@@ -64,3 +64,5 @@ Owner app work completed except for 1-2 bugs and some issues with the layout, Or
 Completed orders page UI and Developers page UI
 7 June 2020, 02:00 A.M.-
 Discount Algorithm added, some UI problems unresolved.
+7 June 2020, 03:16 P.M.-
+Discounts part render flow resolved
