@@ -44,7 +44,7 @@ class _CartState extends State<Cart> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 1,
         iconTheme: IconThemeData(
           color: Color(0xFF345995),
         ),
