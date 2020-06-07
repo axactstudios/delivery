@@ -1,8 +1,10 @@
 import 'package:delivery/LoginPages/PhoneLogin.dart';
+import 'package:delivery/LoginPages/addressFrame.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class YourAccount extends StatefulWidget {
   final String phno;
@@ -35,7 +37,7 @@ class _YourAccountState extends State<YourAccount> {
     var pWidth = MediaQuery.of(context).size.width;
 
     getUserDetails();
-    print('------------------------${address}-------------------------------');
+
     if (widget.phno != null) {
       return Scaffold(
         appBar: AppBar(
@@ -51,6 +53,34 @@ class _YourAccountState extends State<YourAccount> {
             ),
             onPressed: () => Navigator.pop(context, false),
           ),
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 10, right: 30),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AddressFrame(),
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.pencilAlt,
+                      color: Color(0xFF345995),
+                    ),
+                    Text(
+                      'Edit',
+                      style: TextStyle(
+                        color: Color(0xFF345995),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
         body: SafeArea(
           child: Padding(

@@ -231,7 +231,6 @@ class _MainHomeState extends State<MainHome> {
           SizedBox(
             height: pHeight / 70,
           ),
-          retDiscounts(),
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
             child: Row(
@@ -249,12 +248,6 @@ class _MainHomeState extends State<MainHome> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: GestureDetector(
                     onTap: () {
-//                    DatabaseReference userRef =
-//                        FirebaseDatabase.instance.reference().child('Orders');
-//                    for (int i = 0; i < _cartList.length; i++) {
-//                      userRef.set({i: _cartList[i].name}).catchError(
-//                          FlutterError.onError);
-//                    }
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => Cart(_cartList, widget.phno),
@@ -376,7 +369,6 @@ class _MainHomeState extends State<MainHome> {
           SizedBox(
             height: pHeight / 70,
           ),
-          retDiscounts(),
           Padding(
             padding: const EdgeInsets.only(left: 35.0),
             child: Row(
