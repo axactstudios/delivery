@@ -70,3 +70,5 @@ Signup button on orders and account page beautified.
 Developers Page rebuilt, Search Bar partial implementation completed.
 7 June 2020, 11:40 P.M.-
 Orders placing and retriving algo changed and now perfect, COD option, confirmation dialog and address details check, Order placing only when user is signed in otherwise opens sign in page, detailing done, navigation drawer User details show, devlopers page buttons working.
+8 June 2020, 01:24 A.M.-
+Image picking issue resolved, discounts image upload.
