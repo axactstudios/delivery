@@ -2,6 +2,8 @@ import 'package:delivery/Classes/Orders.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+import '../LoginPages/WelcomeScreen.dart';
+
 class YourOrders extends StatefulWidget {
   final String phno;
 
@@ -124,100 +126,172 @@ class _YourOrdersState extends State<YourOrders> {
   @override
   Widget build(BuildContext context) {
 //    -M9-0YpNwG_oJFAi3FHH
-    getOrderList();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Your Orders',
-          style: TextStyle(color: Color(0xFF345995)),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Color(0xFF345995),
+    print(" phone number is${widget.phno}");
+    if (widget.phno != null) {
+      getOrderList();
+
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Your Orders',
+            style: TextStyle(color: Color(0xFF345995)),
           ),
-          onPressed: () => Navigator.pop(context, false),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xFF345995),
+            ),
+            onPressed: () => Navigator.pop(context, false),
+          ),
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-                  child: Text(
-                    'Current Orders',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF345995),
-                        fontSize: 24,
-                        fontFamily: 'sf_pro'),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                    child: Text(
+                      'Current Orders',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF345995),
+                          fontSize: 24,
+                          fontFamily: 'sf_pro'),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        padding: EdgeInsets.only(top: 7.5),
+                        decoration: BoxDecoration(
+                            color: Color(0xFF345995),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        child: currOrdersCard.length == 0
+                            ? Center(child: CircularProgressIndicator())
+                            : ListView.builder(
+                                itemCount: currOrdersCard.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (_, index) {
+                                  return currOrdersCard[index];
+                                },
+                              )),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                    child: Text(
+                      'Past Orders',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF345995),
+                          fontSize: 24,
+                          fontFamily: 'sf_pro'),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        padding: EdgeInsets.only(top: 7.5),
+                        decoration: BoxDecoration(
+                            color: Color(0xFF345995),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        child: pastOrdersCard.length == 0
+                            ? Center(child: CircularProgressIndicator())
+                            : ListView.builder(
+                                itemCount: pastOrdersCard.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (_, index) {
+                                  return pastOrdersCard[index];
+                                },
+                              )),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Your Orders',
+            style: TextStyle(color: Color(0xFF345995)),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xFF345995),
+            ),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  "Please Sign in to view your past orders",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF345995),
+                    fontFamily: 'sf_pro',
+                    fontSize: 30,
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      padding: EdgeInsets.only(top: 7.5),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF345995),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: currOrdersCard.length == 0
-                          ? Center(child: CircularProgressIndicator())
-                          : ListView.builder(
-                              itemCount: currOrdersCard.length,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (_, index) {
-                                return currOrdersCard[index];
-                              },
-                            )),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-                  child: Text(
-                    'Past Orders',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF345995),
-                        fontSize: 24,
-                        fontFamily: 'sf_pro'),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WelcomeScreen()));
+                },
+                child: Card(
+                  color: Color(0xFF345995),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Sign In",
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'sf_pro'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      padding: EdgeInsets.only(top: 7.5),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF345995),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: pastOrdersCard.length == 0
-                          ? Center(child: CircularProgressIndicator())
-                          : ListView.builder(
-                              itemCount: pastOrdersCard.length,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (_, index) {
-                                return pastOrdersCard[index];
-                              },
-                            )),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+      );
+    }
   }
 }

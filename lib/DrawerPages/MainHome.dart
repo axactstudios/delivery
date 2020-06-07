@@ -61,9 +61,13 @@ class _MainHomeState extends State<MainHome> {
       ),
       accountName: Text(
         'Welcome to Budget Mart',
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'sf_pro',
+        ),
       ),
-      accountEmail: Text(" "),
+      accountEmail: Text("axactstudios@gmail.com"),
       currentAccountPicture: CircleAvatar(
           child: Text(
         'B.M.',
@@ -75,11 +79,25 @@ class _MainHomeState extends State<MainHome> {
       children: <Widget>[
         drawerHeader,
         ListTile(
-          title: Text('Shop by Categories'),
+          title: Text(
+            'Shop by Categories',
+            style: TextStyle(
+              color: Color(0xFF345995),
+              fontFamily: 'sf_pro',
+              fontSize: 20,
+            ),
+          ),
           onTap: () => Navigator.pop(context, true),
         ),
         ListTile(
-          title: Text('Your Orders'),
+          title: Text(
+            'Your Orders',
+            style: TextStyle(
+              color: Color(0xFF345995),
+              fontFamily: 'sf_pro',
+              fontSize: 20,
+            ),
+          ),
 //        onTap: () => Navigator.of(context).push(_NewPage(1)),
           onTap: () => Navigator.push(
               context,
@@ -89,7 +107,14 @@ class _MainHomeState extends State<MainHome> {
                       ))),
         ),
         ListTile(
-            title: Text('Your Account'),
+            title: Text(
+              'Your Account',
+              style: TextStyle(
+                color: Color(0xFF345995),
+                fontFamily: 'sf_pro',
+                fontSize: 20,
+              ),
+            ),
             onTap: () {
               Navigator.push(
                   context,
@@ -99,16 +124,39 @@ class _MainHomeState extends State<MainHome> {
                           )));
             }),
         ListTile(
-          title: Text('Support'),
+          title: Text(
+            'Support',
+            style: TextStyle(
+              color: Color(0xFF345995),
+              fontFamily: 'sf_pro',
+              fontSize: 20,
+            ),
+          ),
           onTap: () => Navigator.push(context,
               MaterialPageRoute(builder: (context) => ContactUsPage())),
         ),
         ListTile(
-          title: Text('Developers'),
+          title: Text(
+            'Developers',
+            style: TextStyle(
+              color: Color(0xFF345995),
+              fontFamily: 'sf_pro',
+              fontSize: 20,
+            ),
+          ),
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Developers())),
         ),
-        ListTile(title: Text('Sign Out'), onTap: () => _signOut()),
+        ListTile(
+            title: Text(
+              'Sign Out',
+              style: TextStyle(
+                color: Color(0xFF345995),
+                fontFamily: 'sf_pro',
+                fontSize: 20,
+              ),
+            ),
+            onTap: () => _signOut()),
       ],
     );
     pWidth = MediaQuery.of(context).size.width;
