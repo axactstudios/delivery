@@ -3,7 +3,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../LoginPages/PhoneLogin.dart';
-import '../LoginPages/WelcomeScreen.dart';
 
 class YourOrders extends StatefulWidget {
   final String phno;
@@ -40,7 +39,6 @@ class _YourOrdersState extends State<YourOrders> {
 
         currListTile.clear();
         pastListTile.clear();
-        int l = 0;
         //TODO: Change phone number
         if (DATA[key]['Status'] == 'notCompleted') {
           print('Order Length is ${DATA[key]['orderLength'].toString()}');

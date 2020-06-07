@@ -20,6 +20,7 @@ dependencies:
   flutter_open_whatsapp: ^0.1.2
   cloud_firestore: ^0.13.6
   cupertino_icons: ^0.1.2
+  url_launcher: ^5.4.10
 
 dev_dependencies:
   flutter_test:

@@ -38,9 +38,8 @@ class _YourAccountState extends State<YourAccount> {
     var pHeight = MediaQuery.of(context).size.height;
     var pWidth = MediaQuery.of(context).size.width;
 
-    getUserDetails();
-
     if (widget.phno != null) {
+      getUserDetails();
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

@@ -68,7 +68,7 @@ class _MainHomeState extends State<MainHome> {
 
   @override
   Widget build(BuildContext context) {
-    getUserName();
+    widget.phno != null ? getUserName() : null;
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
       decoration: BoxDecoration(

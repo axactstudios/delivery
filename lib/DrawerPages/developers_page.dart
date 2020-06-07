@@ -1,7 +1,6 @@
-import 'package:delivery/DrawerPages/support_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Developers extends StatefulWidget {
   @override
@@ -88,8 +87,7 @@ class _DevelopersState extends State<Developers> {
               children: <Widget>[
                 FlatButton(
                   onPressed: () {
-                    FlutterOpenWhatsapp.sendSingleMessage(
-                        "917060222315", "Hello");
+                    _launchURL1();
                   },
                   child: SizedBox(
                     height: pHeight / 6.5,
@@ -109,7 +107,7 @@ class _DevelopersState extends State<Developers> {
                               child: Icon(
                                 FontAwesomeIcons.telegramPlane,
                                 size: pHeight / 25.0,
-                                color: Colors.green,
+                                color: Colors.blue,
                               ),
                             ),
                             Text(
@@ -125,8 +123,7 @@ class _DevelopersState extends State<Developers> {
                 ),
                 FlatButton(
                   onPressed: () {
-                    FlutterOpenWhatsapp.sendSingleMessage(
-                        "917060222315", "Hello");
+                    _launchURL();
                   },
                   child: SizedBox(
                     height: pHeight / 6.5,
@@ -166,5 +163,23 @@ class _DevelopersState extends State<Developers> {
         ),
       ),
     );
+  }
+
+  _launchURL1() async {
+    const url = 'https://t.me/joinchat/ODJu0h3H5KdJmsR-bAK8Lg';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL() async {
+    const url = 'https://google.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
