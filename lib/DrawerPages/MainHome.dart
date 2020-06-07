@@ -262,7 +262,45 @@ class _MainHomeState extends State<MainHome> {
                   onPressed: () {
                     populateSearchList();
                     showSearch(context: context, delegate: DataSearch());
-                  })
+                  }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Cart(_cartList, widget.phno),
+                      ),
+                    );
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.shoppingCart,
+                        color: Color(0xFF345995),
+                        size: pHeight / 35,
+                      ),
+                      if (_cartList.length > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2.0),
+                          child: CircleAvatar(
+                            radius: 8.0,
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            child: Text(
+                              _cartList.length.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
           drawer: Drawer(
@@ -290,7 +328,45 @@ class _MainHomeState extends State<MainHome> {
                   onPressed: () {
                     populateSearchList();
                     showSearch(context: context, delegate: DataSearch());
-                  })
+                  }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Cart(_cartList, widget.phno),
+                      ),
+                    );
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.shoppingCart,
+                        color: Color(0xFF345995),
+                        size: pHeight / 35,
+                      ),
+                      if (_cartList.length > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2.0),
+                          child: CircleAvatar(
+                            radius: 8.0,
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            child: Text(
+                              _cartList.length.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
           drawer: Drawer(
@@ -323,44 +399,6 @@ class _MainHomeState extends State<MainHome> {
                       fontSize: pHeight / 21,
                       fontFamily: 'sf_pro',
                       fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Cart(_cartList, widget.phno),
-                        ),
-                      );
-                    },
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        Icon(
-                          FontAwesomeIcons.shoppingCart,
-                          color: Color(0xFF345995),
-                          size: pHeight / 35,
-                        ),
-                        if (_cartList.length > 0)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 2.0),
-                            child: CircleAvatar(
-                              radius: 8.0,
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              child: Text(
-                                _cartList.length.toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -459,44 +497,6 @@ class _MainHomeState extends State<MainHome> {
                       fontSize: pHeight / 21,
                       fontFamily: 'sf_pro',
                       fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Cart(_cartList, widget.phno),
-                        ),
-                      );
-                    },
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        Icon(
-                          FontAwesomeIcons.shoppingCart,
-                          color: Color(0xFF345995),
-                          size: pHeight / 35,
-                        ),
-                        if (_cartList.length > 0)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 2.0),
-                            child: CircleAvatar(
-                              radius: 8.0,
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              child: Text(
-                                _cartList.length.toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
