@@ -40,7 +40,8 @@ class _YourOrdersState extends State<YourOrders> {
         currListTile.clear();
         pastListTile.clear();
         //TODO: Change phone number
-        if (DATA[key]['Status'] == 'notCompleted') {
+        if (DATA[key]['Status'] == 'notCompleted' ||
+            DATA[key]['Status'] == 'Shipped') {
           print('Order Length is ${DATA[key]['orderLength'].toString()}');
           for (i = 0; i < DATA[key]['orderLength']; i++) {
             ListTile t1 = new ListTile(
@@ -89,11 +90,41 @@ class _YourOrdersState extends State<YourOrders> {
                   padding: const EdgeInsets.fromLTRB(15, 0, 0, 10),
                   child: Text('Order Status is ${DATA[key]["Status"]}'),
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Shipping time: ${DATA[key]['ShippedTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Completion time: ${DATA[key]['CompletedTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Completed time: ${DATA[key]['CompletedTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
               ],
             ),
           );
           currOrdersCard.add(c);
-        } else {
+        } else if (DATA[key]['Status'] == 'Completed') {
           print('Order Length is ${DATA[key]['orderLength'].toString()}');
           for (i = 0; i < DATA[key]['orderLength']; i++) {
             ListTile t1 = new ListTile(
@@ -114,9 +145,49 @@ class _YourOrdersState extends State<YourOrders> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Order date and time: ${DATA[key]['DateTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Order Total ${DATA[key]['TotalAmount']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: pastListTile,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Shipping time: ${DATA[key]['ShippedTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                  child: Text(
+                    'Completed time: ${DATA[key]['CompletedTime']}',
+                    style: TextStyle(
+                        color: Color(0xFF345995),
+                        fontSize: 20,
+                        fontFamily: 'sf_pro'),
+                  ),
                 ),
               ],
             ),

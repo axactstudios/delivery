@@ -234,6 +234,7 @@ class _CartState extends State<Cart> {
                                       FlatButton(
                                         child: Text("Yes"),
                                         onPressed: () {
+                                          Navigator.of(context).pop();
                                           saveOrder(totalAmount() +
                                               0.18 * totalAmount() +
                                               40);
@@ -437,7 +438,9 @@ class _CartState extends State<Cart> {
       "Status": "notCompleted",
       "orderLength": _cart.length,
       "DateTime": DateTime.now().toString(),
-      "TotalAmount": amount.toString()
+      "TotalAmount": amount.toString(),
+      "ShippedTime": "Not Yet Shipped",
+      "CompletedTime": "Not Yet completed"
     });
     for (int i = 0; i < _cart.length; i++) {
       dbRef.child(i.toString()).set({
