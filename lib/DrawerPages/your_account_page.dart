@@ -4,6 +4,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../LoginPages/PhoneLogin.dart';
+
 class YourAccount extends StatefulWidget {
   final String phno;
 
@@ -131,17 +133,66 @@ class _YourAccountState extends State<YourAccount> {
       );
     } else {
       return Scaffold(
-        body: SafeArea(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Your Account',
+            style: TextStyle(color: Color(0xFF345995)),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xFF345995),
+            ),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+        ),
+        body: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              InkWell(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PhoneLogin())),
-                child: Card(
-                  elevation: 50,
-                  child: Text('Sign Up'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  "Please Sign in to view your account details",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF345995),
+                    fontFamily: 'sf_pro',
+                    fontSize: 30,
+                  ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PhoneLogin()));
+                },
+                child: Card(
+                  color: Color(0xFF345995),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Sign In",
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'sf_pro'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
