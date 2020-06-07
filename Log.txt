@@ -60,6 +60,7 @@ Order retrieving resolved,fully functional, Whatsapp message sending also added.
 Account Info page UI done, Added algorithm for checking if user already has an address stored.
 6 June 2020, 06:21 P.M.-
 Owner app work completed except for 1-2 bugs and some issues with the layout, Orders retriving and changing order status done.
-7 June 2020 01:31 A.M.-
+7 June 2020, 01:31 A.M.-
 Completed orders page UI and Developers page UI
-
+7 June 2020, 02:00 A.M.-
+Discount Algorithm added, some UI problems unresolved.
