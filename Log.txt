@@ -66,3 +66,5 @@ Completed orders page UI and Developers page UI
 Discount Algorithm added, some UI problems unresolved.
 7 June 2020, 03:16 P.M.-
 Discounts part render flow resolved
+7 June 2020, 03:52 P.M.-
+Signup button on orders and accountpage beautified
