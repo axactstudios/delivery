@@ -243,10 +243,32 @@ class _CartState extends State<Cart> {
                                   );
                                 });
                           } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PhoneLogin()));
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Login"),
+                                    content: Text("To place order you must be logged in."),
+                                    actions: [
+                                      FlatButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text("Login"),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => PhoneLogin()));
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+
                           }
                         },
                         child: Container(
@@ -278,10 +300,31 @@ class _CartState extends State<Cart> {
                           if (widget.userPhNo != null) {
                             openCheckout();
                           } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PhoneLogin()));
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Login"),
+                                    content: Text("To place order you must be logged in."),
+                                    actions: [
+                                      FlatButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text("Login"),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => PhoneLogin()));
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
                           }
                         },
                         child: Container(

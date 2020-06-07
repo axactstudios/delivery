@@ -104,7 +104,8 @@ class _DevelopersState extends State<Developers> {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, top: 8, right: 8),
                               child: Icon(
                                 FontAwesomeIcons.telegramPlane,
                                 size: pHeight / 25.0,
@@ -140,7 +141,8 @@ class _DevelopersState extends State<Developers> {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, top: 8, right: 8),
                               child: Icon(
                                 FontAwesomeIcons.arrowAltCircleRight,
                                 size: pHeight / 25.0,
