@@ -74,10 +74,5 @@ Orders placing and retriving algo changed and now perfect, COD option, confirmat
 Image picking issue resolved, discounts image upload.
 8 June 2020, 04:45 A.M.-
 Search Bar full implementation. done item is added to cart too.
-8 June 2020, 02:13 P.M.-
-Support page renderflow error solved
-9 June 2020, 03:08 A.M.-
-Cart renderflow error solved
-9 June 2020 03:18 .M.-
-Finally all renderflow errors in client version resolved
-App ready to be staged on play store
+9 June 2020, 03:18 .M.-
+Finally all renderflow errors in client version resolved, App ready to be staged on play store
