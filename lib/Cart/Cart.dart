@@ -38,9 +38,12 @@ class _CartState extends State<Cart> {
   _CartState(this._cart);
 
   List<DailyNeeds> _cart;
-
+  double pHeight, pWidth;
   @override
   Widget build(BuildContext context) {
+    pHeight = MediaQuery.of(context).size.height;
+    pWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -89,7 +92,7 @@ class _CartState extends State<Cart> {
                         child: ListTile(
                           leading: Image.network(
                             item.imageUrl,
-                            height: 200,
+                            height: pHeight / 15,
                           ),
                           title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,14 +103,14 @@ class _CartState extends State<Cart> {
                                       color: Colors.white,
                                       fontFamily: 'sf_pro',
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                                      fontSize: pHeight / 45),
                                 ),
                                 Text(
                                   item.price.toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'sf_pro',
-                                      fontSize: 16),
+                                      fontSize: pHeight / 55),
                                 )
                               ]),
                           trailing: GestureDetector(
@@ -127,17 +130,15 @@ class _CartState extends State<Cart> {
                 }),
           ),
           Container(
-            height: pHeight / 5,
+            height: pHeight / 4,
             decoration: BoxDecoration(
               color: Color(0xFF345995),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(0)),
             ),
             child: Padding(
               padding: EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -256,23 +257,26 @@ class _CartState extends State<Cart> {
                     },
                     child: Container(
                       width: pWidth - 20,
+                      height: pHeight / 18,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(15),
                         ),
                         color: Colors.white,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Text(
-                          "Check address details",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'sf_pro',
-                              fontSize: pHeight / 50,
-                              color: Color(0xFF345995)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Text(
+                            "Check address details",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'sf_pro',
+                                fontSize: pHeight / 60,
+                                color: Color(0xFF345995)),
+                          ),
                         ),
                       ),
                     ),
@@ -280,7 +284,7 @@ class _CartState extends State<Cart> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

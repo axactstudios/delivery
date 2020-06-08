@@ -40,6 +40,7 @@ List<DailyNeeds> recentSearchList = [];
 
 double pWidth, pHeight;
 var indexSelected = 1;
+List<DailyNeeds> _cartList = [];
 
 class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   void _signOut() async {
@@ -53,7 +54,6 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   List<DailyNeeds> dailyneeds = [];
   List<Discounts> discounts = [];
   List<DailyNeeds> clothes = [];
-  List<DailyNeeds> _cartList = [];
 
   @override
   void initState() {
@@ -81,16 +81,14 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
     if (widget.onReturnedFromCart == true) {
-      setState(() {
-        _cartList.add(DailyNeeds(
-            widget.urlToShow, widget.itemToShow, widget.priceToShow));
-        showToast('Item added to cart', Colors.white);
-        scaffoldState.currentState.showBottomSheet((context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter state) {
-            return UIDetails(
-                widget.itemToShow, widget.urlToShow, widget.priceToShow);
-          });
+      _cartList.add(
+          DailyNeeds(widget.urlToShow, widget.itemToShow, widget.priceToShow));
+      showToast('Item added to cart', Colors.white);
+      scaffoldState.currentState.showBottomSheet((context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter state) {
+          return UIDetails(
+              widget.itemToShow, widget.urlToShow, widget.priceToShow);
         });
       });
     }
@@ -774,7 +772,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                   ),
                 ),
                 width: (pWidth - 100),
-                height: pWidth / 3.5,
+                height: pWidth / 3.15,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Image.network(
@@ -984,7 +982,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
               height: pHeight / 30,
             ),
             Container(
-              height: pHeight / 2.5,
+              height: pHeight / 3,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(30)),
                 color: Colors.white,
