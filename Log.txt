@@ -78,3 +78,6 @@ Search Bar full implementation. done item is added to cart too.
 Support page renderflow error solved
 9 June 2020, 03:08 A.M.-
 Cart renderflow error solved
+9 June 2020 03:18 .M.-
+Finally all renderflow errors in client version resolved
+App ready to be staged on play store
