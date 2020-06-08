@@ -74,3 +74,5 @@ Orders placing and retriving algo changed and now perfect, COD option, confirmat
 Image picking issue resolved, discounts image upload.
 8 June 2020, 04:45 A.M.-
 Search Bar full implementation. done item is added to cart too.
+8 June 2020, 02:13 P.M.-
+Support page renderflow error solved
