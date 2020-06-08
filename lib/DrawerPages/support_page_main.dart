@@ -102,29 +102,27 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8.0, top: 8, right: 8),
-                            child: Icon(
-                              FontAwesomeIcons.whatsapp,
-                              size: pHeight / 25.0,
-                              color: Colors.green,
-                            ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, top: 8, right: 8),
+                          child: Icon(
+                            FontAwesomeIcons.whatsapp,
+                            size: pHeight / 25.0,
+                            color: Colors.green,
                           ),
-                          SizedBox(
-                            height: pHeight / 70,
-                          ),
-                          Text(
-                            "Chat with us",
-                            style: TextStyle(fontSize: pHeight / 60),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: pHeight / 70,
+                        ),
+                        Text(
+                          "Chat with us",
+                          style: TextStyle(fontSize: pHeight / 60),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -140,29 +138,27 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8.0, top: 8, right: 8),
-                            child: Icon(
-                              FontAwesomeIcons.mailBulk,
-                              size: pHeight / 25.0,
-                              color: Color.fromARGB(255, 143, 23, 255),
-                            ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, top: 8, right: 8),
+                          child: Icon(
+                            FontAwesomeIcons.mailBulk,
+                            size: pHeight / 25.0,
+                            color: Color.fromARGB(255, 143, 23, 255),
                           ),
-                          SizedBox(
-                            height: pHeight / 70,
-                          ),
-                          Text(
-                            "Email Us",
-                            style: TextStyle(fontSize: pHeight / 60),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: pHeight / 70,
+                        ),
+                        Text(
+                          "Email Us",
+                          style: TextStyle(fontSize: pHeight / 60),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ),
