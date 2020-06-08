@@ -105,14 +105,10 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, top: 8, right: 8),
-                          child: Icon(
-                            FontAwesomeIcons.whatsapp,
-                            size: pHeight / 25.0,
-                            color: Colors.green,
-                          ),
+                        Icon(
+                          FontAwesomeIcons.whatsapp,
+                          size: pHeight / 25.0,
+                          color: Colors.green,
                         ),
                         SizedBox(
                           height: pHeight / 70,
@@ -141,14 +137,10 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, top: 8, right: 8),
-                          child: Icon(
-                            FontAwesomeIcons.mailBulk,
-                            size: pHeight / 25.0,
-                            color: Color.fromARGB(255, 143, 23, 255),
-                          ),
+                        Icon(
+                          FontAwesomeIcons.mailBulk,
+                          size: pHeight / 25.0,
+                          color: Color.fromARGB(255, 143, 23, 255),
                         ),
                         SizedBox(
                           height: pHeight / 70,

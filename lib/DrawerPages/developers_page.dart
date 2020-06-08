@@ -97,26 +97,23 @@ class _DevelopersState extends State<Developers> {
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, top: 8, right: 8),
-                              child: Icon(
-                                FontAwesomeIcons.telegramPlane,
-                                size: pHeight / 25.0,
-                                color: Colors.blue,
-                              ),
-                            ),
-                            Text(
-                              "Contact Us Now",
-                              style: TextStyle(fontSize: pHeight / 60),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            FontAwesomeIcons.telegramPlane,
+                            size: pHeight / 25.0,
+                            color: Colors.blue,
+                          ),
+                          SizedBox(
+                            height: pHeight / 70,
+                          ),
+                          Text(
+                            "Contact Us \nNow",
+                            style: TextStyle(fontSize: pHeight / 60),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -133,26 +130,23 @@ class _DevelopersState extends State<Developers> {
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, top: 8, right: 8),
-                              child: Icon(
-                                FontAwesomeIcons.arrowAltCircleRight,
-                                size: pHeight / 25.0,
-                                color: Colors.green,
-                              ),
-                            ),
-                            Text(
-                              "Visit Our Website",
-                              style: TextStyle(fontSize: pHeight / 60),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            FontAwesomeIcons.arrowAltCircleRight,
+                            size: pHeight / 25.0,
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                            height: pHeight / 70,
+                          ),
+                          Text(
+                            "Visit Our \nWebsite",
+                            style: TextStyle(fontSize: pHeight / 60),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
                   ),
