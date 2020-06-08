@@ -76,3 +76,5 @@ Image picking issue resolved, discounts image upload.
 Search Bar full implementation. done item is added to cart too.
 8 June 2020, 02:13 P.M.-
 Support page renderflow error solved
+9 June 2020, 03:08 A.M.-
+Cart renderflow error solved
