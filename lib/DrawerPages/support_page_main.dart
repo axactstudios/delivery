@@ -32,8 +32,11 @@ class _ContactUsPageState extends State<ContactUsPage> {
     });
   }
 
+  double pWidth, pHeight;
   @override
   Widget build(BuildContext context) {
+    pHeight = MediaQuery.of(context).size.height;
+    pWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -54,9 +57,10 @@ class _ContactUsPageState extends State<ContactUsPage> {
         children: <Widget>[
           Image(
             image: AssetImage('images/hello.png'),
+            height: pHeight / 2.5,
           ),
           SizedBox(
-            height: 30.0,
+            height: pHeight / 50,
           ),
           Text(
             "How can we help you?",
@@ -67,24 +71,34 @@ class _ContactUsPageState extends State<ContactUsPage> {
             ),
             textAlign: TextAlign.center,
           ),
+          SizedBox(
+            height: pHeight / 50,
+          ),
           Padding(
-            padding: EdgeInsets.all(30.0),
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: Text(
-                "It looks like you are having some problems with the app or you want to request some material or videos. We are here to help so please get in touch with us",
+                "If you have any complaint regarding any product or service feel free"
+                "to contact us. Your problem will be taken into consideration as soon as possible",
                 style: TextStyle(fontSize: 18.0),
                 textAlign: TextAlign.center),
           ),
+          SizedBox(
+            height: pHeight / 50,
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               FlatButton(
                 onPressed: () {
                   FlutterOpenWhatsapp.sendSingleMessage(
                       "919027553376", "Hello");
                 },
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.0),
+                child: SizedBox(
+                  height: pHeight / 6.5,
+                  width: pWidth / 3,
                   child: Card(
-                    elevation: 20.0,
+                    elevation: 7.0,
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -92,17 +106,21 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       padding: EdgeInsets.all(20.0),
                       child: Column(
                         children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.whatsapp,
-                            size: 40.0,
-                            color: Colors.green,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, top: 8, right: 8),
+                            child: Icon(
+                              FontAwesomeIcons.whatsapp,
+                              size: pHeight / 25.0,
+                              color: Colors.green,
+                            ),
                           ),
                           SizedBox(
-                            height: 30.0,
+                            height: pHeight / 70,
                           ),
                           Text(
                             "Chat with us",
-                            style: TextStyle(fontSize: 18.0),
+                            style: TextStyle(fontSize: pHeight / 60),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -114,29 +132,33 @@ class _ContactUsPageState extends State<ContactUsPage> {
               FlatButton(
                 onPressed: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Support())),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
+                child: SizedBox(
+                  height: pHeight / 6.5,
+                  width: pWidth / 3,
                   child: Card(
-                    elevation: 20.0,
+                    elevation: 7.0,
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 39.0),
+                      padding: EdgeInsets.all(20.0),
                       child: Column(
                         children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.mailBulk,
-                            size: 40.0,
-                            color: Color.fromARGB(255, 143, 23, 255),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, top: 8, right: 8),
+                            child: Icon(
+                              FontAwesomeIcons.mailBulk,
+                              size: pHeight / 25.0,
+                              color: Color.fromARGB(255, 143, 23, 255),
+                            ),
                           ),
                           SizedBox(
-                            height: 30.0,
+                            height: pHeight / 70,
                           ),
                           Text(
-                            "Email us",
-                            style: TextStyle(fontSize: 18.0),
+                            "Email Us",
+                            style: TextStyle(fontSize: pHeight / 60),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -144,9 +166,9 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
