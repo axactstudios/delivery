@@ -771,7 +771,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                     Radius.circular(15),
                   ),
                 ),
-                width: (pWidth - 100),
+                width: pWidth / 2.5,
                 height: pWidth / 3.15,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -781,30 +781,31 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                   ),
                 ),
               ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: pHeight / 50),
-                      ),
-                      Text(
-                        "Rs. ${price.toString()}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: 15),
-                      ),
-                    ],
+              SizedBox(
+                height: pWidth / 150,
+              ),
+              Column(
+                children: <Widget>[
+                  Text(
+                    name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'sf_pro',
+                        color: Colors.white,
+                        fontSize: pHeight / 50),
                   ),
-                ),
+                  SizedBox(
+                    height: pWidth / 150,
+                  ),
+                  Text(
+                    "Rs. ${price.toString()}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'sf_pro',
+                        color: Colors.white,
+                        fontSize: 15),
+                  ),
+                ],
               )
             ],
           ),
