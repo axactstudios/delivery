@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth: ^0.16.0
+  flutter_spinkit: ^4.1.2+1
   font_awesome_flutter: ^8.8.1
   firebase_core: ^0.4.4+3
   fluttertoast: ^4.0.1
@@ -18,7 +19,6 @@ dependencies:
   image_picker: ^0.6.6+4
   razorpay_flutter: ^1.2.1
   flutter_open_whatsapp: ^0.1.2
-#  cloud_firestore: ^0.13.6
   cupertino_icons: ^0.1.2
   url_launcher: ^5.4.10
   after_layout: ^1.0.7+2

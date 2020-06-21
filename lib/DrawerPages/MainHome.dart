@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/Classes/dicounts.dart';
+import 'package:delivery/DrawerPages/PrivacyPolicy.dart';
 import 'package:delivery/DrawerPages/support_page_main.dart';
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
@@ -209,6 +210,18 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
           ),
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Developers())),
+        ),
+        ListTile(
+          title: Text(
+            'Privacy Policy',
+            style: TextStyle(
+              color: Color(0xFF345995),
+              fontFamily: 'sf_pro',
+              fontSize: 20,
+            ),
+          ),
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => PrivacyPolicy())),
         ),
         ListTile(
             title: Text(
@@ -772,7 +785,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                   ),
                 ),
                 width: (pWidth - 100),
-                height: pWidth / 3.15,
+                height: pWidth / 3.5,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Image.network(

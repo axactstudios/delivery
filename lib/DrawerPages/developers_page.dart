@@ -33,127 +33,132 @@ class _DevelopersState extends State<Developers> {
       body: Container(
         color: Colors.white,
         child: Center(
-          child: Column(children: [
-            SizedBox(
-              height: pHeight / 20,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Image.asset(
-                'images/Logo.png',
+          child: Column(
+            children: [
+              SizedBox(
+                height: pHeight / 20,
               ),
-            ),
-            SizedBox(
-              height: pHeight / 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Text(
-                'At Axact Studios we create your ideas into any digital platform be'
-                ' it apps or websites.\nWe also provide UI/UX design and full'
-                ' maintenance of the platform after the launch of the product.',
-                style: TextStyle(
-                    color: Color(0xFF345995),
-                    fontSize: pHeight / 40,
-                    fontFamily: 'sf_pro'),
-                textAlign: TextAlign.center,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Image.asset(
+                  'images/Logo.png',
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Text(
-                'Got an idea that needs to enter the competitive world of apps and websites?',
-                style: TextStyle(
-                    color: Color(0xFF345995),
-                    fontSize: pHeight / 40,
-                    fontFamily: 'sf_pro'),
-                textAlign: TextAlign.center,
+              SizedBox(
+                height: pHeight / 20,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
-              child: Text(
-                'Let Us Know',
-                style: TextStyle(
-                    color: Color(0xFF345995),
-                    fontSize: pHeight / 35,
-                    fontFamily: 'sf_pro'),
-                textAlign: TextAlign.center,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Text(
+                  'At Axact Studios we create your ideas into any digital platform be'
+                  ' it apps or websites.\nWe also provide UI/UX design and full'
+                  ' maintenance of the platform after the launch of the product.',
+                  style: TextStyle(
+                      color: Color(0xFF345995),
+                      fontSize: pHeight / 40,
+                      fontFamily: 'sf_pro'),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    _launchURL1();
-                  },
-                  child: SizedBox(
-                    height: pHeight / 6.5,
-                    width: pWidth / 3,
-                    child: Card(
-                      elevation: 7.0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.telegramPlane,
-                            size: pHeight / 25.0,
-                            color: Colors.blue,
-                          ),
-                          SizedBox(
-                            height: pHeight / 70,
-                          ),
-                          Text(
-                            "Contact Us \nNow",
-                            style: TextStyle(fontSize: pHeight / 60),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Text(
+                  'Got an idea that needs to enter the competitive world of apps and websites?',
+                  style: TextStyle(
+                      color: Color(0xFF345995),
+                      fontSize: pHeight / 40,
+                      fontFamily: 'sf_pro'),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+                child: Text(
+                  'Let Us Know',
+                  style: TextStyle(
+                      color: Color(0xFF345995),
+                      fontSize: pHeight / 35,
+                      fontFamily: 'sf_pro'),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      _launchURL1();
+                    },
+                    child: SizedBox(
+                      height: pHeight / 6.5,
+                      width: pWidth / 3,
+                      child: Card(
+                        elevation: 7.0,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.telegramPlane,
+                              size: pHeight / 25.0,
+                              color: Colors.blue,
+                            ),
+                            SizedBox(
+                              height: pHeight / 70,
+                            ),
+                            Text(
+                              "Contact Us \nNow",
+                              style: TextStyle(fontSize: pHeight / 60),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    _launchURL();
-                  },
-                  child: SizedBox(
-                    height: pHeight / 6.5,
-                    width: pWidth / 3,
-                    child: Card(
-                      elevation: 7.0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.arrowAltCircleRight,
-                            size: pHeight / 25.0,
-                            color: Colors.green,
-                          ),
-                          SizedBox(
-                            height: pHeight / 70,
-                          ),
-                          Text(
-                            "Visit Our \nWebsite",
-                            style: TextStyle(fontSize: pHeight / 60),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                  FlatButton(
+                    onPressed: () {
+                      _launchURL();
+                    },
+                    child: SizedBox(
+                      height: pHeight / 6.5,
+                      width: pWidth / 3,
+                      child: Card(
+                        elevation: 7.0,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.arrowAltCircleRight,
+                              size: pHeight / 25.0,
+                              color: Colors.green,
+                            ),
+                            SizedBox(
+                              height: pHeight / 70,
+                            ),
+                            Text(
+                              "Visit Our \nWebsite",
+                              style: TextStyle(fontSize: pHeight / 60),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ]),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

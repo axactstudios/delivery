@@ -40,11 +40,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (user != null) {
-      return MainHome();
-    } else {
-      return WelcomeScreen();
-    }
+    getCurrentUser();
+
+    return WelcomeScreen();
   }
 }
 
