@@ -117,22 +117,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: pHeight / 40,
-              ),
-              InkWell(
-                onTap: goToHomePage1,
-                child: Center(
-                  child: Text(
-                    'Skip this step',
-                    style: TextStyle(
-                      fontSize: pHeight / 40,
-                      fontFamily: 'sf_pro',
-                      color: Color(0xFF787878),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),

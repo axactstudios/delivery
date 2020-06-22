@@ -20,7 +20,7 @@ class YourAccount extends StatefulWidget {
 
 class _YourAccountState extends State<YourAccount> {
   FirebaseUser user1;
-
+  String name1;
   FirebaseAuth mAuth = FirebaseAuth.instance;
   User userData = new User();
 
@@ -38,6 +38,10 @@ class _YourAccountState extends State<YourAccount> {
       userData.addressLine2 = DATA['Addressline2'];
       userData.number = DATA['Number'];
       userData.pinCode = DATA['pincode'];
+      name1 = userData.name;
+      setState(() {
+        name1 = userData.name;
+      });
     });
   }
 
@@ -159,7 +163,7 @@ class _YourAccountState extends State<YourAccount> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 50),
-                                child: userData.name == null
+                                child: name1 == null
                                     ? SpinKitWave(
                                         color: Color(0xFF345995),
                                         size: 25.0,

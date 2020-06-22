@@ -26,6 +26,7 @@ class _YourOrdersState extends State<YourOrders> {
 
   void getOrderList() async {
     FirebaseUser user = await mAuth.currentUser();
+    print(user.uid);
 
     DatabaseReference dailyitemsref =
         FirebaseDatabase.instance.reference().child('Orders').child(user.uid);
@@ -198,6 +199,9 @@ class _YourOrdersState extends State<YourOrders> {
           pastOrdersCard.add(c);
         }
       }
+    });
+    setState(() {
+      print(currOrdersCard.length);
     });
   }
 

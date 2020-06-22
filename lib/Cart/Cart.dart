@@ -445,7 +445,8 @@ class _CartState extends State<Cart> {
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
     setState(() {
-      _cart.clear();
+//      _cart.clear();
+      //TODO Clear cart function debug orders not saving if cart is cleared.
     });
   }
 
