@@ -2,10 +2,13 @@ import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/DrawerPages/MainHome.dart';
 import 'package:delivery/DrawerPages/your_account_page.dart';
 import 'package:delivery/LoginPages/PhoneLogin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+import '../UserModel.dart';
 
 class Cart extends StatefulWidget {
   final List<DailyNeeds> _cart;
@@ -39,6 +42,37 @@ class _CartState extends State<Cart> {
 
   List<DailyNeeds> _cart;
   double pHeight, pWidth;
+
+  User userData = new User();
+  FirebaseAuth mAuth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserDetails();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void getUserDetails() async {
+    FirebaseUser user = await mAuth.currentUser();
+
+    DatabaseReference userref = await FirebaseDatabase.instance
+        .reference()
+        .child('Users')
+        .child(user.uid);
+    userref.once().then((DataSnapshot snap) {
+      var DATA = snap.value;
+      userData.name = DATA['Name'];
+      userData.addressLine1 = DATA['Addressline1'];
+      userData.addressLine2 = DATA['Addressline2'];
+      userData.number = DATA['Number'];
+      userData.pinCode = DATA['pincode'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     pHeight = MediaQuery.of(context).size.height;
@@ -241,12 +275,12 @@ class _CartState extends State<Cart> {
                   ),
                   InkWell(
                     onTap: () {
-                      if (widget.userPhNo != null) {
+                      if (mAuth.currentUser() != null) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => YourAccount(
-                                      phno: widget.userPhNo,
+                                      phno: userData.number,
                                     )));
                       } else {
                         Navigator.push(
@@ -291,7 +325,7 @@ class _CartState extends State<Cart> {
   }
 
   Widget _showCODDialog() {
-    if (widget.userPhNo != null) {
+    if (mAuth.currentUser() != null) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -343,7 +377,7 @@ class _CartState extends State<Cart> {
   }
 
   Widget _showPayOnlineDialog() {
-    if (widget.userPhNo != null) {
+    if (mAuth.currentUser() != null) {
       openCheckout();
     } else {
       showDialog(
@@ -379,15 +413,6 @@ class _CartState extends State<Cart> {
     }
 
     return amount;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
   @override
@@ -435,12 +460,13 @@ class _CartState extends State<Cart> {
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
   }
 
-  void saveOrder(double amount) {
-    String user = "+91${widget.userPhNo}";
+  void saveOrder(double amount) async {
+    FirebaseUser user = await mAuth.currentUser();
+
     DatabaseReference dbRef = FirebaseDatabase.instance
         .reference()
         .child("Orders")
-        .child(user)
+        .child(user.uid)
         .push();
 
     dbRef.set({

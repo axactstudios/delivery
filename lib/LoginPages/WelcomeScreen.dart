@@ -1,4 +1,5 @@
 import 'package:delivery/LoginPages/PhoneLogin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  FirebaseAuth mAuth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     pHeight = MediaQuery.of(context).size.height;
@@ -81,7 +84,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 height: pHeight / 40,
               ),
               InkWell(
-                onTap: goToLogin,
+                onTap: () async {
+                  FirebaseUser user = await mAuth
+                      .currentUser(); //Added the condition to check if the user is already logged in
+                  mAuth.currentUser() == null ? goToLogin() : goToHomePage1();
+                },
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0),
@@ -98,7 +105,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          "Sign Up",
+                          "Continue",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,

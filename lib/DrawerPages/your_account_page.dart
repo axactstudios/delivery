@@ -1,9 +1,11 @@
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:delivery/LoginPages/addressFrame.dart';
+import 'package:delivery/UserModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../LoginPages/PhoneLogin.dart';
@@ -18,19 +20,31 @@ class YourAccount extends StatefulWidget {
 
 class _YourAccountState extends State<YourAccount> {
   FirebaseUser user1;
-  String name, address, pincode;
+
+  FirebaseAuth mAuth = FirebaseAuth.instance;
+  User userData = new User();
 
   void getUserDetails() async {
-    String user = "+91${widget.phno}";
+    FirebaseUser user = await mAuth.currentUser();
 
-    DatabaseReference userref =
-        await FirebaseDatabase.instance.reference().child('Users').child(user);
+    DatabaseReference userref = await FirebaseDatabase.instance
+        .reference()
+        .child('Users')
+        .child(user.uid);
     userref.once().then((DataSnapshot snap) {
       var DATA = snap.value;
-      name = DATA['Name'];
-      address = ' ${DATA['Addressline1']} \n ${DATA['Addressline2']}';
-      pincode = DATA['pincode'];
+      userData.name = DATA['Name'];
+      userData.addressLine1 = DATA['Addressline1'];
+      userData.addressLine2 = DATA['Addressline2'];
+      userData.number = DATA['Number'];
+      userData.pinCode = DATA['pincode'];
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getUserDetails();
   }
 
   @override
@@ -38,8 +52,7 @@ class _YourAccountState extends State<YourAccount> {
     var pHeight = MediaQuery.of(context).size.height;
     var pWidth = MediaQuery.of(context).size.width;
 
-    if (widget.phno != null) {
-      getUserDetails();
+    if (mAuth.currentUser() != null) {
       setState(() {});
       return Scaffold(
         appBar: AppBar(
@@ -77,7 +90,7 @@ class _YourAccountState extends State<YourAccount> {
                       style: TextStyle(
                         color: Color(0xFF345995),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -119,14 +132,19 @@ class _YourAccountState extends State<YourAccount> {
                                     BorderRadius.all(Radius.circular(24)),
                                 color: Colors.white,
                               ),
-                              child: Text(
-                                name,
-                                style: TextStyle(
-                                    color: Color(0xFF345995),
-                                    fontFamily: 'sf_pro',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 28),
-                              ),
+                              child: userData.name == null
+                                  ? SpinKitWave(
+                                      color: Color(0xFF345995),
+                                      size: 25.0,
+                                    )
+                                  : Text(
+                                      userData.name,
+                                      style: TextStyle(
+                                          color: Color(0xFF345995),
+                                          fontFamily: 'sf_pro',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28),
+                                    ),
                             ),
                           ),
                           Expanded(
@@ -141,13 +159,18 @@ class _YourAccountState extends State<YourAccount> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 50),
-                                child: Text(
-                                  "Address- \n$address \n $pincode",
-                                  style: TextStyle(
-                                      color: Color(0xFF345995),
-                                      fontFamily: 'sf_pro',
-                                      fontSize: 24),
-                                ),
+                                child: userData.name == null
+                                    ? SpinKitWave(
+                                        color: Color(0xFF345995),
+                                        size: 25.0,
+                                      )
+                                    : Text(
+                                        "Address-\n${userData.addressLine1}\n${userData.addressLine2}\n${userData.pinCode}",
+                                        style: TextStyle(
+                                            color: Color(0xFF345995),
+                                            fontFamily: 'sf_pro',
+                                            fontSize: 24),
+                                      ),
                               ),
                             ),
                           ),

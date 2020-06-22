@@ -1,4 +1,5 @@
 import 'package:delivery/Classes/Orders.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -21,11 +22,13 @@ List<Container> pastOrdersCard = [];
 String t;
 
 class _YourOrdersState extends State<YourOrders> {
-  void getOrderList() {
-    DatabaseReference dailyitemsref = FirebaseDatabase.instance
-        .reference()
-        .child('Orders')
-        .child("+91${widget.phno}");
+  FirebaseAuth mAuth = FirebaseAuth.instance;
+
+  void getOrderList() async {
+    FirebaseUser user = await mAuth.currentUser();
+
+    DatabaseReference dailyitemsref =
+        FirebaseDatabase.instance.reference().child('Orders').child(user.uid);
     dailyitemsref.once().then((DataSnapshot snap) {
       // ignore: non_constant_identifier_names
       var KEYS = snap.value.keys;
@@ -207,7 +210,7 @@ class _YourOrdersState extends State<YourOrders> {
   Widget build(BuildContext context) {
 //    -M9-0YpNwG_oJFAi3FHH
     print(" phone number is${widget.phno}");
-    if (widget.phno != null) {
+    if (mAuth.currentUser() != null) {
       getOrderList();
 
       return Scaffold(
@@ -343,8 +346,10 @@ class _YourOrdersState extends State<YourOrders> {
               ),
               FlatButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PhoneLogin()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PhoneLogin()),
+                  );
                 },
                 child: Card(
                   color: Color(0xFF345995),

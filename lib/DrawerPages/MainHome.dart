@@ -6,6 +6,7 @@ import 'package:delivery/DrawerPages/PrivacyPolicy.dart';
 import 'package:delivery/DrawerPages/support_page_main.dart';
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
+import 'package:delivery/UserModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,9 @@ var indexSelected = 1;
 List<DailyNeeds> _cartList = [];
 
 class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
+  FirebaseAuth mAuth = FirebaseAuth.instance;
+  FirebaseUser _user;
+
   void _signOut() async {
     await FirebaseAuth.instance.signOut();
     Navigator.push(
@@ -59,6 +63,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   @override
   void initState() {
     super.initState();
+    getUserDetails(); //Added this function to get the user details as soon as screen is opened.
     getCategoriesRef();
     getDailyNeedItemRef();
     getClothesRef();
@@ -67,14 +72,23 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   FirebaseUser user1;
   String name;
 
-  void getUserName() async {
-    String user = "+91${widget.phno}";
+  User userData = new User(); //Object of the user model class
 
-    DatabaseReference userref =
-        await FirebaseDatabase.instance.reference().child('Users').child(user);
+  void getUserDetails() async {
+    FirebaseUser user = await mAuth.currentUser();
+    _user = user;
+
+    DatabaseReference userref = await FirebaseDatabase.instance
+        .reference()
+        .child('Users')
+        .child(user.uid); //Retrieving the record using UID of the user
     userref.once().then((DataSnapshot snap) {
       var DATA = snap.value;
-      name = DATA['Name'];
+      userData.name = DATA['Name'];
+      userData.number = DATA['Number'];
+      userData.addressLine1 = DATA['Addressline1'];
+      userData.addressLine2 = DATA['Addressline2'];
+      userData.pinCode = DATA['pincode'];
     });
   }
 
@@ -97,15 +111,15 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
 
   @override
   Widget build(BuildContext context) {
-    widget.phno != null ? getUserName() : null;
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
       decoration: BoxDecoration(
         color: Color(0xFF345995),
       ),
-      accountName: widget.phno != null
+      accountName: userData.name !=
+              null //Testing if the user is logged in or not using the UID
           ? Text(
-              name,
+              userData.name, //Replaced name with userData.name
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -120,12 +134,15 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                 fontFamily: 'sf_pro',
               ),
             ),
-      accountEmail: widget.phno != null
-          ? Text(widget.phno)
+      accountEmail: userData.name !=
+              null //Testing if the user is logged in or not using the UID
+          ? Text(userData.number) //Replaced widget.phno with userData.number
           : InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PhoneLogin()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PhoneLogin()),
+                );
               },
               child: Text(
                 'Sign In',
@@ -167,7 +184,8 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
               context,
               MaterialPageRoute(
                   builder: (context) => YourOrders(
-                        phno: widget.phno,
+                        phno: userData
+                            .number, //Replaced widget.phno with userData.number
                       ))),
         ),
         ListTile(
@@ -184,7 +202,8 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => YourAccount(
-                            phno: widget.phno,
+                          phno: userData
+                              .number //Replaced widget.phno with userData.number
                           )));
             }),
         ListTile(
@@ -233,7 +252,8 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
               ),
             ),
             onTap: () {
-              widget.phno != null
+              userData.number !=
+                      null //Replaced widget.phno with userData.number
                   ? showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -310,7 +330,10 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => Cart(_cartList, widget.phno),
+                        builder: (context) => Cart(
+                            _cartList,
+                            userData
+                                .number), //Replaced widget.phno with userData.number
                       ),
                     );
                   },
@@ -376,7 +399,10 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => Cart(_cartList, widget.phno),
+                        builder: (context) => Cart(
+                            _cartList,
+                            userData
+                                .number), //Replaced widget.phno with userData.number
                       ),
                     );
                   },
