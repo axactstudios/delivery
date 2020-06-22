@@ -168,12 +168,37 @@ class _OTPScreenState extends State<OTPScreen> {
         (AuthCredential phoneAuthCredential) {
       _firebaseAuth
           .signInWithCredential(phoneAuthCredential)
-          .then((AuthResult value) {
+          .then((AuthResult value) async {
         if (value.user != null) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainHome()),
-              (Route<dynamic> route) => false);
+          FirebaseUser user = await FirebaseAuth.instance.currentUser();
+          DatabaseReference useraddressref = FirebaseDatabase
+              .instance //Used the UID of the user to check if record exists in the database or not
+              .reference()
+              .child('Users')
+              .child(user.uid);
+          useraddressref.once().then((DataSnapshot snap) {
+            // ignore: non_constant_identifier_names
+            var DATA = snap.value;
+            if (DATA == null) {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddressFrame(
+                      phno: widget.mobileNumber,
+                    ),
+                  ),
+                  (Route<dynamic> route) => false);
+            } else {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MainHome(
+                      phno: widget.mobileNumber,
+                    ),
+                  ),
+                  (Route<dynamic> route) => false);
+            }
+          });
         } else {
           showToast("Error validating OTP, try again", Colors.white);
         }
@@ -222,12 +247,14 @@ class _OTPScreenState extends State<OTPScreen> {
 
     _firebaseAuth
         .signInWithCredential(_authCredential)
-        .then((AuthResult value) {
+        .then((AuthResult value) async {
       if (value.user != null) {
-        DatabaseReference useraddressref = FirebaseDatabase.instance
+        FirebaseUser user = await FirebaseAuth.instance.currentUser();
+        DatabaseReference useraddressref = FirebaseDatabase
+            .instance //Used the UID of the user to check if record exists in the database or not
             .reference()
             .child('Users')
-            .child("+91${widget.mobileNumber}");
+            .child(user.uid);
         useraddressref.once().then((DataSnapshot snap) {
           // ignore: non_constant_identifier_names
           var DATA = snap.value;

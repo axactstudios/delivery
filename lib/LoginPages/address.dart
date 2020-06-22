@@ -13,6 +13,8 @@ class Address extends StatefulWidget {
 }
 
 class _AddressState extends State<Address> {
+  FirebaseAuth mAuth = FirebaseAuth.instance;
+
   final myController = TextEditingController();
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
@@ -148,16 +150,19 @@ class _AddressState extends State<Address> {
               height: 25.0,
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                FirebaseUser user = await mAuth.currentUser();
+
                 DatabaseReference userRef =
                     FirebaseDatabase.instance.reference().child('Users');
                 userRef.set({user.phoneNumber.toString()});
                 FirebaseDatabase.instance
                     .reference()
                     .child('Users')
-                    .child(user.phoneNumber.toString())
+                    .child(user.uid)
                     .set({
                   'Name': myController.text,
+                  'Number': widget.phno,
                   'Addressline1': myController1.text,
                   'Addressline2': myController2.text,
                   'pincode': myController3.text
