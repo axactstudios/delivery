@@ -242,38 +242,6 @@ class _YourOrdersState extends State<YourOrders> {
         ),
         body: ListView(
           children: ordersScreenWidgets,
-//          children: <Widget>[
-//            currOrdersCard.length == 0
-//                ? Center(child: Text("No orders"))
-//                : ListView.builder(
-//                    itemCount: currOrdersCard.length,
-//                    scrollDirection: Axis.vertical,
-//                    itemBuilder: (_, index) {
-//                      return currOrdersCard[index];
-//                    },
-//                  ),
-//            Padding(
-//              padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-//              child: Text(
-//                'Past Orders',
-//                textAlign: TextAlign.left,
-//                style: TextStyle(
-//                    fontWeight: FontWeight.bold,
-//                    color: Color(0xFF345995),
-//                    fontSize: 24,
-//                    fontFamily: 'sf_pro'),
-//              ),
-//            ),
-//            pastOrdersCard.length == 0
-//                ? Center(child: Text("No orders"))
-//                : ListView.builder(
-//                    itemCount: pastOrdersCard.length,
-//                    scrollDirection: Axis.vertical,
-//                    itemBuilder: (_, index) {
-//                      return pastOrdersCard[index];
-//                    },
-//                  )
-//          ],
         ),
       );
     } else {
