@@ -1,4 +1,4 @@
-package com.axactstudios.delivery
+package com.axactstudios.budgetmart
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
