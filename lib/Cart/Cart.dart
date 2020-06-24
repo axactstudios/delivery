@@ -457,6 +457,8 @@ class _CartState extends State<Cart> {
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
+    saveOrder(totalAmount() + 0.18 * totalAmount() + 40);
+
     Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
   }

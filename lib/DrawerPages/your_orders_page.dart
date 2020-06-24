@@ -18,7 +18,7 @@ int i = 0;
 
 List<Container> currOrdersCard = [];
 List<Container> pastOrdersCard = [];
-
+List<Widget> ordersScreenWidgets = new List();
 String t;
 
 class _YourOrdersState extends State<YourOrders> {
@@ -57,11 +57,15 @@ class _YourOrdersState extends State<YourOrders> {
           Container c = new Container(
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-                border: Border()),
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+              border: Border.all(
+                width: 2,
+                color: Color(0xFF345995),
+              ),
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,6 +197,9 @@ class _YourOrdersState extends State<YourOrders> {
                         fontFamily: 'sf_pro'),
                   ),
                 ),
+                SizedBox(
+                  height: 15,
+                )
               ],
             ),
           );
@@ -212,6 +219,7 @@ class _YourOrdersState extends State<YourOrders> {
 
   @override
   Widget build(BuildContext context) {
+    _populateWidgetList();
 //    -M9-0YpNwG_oJFAi3FHH
     print(" phone number is${widget.phno}");
     if (mAuth.currentUser() != null) {
@@ -232,85 +240,40 @@ class _YourOrdersState extends State<YourOrders> {
             onPressed: () => Navigator.pop(context, false),
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-                    child: Text(
-                      'Current Orders',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF345995),
-                          fontSize: 24,
-                          fontFamily: 'sf_pro'),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        padding: EdgeInsets.only(top: 7.5),
-                        decoration: BoxDecoration(
-                            color: Color(0xFF345995),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        child: currOrdersCard.length == 0
-                            ? Center(child: Text("No orders"))
-                            : ListView.builder(
-                                itemCount: currOrdersCard.length,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (_, index) {
-                                  return currOrdersCard[index];
-                                },
-                              )),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-                    child: Text(
-                      'Past Orders',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF345995),
-                          fontSize: 24,
-                          fontFamily: 'sf_pro'),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        padding: EdgeInsets.only(top: 7.5),
-                        decoration: BoxDecoration(
-                            color: Color(0xFF345995),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        child: pastOrdersCard.length == 0
-                            ? Center(child: Text("No orders"))
-                            : ListView.builder(
-                                itemCount: pastOrdersCard.length,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (_, index) {
-                                  return pastOrdersCard[index];
-                                },
-                              )),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        body: ListView(
+          children: ordersScreenWidgets,
+//          children: <Widget>[
+//            currOrdersCard.length == 0
+//                ? Center(child: Text("No orders"))
+//                : ListView.builder(
+//                    itemCount: currOrdersCard.length,
+//                    scrollDirection: Axis.vertical,
+//                    itemBuilder: (_, index) {
+//                      return currOrdersCard[index];
+//                    },
+//                  ),
+//            Padding(
+//              padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+//              child: Text(
+//                'Past Orders',
+//                textAlign: TextAlign.left,
+//                style: TextStyle(
+//                    fontWeight: FontWeight.bold,
+//                    color: Color(0xFF345995),
+//                    fontSize: 24,
+//                    fontFamily: 'sf_pro'),
+//              ),
+//            ),
+//            pastOrdersCard.length == 0
+//                ? Center(child: Text("No orders"))
+//                : ListView.builder(
+//                    itemCount: pastOrdersCard.length,
+//                    scrollDirection: Axis.vertical,
+//                    itemBuilder: (_, index) {
+//                      return pastOrdersCard[index];
+//                    },
+//                  )
+//          ],
         ),
       );
     } else {
@@ -381,6 +344,60 @@ class _YourOrdersState extends State<YourOrders> {
           ),
         ),
       );
+    }
+  }
+
+  _populateWidgetList() {
+    ordersScreenWidgets.clear();
+    ordersScreenWidgets.add(Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Center(
+        child: Text(
+          'Current Orders',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF345995),
+              fontSize: 24,
+              fontFamily: 'sf_pro'),
+        ),
+      ),
+    ));
+    if (currOrdersCard.length != 0) {
+      for (int i = 0; i < currOrdersCard.length; i++) {
+        ordersScreenWidgets.add(currOrdersCard[i]);
+      }
+    } else {
+      ordersScreenWidgets.add(Center(
+          child: Text(
+        'No Current Orders',
+        style: TextStyle(fontFamily: 'sf_pro', fontSize: 20),
+      )));
+    }
+    ordersScreenWidgets.add(Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Center(
+        child: Text(
+          'Past Orders',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF345995),
+              fontSize: 24,
+              fontFamily: 'sf_pro'),
+        ),
+      ),
+    ));
+    if (pastOrdersCard.length != 0) {
+      for (int i = 0; i < pastOrdersCard.length; i++) {
+        ordersScreenWidgets.add(pastOrdersCard[i]);
+      }
+    } else {
+      ordersScreenWidgets.add(Center(
+          child: Text(
+        'No Past Orders',
+        style: TextStyle(fontFamily: 'sf_pro', fontSize: 20),
+      )));
     }
   }
 }
