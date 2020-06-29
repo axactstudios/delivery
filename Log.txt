@@ -76,3 +76,5 @@ Image picking issue resolved, discounts image upload.
 Search Bar full implementation. done item is added to cart too.
 9 June 2020, 03:18 .M.-
 Finally all renderflow errors in client version resolved, App ready to be staged on play store
+
+____________ROLLED OUT ON PLAYSTORE_______________
