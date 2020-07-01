@@ -7,6 +7,8 @@ import 'package:delivery/DrawerPages/support_page_main.dart';
 import 'package:delivery/LoginPages/PhoneLogin.dart';
 import 'package:delivery/LoginPages/WelcomeScreen.dart';
 import 'package:delivery/UserModel.dart';
+import 'package:delivery/Widgets/category_page.dart';
+import 'package:delivery/Widgets/item.dart';
 import 'package:delivery/Widgets/ui_details.dart';
 import 'package:delivery/appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +26,10 @@ class RIKeys {
   static final riKey2 = const Key('__RIKEY2__');
 
   static final riKey3 = const Key('__RIKEY3__');
+}
+
+class IndexSelected {
+  static int indexSelected;
 }
 
 class MainHome extends StatefulWidget {
@@ -51,7 +57,6 @@ List<DailyNeeds> searchList = [];
 List<DailyNeeds> recentSearchList = [];
 
 double pWidth, pHeight;
-var indexSelected = 1;
 List<DailyNeeds> _cartList = [];
 
 class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
@@ -73,6 +78,8 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   @override
   void initState() {
     super.initState();
+    IndexSelected.indexSelected = 1;
+    print(IndexSelected.indexSelected);
     getUserDetails(); //Added this function to get the user details as soon as screen is opened.
     getCategoriesRef();
     getDailyNeedItemRef();
@@ -127,6 +134,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
 
   @override
   Widget build(BuildContext context) {
+    print(IndexSelected.indexSelected);
     print(categories);
     //Header for user information
     final drawerHeader = UserAccountsDrawerHeader(
@@ -320,233 +328,40 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
     pWidth = MediaQuery.of(context).size.width;
     pHeight = MediaQuery.of(context).size.height;
 
-    if (indexSelected == 1) {
+    if (IndexSelected.indexSelected == 1) {
       return Scaffold(
-          key: scaffoldState,
-          appBar: CustomAppBar(
-            key: RIKeys.riKey1,
-            cartList: _cartList,
-            userPhno: userData.number,
-            stateToRefresh: this,
-          ),
-          drawer: Drawer(
-            key: _drawerKey,
-            child: drawerItems,
-          ),
-          body: retDailyNeedsPage());
+        key: scaffoldState,
+        appBar: CustomAppBar(
+          key: RIKeys.riKey1,
+          cartList: _cartList,
+          userPhno: userData.number,
+          stateToRefresh: this,
+        ),
+        drawer: Drawer(
+          key: _drawerKey,
+          child: drawerItems,
+        ),
+//          body: retDailyNeedsPage(),
+        body: CategoryPage(pHeight, pWidth, categories, discounts,
+            Item(_cartList, dailyneeds, this), this),
+      );
     } else {
       return Scaffold(
-          key: scaffoldState,
-          appBar: CustomAppBar(
-            key: RIKeys.riKey2,
-            cartList: _cartList,
-            userPhno: userData.number,
-            stateToRefresh: this,
-          ),
-          drawer: Drawer(
-            key: _drawerKey,
-            child: drawerItems,
-          ),
-          body: retClothesPage());
+        key: scaffoldState,
+        appBar: CustomAppBar(
+          key: RIKeys.riKey2,
+          cartList: _cartList,
+          userPhno: userData.number,
+          stateToRefresh: this,
+        ),
+        drawer: Drawer(
+          key: _drawerKey,
+          child: drawerItems,
+        ),
+        body: CategoryPage(pHeight, pWidth, categories, discounts,
+            Item(_cartList, clothes, this), this),
+      );
     }
-  }
-
-  Widget retClothesPage() {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          SizedBox(
-            height: pHeight / 70,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Categories',
-                  style: TextStyle(
-                      color: Color(0xFF345995),
-                      fontSize: pHeight / 21,
-                      fontFamily: 'sf_pro',
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: pHeight / 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Container(
-                height: pHeight / 7,
-                child: categories.length == 0
-                    ? Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        itemCount: categories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              setState(() {
-                                indexSelected = index;
-                              });
-                            },
-                            child: UICat(categories[index].name,
-                                categories[index].imageUrl),
-                          );
-                        },
-                      )),
-          ),
-          SizedBox(
-            height: pHeight / 35,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35),
-            child: Text(
-              'Available Items',
-              style: TextStyle(
-                  color: Color(0xFF345995),
-                  fontSize: pHeight / 30,
-                  fontFamily: 'sf_pro',
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: pHeight / 35,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Container(
-              height: discounts.length == 0 ? pHeight / 1.95 : pHeight / 2.17,
-              child: retClothes(),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget retClothes() {
-    return Container(
-      child: clothes.length == 0
-          ? Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              itemCount: clothes.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (_, index) {
-                return UI(clothes[index].name, clothes[index].imageUrl,
-                    clothes[index].price);
-              },
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, mainAxisSpacing: 10.0),
-            ),
-    );
-  }
-
-  Widget retDailyNeedsPage() {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          SizedBox(
-            height: pHeight / 70,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Categories',
-                  style: TextStyle(
-                      color: Color(0xFF345995),
-                      fontSize: pHeight / 21,
-                      fontFamily: 'sf_pro',
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: pHeight / 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Container(
-                height: pHeight / 7,
-                child: categories.length == 0
-                    ? Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        itemCount: categories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              setState(() {
-                                indexSelected = index;
-                              });
-                            },
-                            child: UICat(categories[index].name,
-                                categories[index].imageUrl),
-                          );
-                        },
-                      )),
-          ),
-          SizedBox(
-            height: pHeight / 35,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35),
-            child: Text(
-              'Available Items',
-              style: TextStyle(
-                  color: Color(0xFF345995),
-                  fontSize: pHeight / 30,
-                  fontFamily: 'sf_pro',
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: pHeight / 35,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Container(
-              height: discounts.length == 0 ? pHeight / 1.95 : pHeight / 2.17,
-              child: retDailyNeeds(),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget retDailyNeeds() {
-    return Container(
-      child: dailyneeds.length == 0
-          ? Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              itemCount: dailyneeds.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (_, index) {
-                return UI(dailyneeds[index].name, dailyneeds[index].imageUrl,
-                    dailyneeds[index].price);
-              },
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1,
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.0),
-            ),
-    );
   }
 
   Widget retDiscounts() {
@@ -684,88 +499,6 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
     }
   }
 
-  // ignore: non_constant_identifier_names
-  Widget UI(String name, String imageUrl, int price) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.5),
-      child: InkWell(
-        onTap: () {
-          scaffoldState.currentState.showBottomSheet((context) {
-            return StatefulBuilder(
-                builder: (BuildContext context, StateSetter state) {
-              return UIDetails(
-                name: name,
-                imageUrl: imageUrl,
-                price: price,
-                pHeight: pHeight,
-                cartList: _cartList,
-                stateToRefresh: this,
-              );
-            });
-          });
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFF345995),
-            border: Border.all(color: Colors.black),
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
-            ),
-          ),
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                width: (pWidth - 100),
-                height: pWidth / 3.5,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: pHeight / 50),
-                      ),
-                      Text(
-                        "Rs. ${price.toString()}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: 15),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget UIDiscount(String name, String imageUrl, String category, int priceOrg,
       int priceNew) {
     return Padding(
@@ -847,62 +580,4 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
       ),
     );
   }
-
-  // ignore: non_constant_identifier_names
-  Widget UICat(String name, String imageUrl) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.5),
-      child: Container(
-        height: pHeight / 7,
-        decoration: BoxDecoration(
-          color: Color(0xFF345995),
-          border: Border.all(color: Colors.black),
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15),
-          ),
-        ),
-        width: (pWidth - 100) / 3,
-        child: Column(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.rectangle,
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              width: (pWidth - 100) / 3,
-              height: pHeight / 9.5,
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Text(
-                  name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'sf_pro',
-                      color: Colors.white,
-                      fontSize: pHeight / 55),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ignore: non_constant_identifier_names
-
 }
