@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:549226268728:android:bc32afae8713a3be29fecd",
+        "mobilesdk_app_id": "1:549226268728:android:f6b819c2720ccbbb29fecd",
         "android_client_info": {
-          "package_name": "com.axactstudios.budgetmart"
+          "package_name": "com.axactstudios.budgetMart"
         }
       },
       "oauth_client": [
