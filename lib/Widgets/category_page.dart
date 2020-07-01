@@ -141,13 +141,15 @@ Widget UICat(String name, String imageUrl, double pHeight, double pWidth) {
           Container(
             child: Padding(
               padding: const EdgeInsets.all(3.0),
-              child: Text(
-                name,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'sf_pro',
-                    color: Colors.white,
-                    fontSize: pHeight / 55),
+              child: FittedBox(
+                child: Text(
+                  name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'sf_pro',
+                      color: Colors.white,
+                      fontSize: pHeight / 55),
+                ),
               ),
             ),
           )

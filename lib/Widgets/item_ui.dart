@@ -68,21 +68,25 @@ class _UIState extends State<UI> {
                   padding: const EdgeInsets.all(3.0),
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        widget.name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: pHeight / 50),
+                      FittedBox(
+                        child: Text(
+                          widget.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'sf_pro',
+                              color: Colors.white,
+                              fontSize: pHeight / 50),
+                        ),
                       ),
-                      Text(
-                        "Rs. ${widget.price.toString()}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: 15),
+                      FittedBox(
+                        child: Text(
+                          "Rs. ${widget.price.toString()}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'sf_pro',
+                              color: Colors.white,
+                              fontSize: 15),
+                        ),
                       ),
                     ],
                   ),

@@ -2,30 +2,29 @@ import 'package:after_layout/after_layout.dart';
 import 'package:delivery/Classes/categories.dart';
 import 'package:delivery/Classes/Products.dart';
 import 'package:delivery/Classes/dicounts.dart';
-import 'package:delivery/DrawerPages/PrivacyPolicy.dart';
-import 'package:delivery/DrawerPages/support_page_main.dart';
-import 'package:delivery/LoginPages/PhoneLogin.dart';
-import 'package:delivery/LoginPages/WelcomeScreen.dart';
+
+import 'package:delivery/Providers/all_database_ref.dart';
 import 'package:delivery/UserModel.dart';
 import 'package:delivery/Widgets/category_page.dart';
+import 'package:delivery/Widgets/drawer_widgets.dart';
 import 'package:delivery/Widgets/item.dart';
 import 'package:delivery/Widgets/ui_details.dart';
 import 'package:delivery/appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Cart/Cart.dart';
-import 'developers_page.dart';
-import 'your_account_page.dart';
-import 'your_orders_page.dart';
 
 class RIKeys {
   static final riKey1 = const Key('__RIKEY1__');
-
   static final riKey2 = const Key('__RIKEY2__');
-
   static final riKey3 = const Key('__RIKEY3__');
+  static final riKey4 = const Key('__RIKEY4__');
+  static final riKey5 = const Key('__RIKEY5__');
+  static final riKey6 = const Key('__RIKEY6__');
+  static final riKey7 = const Key('__RIKEY7__');
+  static final riKey8 = const Key('__RIKEY8__');
+  static final riKey9 = const Key('__RIKEY9__');
 }
 
 class IndexSelected {
@@ -63,17 +62,18 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
   FirebaseAuth mAuth = FirebaseAuth.instance;
   FirebaseUser _user;
 
-  void _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
-  }
-
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   List<Categories> categories = [];
-  List<DailyNeeds> dailyneeds = [];
   List<Discounts> discounts = [];
+  List<DailyNeeds> dailyneeds = [];
   List<DailyNeeds> clothes = [];
+  List<DailyNeeds> staples = [];
+  List<DailyNeeds> beverages = [];
+  List<DailyNeeds> personalCare = [];
+  List<DailyNeeds> snacks = [];
+  List<DailyNeeds> freshFruits = [];
+  List<DailyNeeds> homeCare = [];
+  List<DailyNeeds> dairy = [];
 
   @override
   void initState() {
@@ -81,9 +81,16 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
     IndexSelected.indexSelected = 1;
     print(IndexSelected.indexSelected);
     getUserDetails(); //Added this function to get the user details as soon as screen is opened.
-    getCategoriesRef();
-    getDailyNeedItemRef();
-    getClothesRef();
+    getCategoriesRef(this, categories);
+    getDailyNeedItemRef(this, dailyneeds);
+    getClothesRef(this, clothes);
+    getStaplesItemsRef(this, staples);
+    getBeveragesItemsRef(this, beverages);
+    getPersonalCareItemsRef(this, personalCare);
+    getSnacksIsRef(this, snacks);
+    getFreshFruitsItemsRef(this, freshFruits);
+    getHomeCareItemsRef(this, homeCare);
+    getDairyItemsRef(this, dairy);
   }
 
   FirebaseUser user1;
@@ -132,240 +139,56 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
     }
   }
 
+  List categoryToShow = new List();
   @override
   Widget build(BuildContext context) {
+    if (IndexSelected.indexSelected == 0)
+      categoryToShow = staples;
+    else if (IndexSelected.indexSelected == 1)
+      categoryToShow = dailyneeds;
+    else if (IndexSelected.indexSelected == 2)
+      categoryToShow = beverages;
+    else if (IndexSelected.indexSelected == 3)
+      categoryToShow = clothes;
+    else if (IndexSelected.indexSelected == 4)
+      categoryToShow = personalCare;
+    else if (IndexSelected.indexSelected == 5)
+      categoryToShow = snacks;
+    else if (IndexSelected.indexSelected == 6)
+      categoryToShow = freshFruits;
+    else if (IndexSelected.indexSelected == 7)
+      categoryToShow = homeCare;
+    else if (IndexSelected.indexSelected == 8)
+      categoryToShow = dairy;
+    else
+      categoryToShow = staples;
+
     print(IndexSelected.indexSelected);
-    print(categories);
     //Header for user information
-    final drawerHeader = UserAccountsDrawerHeader(
-      decoration: BoxDecoration(
-        color: Color(0xFF345995),
-      ),
-      accountName: userData.name !=
-              null //Testing if the user is logged in or not using the UID
-          ? Text(
-              userData.name, //Replaced name with userData.name
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'sf_pro',
-              ),
-            )
-          : Text(
-              'You are not logged in',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'sf_pro',
-              ),
-            ),
-      accountEmail: userData.name !=
-              null //Testing if the user is logged in or not using the UID
-          ? Text(userData.number) //Replaced widget.phno with userData.number
-          : InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PhoneLogin()),
-                );
-              },
-              child: Text(
-                'Sign In',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'sf_pro',
-                ),
-              )),
-      currentAccountPicture: CircleAvatar(
-        child: Image.asset('images/user.png'),
-      ),
-    );
     //Nav Drawer items
-    final drawerItems = ListView(
-      children: <Widget>[
-        drawerHeader,
-        ListTile(
-          title: Text(
-            'Shop by Categories',
-            style: TextStyle(
-              color: Color(0xFF345995),
-              fontFamily: 'sf_pro',
-              fontSize: 20,
-            ),
-          ),
-          onTap: () => Navigator.pop(context, true),
-        ),
-        ListTile(
-          title: Text(
-            'Your Orders',
-            style: TextStyle(
-              color: Color(0xFF345995),
-              fontFamily: 'sf_pro',
-              fontSize: 20,
-            ),
-          ),
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => YourOrders(
-                        phno: userData
-                            .number, //Replaced widget.phno with userData.number
-                      ))),
-        ),
-        ListTile(
-            title: Text(
-              'Your Account',
-              style: TextStyle(
-                color: Color(0xFF345995),
-                fontFamily: 'sf_pro',
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => YourAccount(
-                          phno: userData
-                              .number //Replaced widget.phno with userData.number
-                          )));
-            }),
-        ListTile(
-          title: Text(
-            'Support',
-            style: TextStyle(
-              color: Color(0xFF345995),
-              fontFamily: 'sf_pro',
-              fontSize: 20,
-            ),
-          ),
-          onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ContactUsPage())),
-        ),
-        ListTile(
-          title: Text(
-            'Developers',
-            style: TextStyle(
-              color: Color(0xFF345995),
-              fontFamily: 'sf_pro',
-              fontSize: 20,
-            ),
-          ),
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Developers())),
-        ),
-        ListTile(
-          title: Text(
-            'Privacy Policy',
-            style: TextStyle(
-              color: Color(0xFF345995),
-              fontFamily: 'sf_pro',
-              fontSize: 20,
-            ),
-          ),
-          onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => PrivacyPolicy())),
-        ),
-        ListTile(
-            title: Text(
-              'Sign Out',
-              style: TextStyle(
-                color: Color(0xFF345995),
-                fontFamily: 'sf_pro',
-                fontSize: 20,
-              ),
-            ),
-            onTap: () {
-              userData.number !=
-                      null //Replaced widget.phno with userData.number
-                  ? showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Sign Out"),
-                          content: Text(
-                              "Are you sure you want to sign out?\nItems in your cart wil be cleared if you do so."),
-                          actions: [
-                            FlatButton(
-                              child: Text("No"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                              child: Text("Sign Out"),
-                              onPressed: () {
-                                _signOut();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => WelcomeScreen()));
-                              },
-                            )
-                          ],
-                        );
-                      })
-                  : showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Sign Out"),
-                          content: Text("You need to be logged in first."),
-                          actions: [
-                            FlatButton(
-                              child: Text("Ok"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      });
-            }),
-      ],
-    );
+    final drawerItems = getDrawerItems(userData, context);
     pWidth = MediaQuery.of(context).size.width;
     pHeight = MediaQuery.of(context).size.height;
 
-    if (IndexSelected.indexSelected == 1) {
-      return Scaffold(
-        key: scaffoldState,
-        appBar: CustomAppBar(
-          key: RIKeys.riKey1,
-          cartList: _cartList,
-          userPhno: userData.number,
-          stateToRefresh: this,
-        ),
-        drawer: Drawer(
-          key: _drawerKey,
-          child: drawerItems,
-        ),
-//          body: retDailyNeedsPage(),
-        body: CategoryPage(pHeight, pWidth, categories, discounts,
-            Item(_cartList, dailyneeds, this), this),
-      );
-    } else {
-      return Scaffold(
-        key: scaffoldState,
-        appBar: CustomAppBar(
-          key: RIKeys.riKey2,
-          cartList: _cartList,
-          userPhno: userData.number,
-          stateToRefresh: this,
-        ),
-        drawer: Drawer(
-          key: _drawerKey,
-          child: drawerItems,
-        ),
-        body: CategoryPage(pHeight, pWidth, categories, discounts,
-            Item(_cartList, clothes, this), this),
-      );
-    }
+    return Scaffold(
+      key: scaffoldState,
+      appBar: CustomAppBar(
+        key: RIKeys.riKey2,
+        cartList: _cartList,
+        userPhno: userData.number,
+        stateToRefresh: this,
+      ),
+      drawer: Drawer(
+        key: _drawerKey,
+        child: drawerItems,
+      ),
+      body: CategoryPage(pHeight, pWidth, categories, discounts,
+          Item(_cartList, categoryToShow, this), this),
+    );
   }
 
   Widget retDiscounts() {
-    discountref();
+    discountref(this, discounts);
     return Expanded(
       child: Container(
         child: discounts.length == 0
@@ -384,81 +207,6 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
               ),
       ),
     );
-  }
-
-  void getDailyNeedItemRef() {
-    DatabaseReference dailyitemsref =
-        FirebaseDatabase.instance.reference().child('Daily needs');
-    dailyitemsref.once().then((DataSnapshot snap) {
-      // ignore: non_constant_identifier_names
-      var KEYS = snap.value.keys;
-      // ignore: non_constant_identifier_names
-      var DATA = snap.value;
-      dailyneeds.clear();
-      for (var key in KEYS) {
-        DailyNeeds d = new DailyNeeds(
-            DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
-        dailyneeds.add(d);
-      }
-      setState(() {});
-    });
-  }
-
-  void discountref() {
-    DatabaseReference discountref =
-        FirebaseDatabase.instance.reference().child('Discounts');
-    discountref.once().then((DataSnapshot snap) {
-      // ignore: non_constant_identifier_names
-      var KEYS = snap.value.keys;
-      // ignore: non_constant_identifier_names
-      var DATA = snap.value;
-      discounts.clear();
-      for (var key in KEYS) {
-        Discounts d = new Discounts(
-            DATA[key]['ImageUrl'],
-            DATA[key]['Category'],
-            DATA[key]['Name'],
-            DATA[key]['Original Price'],
-            DATA[key]['Discounted Price']);
-        discounts.add(d);
-      }
-      setState(() {});
-    });
-  }
-
-  void getCategoriesRef() {
-    DatabaseReference categoriesref =
-        FirebaseDatabase.instance.reference().child('Categories');
-    categoriesref.once().then((DataSnapshot snap) {
-      // ignore: non_constant_identifier_names
-      var KEYS = snap.value.keys;
-      // ignore: non_constant_identifier_names
-      var DATA = snap.value;
-      categories.clear();
-      for (var key in KEYS) {
-        Categories c = new Categories(DATA[key]['ImageUrl'], DATA[key]['Name']);
-        categories.add(c);
-      }
-      setState(() {});
-    });
-  }
-
-  void getClothesRef() {
-    DatabaseReference clothesref =
-        FirebaseDatabase.instance.reference().child('Clothes');
-    clothesref.once().then((DataSnapshot snap) {
-      // ignore: non_constant_identifier_names
-      var KEYS = snap.value.keys;
-      // ignore: non_constant_identifier_names
-      var DATA = snap.value;
-      clothes.clear();
-      for (var key in KEYS) {
-        DailyNeeds b = new DailyNeeds(
-            DATA[key]['ImageUrl'], DATA[key]['Name'], DATA[key]['Price']);
-        clothes.add(b);
-      }
-      setState(() {});
-    });
   }
 
   void populateSearchList() {
