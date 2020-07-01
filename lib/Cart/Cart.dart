@@ -13,8 +13,9 @@ class Cart extends StatefulWidget {
   final List<DailyNeeds> _cart;
   String userPhNo;
   String userAddress;
+  State stateToRefresh;
 
-  Cart(this._cart, this.userPhNo);
+  Cart(this._cart, this.userPhNo, this.stateToRefresh);
 
   @override
   _CartState createState() => _CartState(this._cart);
@@ -154,6 +155,9 @@ class _CartState extends State<Cart> {
                               onTap: () {
                                 setState(() {
                                   _cart.remove(item);
+                                });
+                                widget.stateToRefresh.setState(() {
+                                  print('Hihihihi');
                                 });
                               }),
                         ),
