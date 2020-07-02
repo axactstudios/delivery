@@ -13,8 +13,9 @@ class Cart extends StatefulWidget {
   final List<DailyNeeds> _cart;
   String userPhNo;
   String userAddress;
+  State stateToRefresh;
 
-  Cart(this._cart, this.userPhNo);
+  Cart(this._cart, this.userPhNo, this.stateToRefresh);
 
   @override
   _CartState createState() => _CartState(this._cart);
@@ -155,6 +156,9 @@ class _CartState extends State<Cart> {
                                 setState(() {
                                   _cart.remove(item);
                                 });
+                                widget.stateToRefresh.setState(() {
+                                  print('Hihihihi');
+                                });
                               }),
                         ),
                       ),
@@ -180,33 +184,41 @@ class _CartState extends State<Cart> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            "Order Total = Rs. ${totalAmount() + 0.18 * totalAmount() + 40}  ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'sf_pro',
-                                fontSize: pHeight / 40),
+                          FittedBox(
+                            child: Text(
+                              "Order Total = Rs. ${totalAmount() + 0.18 * totalAmount() + 40}  ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'sf_pro',
+                                  fontSize: pHeight / 40),
+                            ),
                           ),
-                          Text(
-                            "Products Total = Rs. ${totalAmount()}",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'sf_pro',
-                                fontSize: pHeight / 60),
+                          FittedBox(
+                            child: Text(
+                              "Products Total = Rs. ${totalAmount()}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'sf_pro',
+                                  fontSize: pHeight / 60),
+                            ),
                           ),
-                          Text(
-                            "GST(18%) = Rs. ${(totalAmount() * 0.18).toStringAsFixed(2)}",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'sf_pro',
-                                fontSize: pHeight / 60),
+                          FittedBox(
+                            child: Text(
+                              "GST(18%) = Rs. ${(totalAmount() * 0.18).toStringAsFixed(2)}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'sf_pro',
+                                  fontSize: pHeight / 60),
+                            ),
                           ),
-                          Text(
-                            "Delivery Charges = Rs. 40.0",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'sf_pro',
-                                fontSize: pHeight / 60),
+                          FittedBox(
+                            child: Text(
+                              "Delivery Charges = Rs. 40.0",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'sf_pro',
+                                  fontSize: pHeight / 60),
+                            ),
                           ),
                         ],
                       ),
