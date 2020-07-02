@@ -57,7 +57,9 @@ void discountref(State stateToRefresh, List discounts) {
           DATA[key]['Discounted Price']);
       discounts.add(d);
     }
-    stateToRefresh.setState(() {});
+    stateToRefresh.setState(() {
+      print('No of discounts are ${discounts.length}');
+    });
   });
 }
 

@@ -91,7 +91,9 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
     getFreshFruitsItemsRef(this, freshFruits);
     getHomeCareItemsRef(this, homeCare);
     getDairyItemsRef(this, dairy);
+    discountref(this, discounts);
   }
+
 //Just changing
   FirebaseUser user1;
   String name;
@@ -183,29 +185,7 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
         child: drawerItems,
       ),
       body: CategoryPage(pHeight, pWidth, categories, discounts,
-          Item(_cartList, categoryToShow, this), this),
-    );
-  }
-
-  Widget retDiscounts() {
-    discountref(this, discounts);
-    return Expanded(
-      child: Container(
-        child: discounts.length == 0
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: discounts.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
-                  return UIDiscount(
-                      discounts[index].name,
-                      discounts[index].imageUrl,
-                      discounts[index].category,
-                      discounts[index].priceOrg,
-                      discounts[index].priceNew);
-                },
-              ),
-      ),
+          Item(_cartList, categoryToShow, this), this, _cartList),
     );
   }
 
@@ -245,87 +225,5 @@ class _MainHomeState extends State<MainHome> with AfterLayoutMixin<MainHome> {
     for (int i = 0; i < 5; i++) {
       recentSearchList.add(searchList[i]);
     }
-  }
-
-  Widget UIDiscount(String name, String imageUrl, String category, int priceOrg,
-      int priceNew) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.5),
-      child: InkWell(
-        onTap: () {
-          scaffoldState.currentState.showBottomSheet((context) {
-            return StatefulBuilder(
-                builder: (BuildContext context, StateSetter state) {
-              return UIDetails(
-                name: name,
-                imageUrl: imageUrl,
-                price: priceNew,
-                pHeight: pHeight,
-                cartList: _cartList,
-                stateToRefresh: this,
-              );
-            });
-          });
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFF345995),
-            border: Border.all(color: Colors.black),
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
-            ),
-          ),
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: pHeight / 50),
-                      ),
-                      Text(
-                        category,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: pHeight / 50),
-                      ),
-                      Text(
-                        "Rs. ${priceOrg.toString()}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: 15),
-                      ),
-                      Text(
-                        "Rs. ${priceNew.toString()}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-//                            decoration: TextDecoration.lineThrough,
-                            fontFamily: 'sf_pro',
-                            color: Colors.white,
-                            fontSize: 15),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
