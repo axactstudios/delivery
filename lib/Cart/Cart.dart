@@ -451,8 +451,8 @@ class _CartState extends State<Cart> {
     }
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    saveOrder(totalAmount() + 0.18 * totalAmount() + 40);
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    await saveOrder(totalAmount() + 0.18 * totalAmount() + 40);
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
     setState(() {
